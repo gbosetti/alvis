@@ -4,4 +4,10 @@
 //For https://safearound.com/es/danger-rankings/
 (new SingleHeadedTableExtractor()).createDataSetFrom(document.querySelector("table"));
 
+//For http://merco.info/ar/ranking-merco-empresas
+	// XPATH: //*[@id="tabla"]   --------> add an id to the dom elem, in this case "table"
+(new SingleHeadedTableExtractor().createDataSetFrom(document.querySelector("table")));
+
+
+
 //TODO: complete with other examples in https://docs.google.com/spreadsheets/d/1yNP9g8WUKFXFEjaJTGbIcg-HSwPsolSsEcc0ps4WN8Y/edit#gid=0
