@@ -9,13 +9,13 @@ class NoHeaderListStrategy{
 	extractRows(table){
 		let trs = Array.from(table.querySelectorAll("li"));		
 		let rows = []
-		trs.forEach(tr=>rows.push(this.extractCell(tr.children));
+		trs.forEach(tr=>rows.push(this.extractCell(tr.children)));
 		return rows;
 	}
 
 	extractCell(tds){
 		var cells=[];
-		Array.from(tds).forEach(td => cells.push( td.textContent.trim() );
+		Array.from(tds).forEach(td => cells.push( td.textContent.trim() ));
 		return cells;
 	}
 }
