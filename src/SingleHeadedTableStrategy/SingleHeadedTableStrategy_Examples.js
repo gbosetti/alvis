@@ -1,12 +1,12 @@
 // For https://en.wikipedia.org/wiki/The_Rolling_Stones_discography 
-(new SingleHeadedTableExtractor()).createDataSetFrom(document.querySelectorAll(".wikitable")[3]);
+(new SingleHeadedTableStrategy()).convertDataFrom(document.querySelectorAll(".wikitable")[3]);
 
 //For https://safearound.com/es/danger-rankings/
-(new SingleHeadedTableExtractor()).createDataSetFrom(document.querySelector("table"));
+(new SingleHeadedTableStrategy()).convertDataFrom(document.querySelector("table"));
 
 //For http://merco.info/ar/ranking-merco-empresas
 	// XPATH: //*[@id="tabla"]   --------> add an id to the dom elem, in this case "table"
-(new SingleHeadedTableExtractor().createDataSetFrom(document.querySelector("table")));
+(new SingleHeadedTableStrategy().convertDataFrom(document.querySelector("table")));
 
 
 

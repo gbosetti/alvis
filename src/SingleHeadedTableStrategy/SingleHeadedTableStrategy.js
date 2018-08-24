@@ -1,8 +1,8 @@
 //TODO: create the superclasses. Consider TableExtractor and AbstractExtractor
 //Create one file for each class, so we can reuse them. Superclasses shouldn't be here.
 
-class SingleHeadedTableStrategy{ /*extends TableExtractor*/
-	createDataSetFrom(domElem){
+class SingleHeadedTableStrategy { /*extends TableExtractor*/
+	convertDataFrom(domElem){   // Expects a table with headers
 		return{
 			headers: this.extractHeaders(domElem),
 			rows: this.extractRows(domElem)
