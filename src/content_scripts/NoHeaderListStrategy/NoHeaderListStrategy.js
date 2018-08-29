@@ -1,6 +1,6 @@
 class NoHeaderListStrategy{
 
-	convertDataFromTable(table) {
+	convertDataFrom(table) {
 		return {
 			rows: this.extractRows(table)
 		}
