@@ -2,5 +2,18 @@
 	"manifest_version": 2,
 	"name": "infovis",
 	"version": "0.0.1",
-	"homepage_url": "https://bitbucket.org/gabybosetti/infovis"
+	"homepage_url": "https://bitbucket.org/gabybosetti/infovis",
+	"description": "",
+	
+	"icons": {
+    "48": "src/resources/infovis-logo.png"
+  },
+  	"permissions": [
+    "activeTab"
+  ],
+
+  "browser_action": {
+    "default_icon": "src/resources/infovis-logo.png",
+    "default_title": "Infovis"
+  }
 }
