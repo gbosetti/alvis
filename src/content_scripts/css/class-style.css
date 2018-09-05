@@ -1,0 +1,11 @@
+.infovis-blurred{
+	background-color: rgba(0, 0, 0, .7);
+	color: rgba(30, 30, 30, 0.75) !important;
+	border: none !important;
+}
+.infovis-blurred img{
+    filter: grayscale(100%) !important;
+}
+.infovis-highlight{
+	background: rgba(129, 129, 129, 0.5) !important;
+}
