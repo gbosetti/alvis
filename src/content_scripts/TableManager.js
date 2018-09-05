@@ -6,9 +6,9 @@ class TableManager{
 	constructor(){}
 	
 
-	highlightElementsFromDom(){
+	highlightTableElements(){
 
-		console.log("Received message, i must highlight");
+		console.log("Order received, i must highlight");
 
 	}
 
@@ -22,7 +22,7 @@ var tableManager = new TableManager();
 browser.runtime.onMessage.addListener(function callPageSideActions(request, sender) {
 
 	if(tableManager[request.message]){
-		console.log(request.message + " from RelatedTableManage ");
+		
 		return tableManager[request.message](request.args); 
 	}
 });
