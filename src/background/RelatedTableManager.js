@@ -3,7 +3,8 @@
 class RelatedTableManager{
 	constructor(){}
 
-	highlightTableElements(){
+	highlightTableElements(tab){
+		console.log("Sending message to ContentScript, waiting for highlighting");
 		browser.tabs.sendMessage(tab.id, {"message": "highlightTableElements"});
 	}
 }

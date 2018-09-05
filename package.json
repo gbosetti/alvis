@@ -4,7 +4,8 @@
   "repository": "https://bitbucket.org/gabybosetti/infovis/",
   "author": "Feli Pisoni <feli.pisoni@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-    "polyfill": "^0.1.0"
+ 
+  "devDependencies": {
+    "webextension-polyfill": "^0.3.1"
   }
 }
