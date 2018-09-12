@@ -1,6 +1,7 @@
 class StrategyCluster{
 	constructor(){
-		this.strategies = [new SingleHeadedTableStrategy];
+		var strat = new SingleHeadedTableStrategy;
+		this.strategies = [strat];
 	}
 
 	strategies(){

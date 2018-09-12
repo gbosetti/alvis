@@ -27,4 +27,7 @@ class SingleHeadedTableStrategy { /*extends TableExtractor*/
 		domCells.forEach(cell => jsonCells.push(cell.textContent.trim())); //to json
 		return jsonCells;
 	}
+	canExtract(domElem){		//temporal in testing's sake
+		return true;
+	}
 }

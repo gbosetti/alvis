@@ -21,9 +21,14 @@
 
    "content_scripts": [{
       "matches": ["<all_urls>"],
+      "css":[
+        "src/content_scripts/css/class-style.css"
+      ],
       "js": [
-        "node_modules/webextension-polyfill/dist/browser-polyfill.js", 
-        "src/content_scripts/TableManager.js"
+        "node_modules/webextension-polyfill/dist/browser-polyfill.js",
+        "src/content_scripts/js/SingleHeadedTableStrategy/SingleHeadedTableStrategy.js",
+        "src/content_scripts/js/StrategyCluster.js" ,
+        "src/content_scripts/js/TableManager.js"
       ]
     }],
 
