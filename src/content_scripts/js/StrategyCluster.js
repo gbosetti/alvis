@@ -1,7 +1,8 @@
 class StrategyCluster{
 	constructor(){
+		this.strategies = [];
 		var strat = new SingleHeadedTableStrategy;
-		this.strategies = [strat];
+		this.strategies.push(strat);
 	}
 
 	strategies(){
@@ -9,11 +10,16 @@ class StrategyCluster{
 	}
 
 	rightStrategy(domElement){
+		var result=false;
 		this.strategies.forEach(strat =>{
 			if (strat.canExtract(domElement)){
-				return strat.convertDataFrom(domElement);
+				result = strat.convertDataFrom(domElement);
 			}
 		})
-		console.log("No strategy defined for this element.");
+		if (result){
+			return result;
+		}else{
+			console.log("No strategy defined for this element.");
+		}
 	}
 }
