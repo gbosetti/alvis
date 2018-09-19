@@ -14,12 +14,19 @@ class RelatedTableManager{
 			browser.tabs.sendMessage(tab.id, {"message": "highlightTableElements"});
 		//}
 	}
+
+	createCluster(tab){
+		console.log("Sending message to ContentScript, creating StrategyCluster");
+		browser.tabs.sendMessage(tab.id,{"message": "createCluster"});
+	}
+
 }
 
 
 var manager = new RelatedTableManager();
 
 browser.browserAction.onClicked.addListener(function(tab) {
+	manager.createCluster(tab);
 	manager.highlightTableElements(tab);
 });
 

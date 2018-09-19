@@ -10,3 +10,6 @@
 	/*background: rgba(129, 129, 129, 0.5) !important;*/
 	border: 0.2rem solid red !important;
 }
+.infovis-hidden{
+	visibility: hidden;
+}

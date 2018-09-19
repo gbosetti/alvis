@@ -1,8 +1,8 @@
 class StrategyCluster{
 	constructor(){
-		this.strategies = [];
-		var strat = new SingleHeadedTableStrategy;
-		this.strategies.push(strat);
+		this.strategies = new Array();
+		var singleHeadedTable = new SingleHeadedTableStrategy();
+		this.strategies.push(singleHeadedTable);
 	}
 
 	strategies(){
@@ -10,16 +10,10 @@ class StrategyCluster{
 	}
 
 	rightStrategy(domElement){
-		var result=false;
-		this.strategies.forEach(strat =>{
-			if (strat.canExtract(domElement)){
-				result = strat.convertDataFrom(domElement);
-			}
-		})
-		if (result){
-			return result;
-		}else{
-			console.log("No strategy defined for this element.");
+		var strategy = this.strategies.filter(strat =>strat.canExtract(domElement));
+		if (!strategy.length){
+			return "No strategy defined for this element.";
 		}
+		return strategy[0].convertDataFrom(domElement);
 	}
 }

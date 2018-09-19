@@ -1,60 +1,70 @@
 // TODO: This class expects a message from Background, then it should highlight certain table elements for now.
 
 class TableManager{
-
 	constructor(){
-		this.hiddenClass=" infovis-blurred";
-		this.highlightedClass= " infovis-highlight";
-		this.cluster = new StrategyCluster()
-		this.tablaDataSet = null;
+		this.hiddenClass="infovis-blurred";
+		this.highlightedClass= "infovis-highlight";
+		this.cluster;
+		this.tableDataSet;
 	}
 
-	createButton(me,table){
-		var button = document.createElement("button");
-		var txt = document.createTextNode("Export");
-		button.addEventListener("click",function(){me.defineStrategy(table)});
-		button.append(txt);
-		table.append(button);
+	createCluster(){
+		this.cluster= new StrategyCluster();
 	}
-
-	setClasses(me, domElement){	
-		if(domElement.tagName.toLowerCase()=="table"){
-			domElement.className+=me.highlightedClass;
-			me.createButton(me,domElement);
+	
+	addStyleClasses(me, domElement){
+		if (domElement.tagName.toLowerCase()=="table"){
+			me.markTable(me,domElement);
 		}else{
-			Array.from(domElement.children).forEach(child =>{
-				me.setClasses(me,child);
-			});
-			domElement.className+=me.hiddenClass;
+			if(domElement.children.length){
+				Array.from(domElement.children).forEach(child =>{
+					me.addStyleClasses(me,child);
+				});
+			}
+			me.setClass(domElement,me.hiddenClass);
 		}
 	}
 
+	setClass(domElement,newClass){
+		if (domElement.classList.add){
+			domElement.classList.add(newClass);
+		}else{
+			domElement.className+=" "+newClass;
+		}
+	}
+
+	markTable(me, domElement){
+		me.setClass(domElement,me.highlightedClass)
+		var button = document.createElement("button");
+		button.appendChild(document.createTextNode("Export"));
+		button.addEventListener("click",function(){me.defineStrategy(domElement)});
+		domElement.append(button);
+	}
 
 	highlightTableElements(){
 		console.log("Order received, I must highlight");
-		var body = document.querySelector('body');
 		var me = this;
-		body.className+=me.hiddenClass;
-		me.setClasses(me, body);
+		var body = document.querySelector('body');
+		me.setClass(body,me.hiddenClass);
+		this.addStyleClasses(me,body);
 	}
 
 	defineStrategy(domElement){
 		this.tableDataSet = this.cluster.rightStrategy(domElement);
+		/*var extractor = new SingleHeadedTableStrategy();
+		this.tableDataSet = extractor.convertDataFrom(domElement);*/
 		console.log(this.tableDataSet);
 	}
 
-	/*unHighlightElements(){
-		
-	}*/
-
-
 }
+
+
 
 
 var tableManager = new TableManager(); 
 
 browser.runtime.onMessage.addListener(function callPageSideActions(request, sender) {
-	console.log("Message: " + request.message + " in TableManager,");
+	console.log("Message: " + request.message + " in TableManager.");
 	if(tableManager[request.message]){
 		return tableManager[request.message](request.args); 
 	} else {
