@@ -1,5 +1,5 @@
-//TODO: create the superclasses. Consider TableExtractor and AbstractExtractor
-//Create one file for each class, so we can reuse them. Superclasses shouldn't be here.
+//TODO: extender para que el metodo canExtract para chequear tablas que contengan <theads>
+//considerar extender a otra subclase que redefina ese metodo (onlyBodySingleHeadedTableStrategy?).
 
 class SingleHeadedTableStrategy { /*extends TableExtractor*/
 	convertDataFrom(domElem){   // Expects a table with headers
@@ -27,7 +27,33 @@ class SingleHeadedTableStrategy { /*extends TableExtractor*/
 		domCells.forEach(cell => jsonCells.push(cell.textContent.trim())); //to json
 		return jsonCells;
 	}
-	canExtract(domElem){		//temporal in testing's sake
-		return true;
+	canExtract(domElem){
+		var childs = Array.from(domElem.querySelector("tbody").children);
+		return (this.firstLineHeader(childs[0])&&this.uniqueHeader(childs.slice(1)));
+	}
+	firstLineHeader(childs){
+		var res = true;
+		for (var i = 0; i < childs.cells.length; i++) {
+			if(childs.cells[i].tagName.toLowerCase() != "th"){
+				res = false;
+				break;
+			}
+		}
+		return res;
+	}
+	uniqueHeader(childs){
+		var res=true;
+		for (var i = 0; i < childs.length; i++) {
+			if(!this.checkAllHeaders(childs[i])){
+				res=false;
+				break;
+			}
+		}
+		return res;
+	}
+	checkAllHeaders(col){
+		var res = true;
+		Array.from(col).forEach(elem=>res=res&&(elem.tagName.toLowerCase()!="th"));
+		return res;
 	}
 }

@@ -1,8 +1,7 @@
 class StrategyCluster{
 	constructor(){
-		this.strategies = new Array();
-		var singleHeadedTable = new SingleHeadedTableStrategy();
-		this.strategies.push(singleHeadedTable);
+		this.strategies = [];
+		this.strategies.push(new SingleHeadedTableStrategy());
 	}
 
 	strategies(){
