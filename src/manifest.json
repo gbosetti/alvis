@@ -6,7 +6,7 @@
 	"description": "",
 	
 	"icons": {
-    "48": "src/resources/infovis-logo.png"
+    "48": "resources/infovis-logo.png"
   },
   	"permissions": [
     "activeTab"
@@ -15,26 +15,26 @@
   "background": {
     "scripts": [
       "node_modules/webextension-polyfill/dist/browser-polyfill.js", 
-      "src/background/RelatedTableManager.js"
+      "background/RelatedTableManager.js"
     ]
   },
 
    "content_scripts": [{
       "matches": ["<all_urls>"],
       "css":[
-        "src/content_scripts/css/class-style.css"
+        "content_scripts/css/class-style.css"
       ],
       "js": [
         "node_modules/webextension-polyfill/dist/browser-polyfill.js",
-        "src/content_scripts/js/SingleHeadedTableStrategy/SingleHeadedTableStrategy.js",
-        "src/content_scripts/js/NoHeaderListStrategy/NoHeaderListStrategy.js",
-        "src/content_scripts/js/StrategyCluster.js" ,
-        "src/content_scripts/js/TableManager.js"
+        "content_scripts/js/SingleHeadedTableStrategy/SingleHeadedTableStrategy.js",
+        "content_scripts/js/NoHeaderListStrategy/NoHeaderListStrategy.js",
+        "content_scripts/js/StrategyCluster.js" ,
+        "content_scripts/js/TableManager.js"
       ]
     }],
 
   "browser_action": {
-    "default_icon": "src/resources/infovis-logo.png",
+    "default_icon": "resources/infovis-logo.png",
     "default_title": "Infovis"
   }
 }
