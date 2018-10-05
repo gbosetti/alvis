@@ -38,7 +38,6 @@ class TableManager{
 		var button = document.createElement("button");
 			button.appendChild(document.createTextNode(browser.i18n.getMessage("export")));
 			button.addEventListener("click",()=>{
-				console.log(domElement.offsetWidth);
 				this.showVisualization(domElement);				
 			});
 
@@ -48,15 +47,16 @@ class TableManager{
 
 	showVisualization(domElement){
 		this.defineStrategy(domElement);
-		var visContainer = this.createVisualizationContainer(Date.now(), domElement.offsetWidth + "px", "100%");
+		var visFrame = this.createVisualizationContainer(Date.now(), domElement.offsetWidth + "px", "100%");
 
-		domElement.parentNode.insertBefore(visContainer, domElement.nextSibling);
+		domElement.parentNode.insertBefore(visFrame, domElement.nextSibling);
 	}
 
 	createVisualizationContainer(id, width, height){
 		
 		var container = document.createElement("iframe");
 			container.id = "infovis-container-" + id;
+			container.src = browser.extension.getURL("resources/visualizer/index.html");
 			container.style.margin = "0px";
 			container.style.border = "0px";
 			container.style.height = height;
@@ -65,7 +65,7 @@ class TableManager{
 			container.style.background = "orange";
 
 			container.addEventListener("click",(evt)=>{
-				evt.target.remove();
+				container.remove();
 			});
 
 		return container;
