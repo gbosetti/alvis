@@ -36,9 +36,39 @@ class TableManager{
 	enableTableExtraction(domElement){
 		this.setClass(domElement,this.highlightedClass)
 		var button = document.createElement("button");
-		button.appendChild(document.createTextNode(browser.i18n.getMessage("export")));
-		button.addEventListener("click",()=>{this.defineStrategy(domElement)});
-		domElement.append(button);
+			button.appendChild(document.createTextNode(browser.i18n.getMessage("export")));
+			button.addEventListener("click",()=>{
+				console.log(domElement.offsetWidth);
+				this.showVisualization(domElement);				
+			});
+
+		//domElement.append(button);
+		domElement.parentNode.insertBefore(button, domElement.nextSibling);
+	}
+
+	showVisualization(domElement){
+		this.defineStrategy(domElement);
+		var visContainer = this.createVisualizationContainer(Date.now(), domElement.offsetWidth + "px", "100%");
+
+		domElement.parentNode.insertBefore(visContainer, domElement.nextSibling);
+	}
+
+	createVisualizationContainer(id, width, height){
+		
+		var container = document.createElement("iframe");
+			container.id = "infovis-container-" + id;
+			container.style.margin = "0px";
+			container.style.border = "0px";
+			container.style.height = height;
+			container.style.width = width;
+			container.style.padding = "0px";
+			container.style.background = "orange";
+
+			container.addEventListener("click",(evt)=>{
+				evt.target.remove();
+			});
+
+		return container;
 	}
 
 	highlightTableElements(){
