@@ -12,16 +12,16 @@ class TableManager{
 		this.cluster= new StrategyCluster();
 	}
 	
-	addStyleClasses(me, domElement){
+	addStyleClasses(domElement){
 		if (domElement.tagName.toLowerCase()=="table"){
-			me.markTable(me,domElement);
+			this.enableTableExtraction(domElement);
 		}else{
 			if(domElement.children.length){
 				Array.from(domElement.children).forEach(child =>{
-					me.addStyleClasses(me,child);
+					this.addStyleClasses(child);
 				});
 			}
-			me.setClass(domElement,me.hiddenClass);
+			this.setClass(domElement,this.hiddenClass);
 		}
 	}
 
@@ -33,20 +33,19 @@ class TableManager{
 		}
 	}
 
-	markTable(me, domElement){
-		me.setClass(domElement,me.highlightedClass)
+	enableTableExtraction(domElement){
+		this.setClass(domElement,this.highlightedClass)
 		var button = document.createElement("button");
 		button.appendChild(document.createTextNode(browser.i18n.getMessage("export")));
-		button.addEventListener("click",function(){me.defineStrategy(domElement)});
+		button.addEventListener("click",()=>{this.defineStrategy(domElement)});
 		domElement.append(button);
 	}
 
 	highlightTableElements(){
 		console.log("Order received, I must highlight");
-		var me = this;
 		var body = document.querySelector('body');
-		me.setClass(body,me.hiddenClass);
-		this.addStyleClasses(me,body);
+		this.setClass(body,this.hiddenClass);
+		this.addStyleClasses(body);
 	}
 
 	defineStrategy(domElement){
