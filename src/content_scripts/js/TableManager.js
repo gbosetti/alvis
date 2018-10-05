@@ -36,7 +36,7 @@ class TableManager{
 	markTable(me, domElement){
 		me.setClass(domElement,me.highlightedClass)
 		var button = document.createElement("button");
-		button.appendChild(document.createTextNode("Export"));
+		button.appendChild(document.createTextNode(browser.i18n.getMessage("export")));
 		button.addEventListener("click",function(){me.defineStrategy(domElement)});
 		domElement.append(button);
 	}
