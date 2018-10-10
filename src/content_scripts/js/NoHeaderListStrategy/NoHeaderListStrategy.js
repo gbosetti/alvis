@@ -1,21 +1,18 @@
-class NoHeaderListStrategy{
+class NoHeaderListStrategy {
+  convertDataFrom(table) {
+    return {rows: this.extractRows(table)};
+  }
 
-	convertDataFrom(table) {
-		return {
-			rows: this.extractRows(table)
-		}
-	}
+  extractRows(table) {
+    const trs = Array.from(table.querySelectorAll("li"));
+    const rows = [];
+    trs.forEach(tr => rows.push(this.extractCell(tr.children)));
+    return rows;
+  }
 
-	extractRows(table){
-		let trs = Array.from(table.querySelectorAll("li"));		
-		let rows = []
-		trs.forEach(tr=>rows.push(this.extractCell(tr.children)));
-		return rows;
-	}
-
-	extractCell(tds){
-		var cells=[];
-		Array.from(tds).forEach(td => cells.push( td.textContent.trim() ));
-		return cells;
-	}
+  extractCell(tds) {
+    const cells = [];
+    Array.from(tds).forEach(td => cells.push(td.textContent.trim()));
+    return cells;
+  }
 }
