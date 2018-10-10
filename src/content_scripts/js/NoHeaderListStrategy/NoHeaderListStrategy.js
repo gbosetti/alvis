@@ -3,16 +3,29 @@ class NoHeaderListStrategy {
     return {rows: this.extractRows(table)};
   }
 
-  extractRows(table) {
-    const trs = Array.from(table.querySelectorAll("li"));
-    const rows = [];
-    trs.forEach(tr => rows.push(this.extractCell(tr.children)));
-    return rows;
-  }
+	convertDataFrom(domElem) {
+		return {
+			rows: this.extractRows(domElem)
+		}
+	}
+	extractRows(domElem){
+		let domRows = Array.from(domElem.querySelectorAll("li"));		
+		let rows = []
+		domRows.forEach(row=>rows.push(this.extractCell(row.children)));
+		return rows;
+	}
+	extractCell(tds){
+		var cells=[];
+		Array.from(tds).forEach(td => cells.push( td.textContent.trim() ));
+		return cells;
+	}
+	canExtract(domElem){
+		return this.hasAList(Array.from(domElem.children));
+	}
+	hasAList(elementChilds){
+		return (elementChilds.filter(el=>el.tagName.toLowerCase()=='li').length)? true : false
+	}
+	exportData(div,data){
 
-  extractCell(tds) {
-    const cells = [];
-    Array.from(tds).forEach(td => cells.push(td.textContent.trim()));
-    return cells;
-  }
+	}
 }
