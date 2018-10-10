@@ -1,23 +1,27 @@
-// TODO: MUST SEND A MESSAGE TO CONTENT SCRIPT, SO IT CAN HIGHLIGHT CERTAIN "TABLE" ELEMENTS FROM DOM". NOT WORKING YET.
-
 class RelatedTableManager{
 	constructor(){
 		this.highlighted=false;
+		this.first=true;
 	}
 
 	highlightTableElements(tab){
-		/*if (this.highlighted){
+		if (this.highlighted){
 			console.log("Sending message to ContentScript, waiting for unhighlighting");
 			browser.tabs.sendMessage(tab.id, {"message": "unhighlightTableElements"});
-		}else{*/
+		}else{
+			if(this.first){
+				this.initializeTableManager(tab);
+				this.first=!this.first;
+			}
 			console.log("Sending message to ContentScript, waiting for highlighting");
 			browser.tabs.sendMessage(tab.id, {"message": "highlightTableElements"});
-		//}
+		}
+		this.highlighted=!this.highlighted;
 	}
 
-	createCluster(tab){
-		console.log("Sending message to ContentScript, creating StrategyCluster");
-		browser.tabs.sendMessage(tab.id,{"message": "createCluster"});
+	initializeTableManager(tab){
+		console.log("Sending message to ContentScript, initializing");
+		browser.tabs.sendMessage(tab.id,{"message": "initializeManager"});
 	}
 
 }
@@ -26,7 +30,6 @@ class RelatedTableManager{
 var manager = new RelatedTableManager();
 
 browser.browserAction.onClicked.addListener(function(tab) {
-	manager.createCluster(tab);
 	manager.highlightTableElements(tab);
 });
 

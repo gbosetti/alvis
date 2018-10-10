@@ -2,6 +2,7 @@ class StrategyCluster{
 	constructor(){
 		this.strategies = [];
 		this.strategies.push(new SingleHeadedTableStrategy());
+		this.strategies.push(new NoHeaderListStrategy());
 	}
 
 	strategies(){
@@ -13,6 +14,6 @@ class StrategyCluster{
 		if (!strategy.length){
 			return "No strategy defined for this element.";
 		}
-		return strategy[0].convertDataFrom(domElement);
+		return strategy[0];
 	}
 }

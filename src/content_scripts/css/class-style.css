@@ -1,5 +1,5 @@
 .infovis-blurred{
-	background-color: rgba(211, 211, 211, .7);*/
+	background-color: rgba(211, 211, 211, .7);
 	color: rgba(30, 30, 30, 0.75) !important;
 	border: none !important;
 }
@@ -7,9 +7,39 @@
     filter: grayscale(100%) !important;
 }
 .infovis-highlight{
-	/*background: rgba(129, 129, 129, 0.5) !important;*/
-	border: 0.2rem solid red !important;
+	background: rgba(129, 129, 129, 0.5) !important;
+	border:0.5px red;
+}
+.infovis-container{
+	display: block; 
+    position: fixed;
+    z-index: 1; 
+    padding-top: 100px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(255,255,255,0.9); 
+}
+.infovis-container-hidden{
+    display: none;
+}
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
 }
 .infovis-hidden{
-	visibility: hidden;
+	display: none;
 }
