@@ -23,4 +23,10 @@ class RelatedTableManager {
     console.log("Sending message to ContentScript, initializing");
     browser.tabs.sendMessage(tab.id, {"message": "initializeManager"});
   }
+
+  storeCurrentDataset(data) {
+    browser.storage.local.set({
+      "currentDataset": data.dataset
+    }).catch((err)=>{console.log(err)});
+  }
 }

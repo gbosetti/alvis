@@ -9,8 +9,17 @@
 	"icons": {
     "48": "resources/infovis-logo.png"
   },
-  	"permissions": [
-    "activeTab"
+  	
+
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "storage",
+    "<all_urls>",
+    "https://*/",
+    "storage",
+    "webRequest",
+    "webRequestBlocking"
   ],
 
   "background": {

@@ -4,8 +4,8 @@ class TableManager {
   constructor() {
     this.hiddenClass = "infovis-blurred";
     this.highlightedClass = "infovis-highlight";
-    this.cluster = null;
-    this.tableDataSet = null;
+    this.cluster = new StrategyCluster();
+    this.extractor = null;
   }
 
   createCluster() {
@@ -47,11 +47,18 @@ class TableManager {
   }
 
   showVisualization(domElement) {
+
     this.defineStrategy(domElement);
+    var dataset = this.extractor.convertDataFrom(domElement);
+    console.log(dataset);
 
     const visFrame = this.createVisualizationContainer(Date.now(), `${domElement.offsetWidth}px`, "100%");
-
     domElement.parentNode.insertBefore(visFrame, domElement.nextSibling);
+
+    browser.runtime.sendMessage({
+      "call": "storeCurrentDataset",
+      "args": { "dataset": dataset }
+    });   
   }
 
   createVisualizationContainer(id, width, height) {
@@ -74,19 +81,13 @@ class TableManager {
   }
 
   highlightTableElements() {
-    console.log("Order received, I must highlight");
     const body = document.querySelector("body");
     this.setClass(body, this.hiddenClass);
     this.addStyleClasses(body);
   }
 
   defineStrategy(domElement) {
-    this.tableDataSet = this.cluster.rightStrategy(domElement);
-
-    /* var extractor = new SingleHeadedTableStrategy();
-       this.tableDataSet = extractor.convertDataFrom(domElement); */
-
-    console.log(this.tableDataSet);
+    this.extractor = this.cluster.rightStrategy(domElement);
   }
 
   initializeManager() {
@@ -158,7 +159,8 @@ class TableManager {
   }
 
   markTable(domElement) {
-    const button = this.createButton("Export", () => this.export(domElement));
+    const button = this.createButton(browser.i18n.getMessage("export"), () => this.export(domElement));
+
     this.setClass(domElement, this.highlightedClass);
     domElement.append(button);
   }
