@@ -42,7 +42,8 @@
         "content_scripts/js/NoHeaderListStrategy/NoHeaderListStrategy.js",
         "content_scripts/js/StrategyCluster.js" ,
         "content_scripts/js/TableManager.js"
-      ]
+      ],
+      "all_frames": true
     }],
 
   "browser_action": {

@@ -29,4 +29,8 @@ class RelatedTableManager {
       "currentDataset": data.dataset
     }).catch((err)=>{console.log(err)});
   }
+
+  notifyDocumentLoaded(data){
+    return browser.storage.local.get("currentDataset");
+  }
 }
