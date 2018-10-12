@@ -10,20 +10,29 @@ class TableManager {
   }
 
   initializeManager() {
-    this.createContainer(this);
+    this.createContainer();
     this.createCluster();
   }
 
-  createContainer(me) {
+  createCluster() {
+    this.cluster = new StrategyCluster();
+  }
+
+  createContainer() {
     const cont = document.createElement("div");
-    me.setClass(cont, me.hiddenContainerClass);
     const close = document.createElement("span");
+
+    this.setClass(cont, this.hiddenContainerClass);
+    this.setClass(close, "close");
+    
     close.innerHTML = "&times;";
-    me.setClass(close, "close");
-    close.addEventListener("click", () => {me.hideContainer();});
+    close.addEventListener("click", () => this.hideContainer());
+
     cont.appendChild(close);
+
     document.querySelector("body").appendChild(cont);
-    me.container = cont;
+
+    this.container = cont;
   }
 
   showDisplay() {
@@ -34,42 +43,43 @@ class TableManager {
     this.container.classList.replace(this.containerClass, this.hiddenContainerClass);
   }
 
-  createCluster() {
-    this.cluster = new StrategyCluster();
+  addStyleClasses(domElement) {
+    if (domElement.tagName.toLowerCase() === "table") {
+      this.markTable(domElement);
+      return;
+    }
+    
+    if (domElement.children.length) {
+      Array.from(domElement.children).forEach(child => {
+        this.addStyleClasses(child);
+      });
+    }
+
+    this.setClass(domElement, this.hiddenClass);
   }
 
-  addStyleClasses(me, domElement) {
+  removeStyleClasses(domElement) {
     if (domElement.tagName.toLowerCase() === "table") {
-      me.markTable(me, domElement);
-    } else {
-      if (domElement.children.length) {
-        Array.from(domElement.children).forEach(child => {
-          me.addStyleClasses(me, child);
-        });
-      }
-      me.setClass(domElement, me.hiddenClass);
+      this.unmarkTable(domElement);
+      return;
     }
-  }
 
-  removeStyleClasses(me, domElement) {
-    if (domElement.tagName.toLowerCase() === "table") {
-      me.unmarkTable(me, domElement);
-    } else {
-      if (domElement.children.length) {
-        Array.from(domElement.children).forEach(child => {
-          me.removeStyleClasses(me, child);
-        });
-      }
-      me.deleteClass(domElement, me.hiddenClass);
+    if (domElement.children.length) {
+      Array.from(domElement.children).forEach(child => {
+        this.removeStyleClasses(child);
+      });
     }
+
+    this.deleteClass(domElement, this.hiddenClass);
   }
 
   setClass(domElement, newClass) {
     if (domElement.classList.add) {
       domElement.classList.add(newClass);
-    } else {
-      domElement.className += ` ${newClass}`;
+      return;
     }
+
+    domElement.className += ` ${newClass}`;
   }
 
   deleteClass(domElement, oldClass) {
@@ -85,49 +95,60 @@ class TableManager {
     //code here...
   } */
 
-  createButton(me, text, func) {
+  createButton(text, func) {
     const but = document.createElement("button");
+
     but.appendChild(document.createTextNode(text));
     but.addEventListener("click", func);
-    but.className = me.buttonClass;
+    but.className = this.buttonClass;
+
     return but;
   }
 
-  markTable(me, domElement) {
-    me.setClass(domElement, me.highlightedClass);
-    const button = me.createButton(me, "Export", () => {me.export(me, domElement);});
+  markTable(domElement) {
+    const button = this.createButton("Export", () => this.export(domElement));
+    this.setClass(domElement, this.highlightedClass);
     domElement.append(button);
   }
 
-  unmarkTable(me, domElement) {
-    me.deleteClass(domElement, me.highlightedClass);
+  unmarkTable(domElement) {
+    this.deleteClass(domElement, this.highlightedClass);
     const buttons = Array.from(domElement.getElementsByTagName("button"));
     buttons.forEach(b => b.remove());
   }
 
   highlightTableElements() {
-    const me = this;
     const body = document.querySelector("body");
-    me.setClass(body, me.hiddenClass);
-    this.addStyleClasses(me, body);
+
+    this.setClass(body, this.hiddenClass);
+    this.addStyleClasses(body);
     this.deleteClass(this.container, this.hiddenClass);
   }
 
   unhighlightTableElements() {
-    const me = this;
     const body = document.querySelector("body");
-    me.deleteClass(body, me.hiddenClass);
-    this.removeStyleClasses(me, body);
+
+    this.deleteClass(body, this.hiddenClass);
+    this.removeStyleClasses(body);
   }
 
   defineStrategy(domElement) {
+    if (!this.cluster) {
+      return null;
+    }
+
     return this.cluster.rightStrategy(domElement);
   }
 
-  export(me, domElement) {
-    const strategy = me.defineStrategy(domElement);
+  export(domElement) {
+    const strategy = this.defineStrategy(domElement);
+
+    if (!strategy) {
+      return;
+    }
+
     const data = strategy.convertDataFrom(domElement);
-    strategy.exportData(me, data);
+    strategy.exportData(this, data);
   }
 }
 

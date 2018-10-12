@@ -81,6 +81,7 @@ class SingleHeadedTableStrategy {
   }
 
   exportData(manager, data) {
+    console.dir(data);
     const heads = document.createElement("span");
     let str = this.setString(data.headers);
     heads.appendChild(document.createTextNode((`Headers: ${str}`)));
