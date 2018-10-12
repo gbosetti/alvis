@@ -21,42 +21,27 @@ const reload = () => {
   browser.tabs.query({
     active: true,
     currentWindow: true
-  })
-    .then(tabs => {
-      if (tabs[0]) {
-        return browser.tabs.reload(tabs[0].id);
-      }
+  }).then(tabs => {
+    if (tabs[0]) {
+      browser.tabs.reload(tabs[0].id);
+    }
 
-      return browser.runtime.reload();
-    })
-    .catch(err => {
-      throw err;
-    });
+    browser.runtime.reload();
+  });
 };
 
 const watchChanges = (dir, lastTimestamp) => {
-  timestampForFilesInDirectory(dir)
-    .then(timestamp => {
-      if (!lastTimestamp || (lastTimestamp === timestamp)) {
-        // retry after 1s
-        return setTimeout(() => watchChanges(dir, timestamp), 1000);
-      }
-      
-      return reload();
-    })
-    .catch(err => {
-      throw err;
-    });
+  timestampForFilesInDirectory(dir).then(timestamp => {
+    if (!lastTimestamp || (lastTimestamp === timestamp)) {
+      setTimeout(() => watchChanges(dir, timestamp), 1000); // retry after 1s
+    } else {
+      reload();
+    }
+  });
 };
 
-browser.management.getSelf()
-  .then(self => {
-    if (self.installType === "development") {
-      return browser.runtime.getPackageDirectoryEntry(dir => watchChanges(dir));
-    }
-
-    return new Promise();
-  })
-  .catch(err => {
-    throw err;
-  });
+browser.management.getSelf().then(self => {
+  if (self.installType === "development") {
+    browser.runtime.getPackageDirectoryEntry(dir => watchChanges(dir));
+  }
+});
