@@ -4,6 +4,7 @@
 	"version": "0.0.1",
 	"homepage_url": "https://bitbucket.org/gabybosetti/infovis",
 	"description": "",
+  "default_locale": "en",
 	
 	"icons": {
     "48": "resources/infovis-logo.png"
@@ -38,5 +39,9 @@
   "browser_action": {
     "default_icon": "resources/infovis-logo.png",
     "default_title": "Infovis"
-  }
+  },
+
+  "web_accessible_resources": [
+    "resources/*"
+  ]
 }

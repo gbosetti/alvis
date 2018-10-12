@@ -1,10 +1,12 @@
 {
-  "name": "Infovis",
+  "name": "infovis",
   "version": "0.0.1",
   "repository": "https://bitbucket.org/gabybosetti/infovis/",
-  "author": "Feli Pisoni <feli.pisoni@gmail.com>",
+  "author": "LIFIA",
   "license": "MIT",
   "devDependencies": {
     "webextension-polyfill": "^0.3.1"
-  }
+  },
+  "main": "",
+  "private": false
 }

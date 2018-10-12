@@ -1,21 +1,97 @@
+// TODO: This class expects a message from Background, then it should highlight certain table elements for now.
+
 class TableManager {
   constructor() {
     this.hiddenClass = "infovis-blurred";
     this.highlightedClass = "infovis-highlight";
-    this.hiddenContainerClass = "infovis-container-hidden";
-    this.containerClass = "infovis-container";
-    this.buttonClass = "infovis-button";
     this.cluster = null;
-    this.container = null;
+    this.tableDataSet = null;
+  }
+
+  createCluster() {
+    this.cluster = new StrategyCluster();
+  }
+
+  addStyleClasses(domElement) {
+    if (domElement.tagName.toLowerCase() === "table") {
+      this.enableTableExtraction(domElement);
+      return;
+    }
+
+    if (domElement.children.length) {
+      Array.from(domElement.children).forEach(child => {
+        this.addStyleClasses(child);
+      });
+    }
+
+    this.setClass(domElement, this.hiddenClass);
+  }
+
+  setClass(domElement, newClass) {
+    if (domElement.classList.add) {
+      domElement.classList.add(newClass);
+      return;
+    }
+    
+    domElement.className += ` ${newClass}`;
+  }
+
+  enableTableExtraction(domElement) {
+    const button = document.createElement("button");
+    this.setClass(domElement, this.highlightedClass);
+
+    button.appendChild(document.createTextNode(browser.i18n.getMessage("export")));
+    button.addEventListener("click", () => this.showVisualization(domElement));
+
+    domElement.parentNode.insertBefore(button, domElement.nextSibling);
+  }
+
+  showVisualization(domElement) {
+    this.defineStrategy(domElement);
+
+    const visFrame = this.createVisualizationContainer(Date.now(), `${domElement.offsetWidth}px`, "100%");
+
+    domElement.parentNode.insertBefore(visFrame, domElement.nextSibling);
+  }
+
+  createVisualizationContainer(id, width, height) {
+    const container = document.createElement("iframe");
+
+    container.id = `infovis-container-${id}`;
+    container.src = browser.extension.getURL("resources/visualizer/index.html");
+    container.style.margin = "0px";
+    container.style.border = "0px";
+    container.style.height = height;
+    container.style.width = width;
+    container.style.padding = "0px";
+    container.style.background = "orange";
+
+    container.addEventListener("click", evt => {
+      container.remove();
+    });
+
+    return container;
+  }
+
+  highlightTableElements() {
+    console.log("Order received, I must highlight");
+    const body = document.querySelector("body");
+    this.setClass(body, this.hiddenClass);
+    this.addStyleClasses(body);
+  }
+
+  defineStrategy(domElement) {
+    this.tableDataSet = this.cluster.rightStrategy(domElement);
+
+    /* var extractor = new SingleHeadedTableStrategy();
+       this.tableDataSet = extractor.convertDataFrom(domElement); */
+
+    console.log(this.tableDataSet);
   }
 
   initializeManager() {
     this.createContainer();
     this.createCluster();
-  }
-
-  createCluster() {
-    this.cluster = new StrategyCluster();
   }
 
   createContainer() {
@@ -43,21 +119,6 @@ class TableManager {
     this.container.classList.replace(this.containerClass, this.hiddenContainerClass);
   }
 
-  addStyleClasses(domElement) {
-    if (domElement.tagName.toLowerCase() === "table") {
-      this.markTable(domElement);
-      return;
-    }
-    
-    if (domElement.children.length) {
-      Array.from(domElement.children).forEach(child => {
-        this.addStyleClasses(child);
-      });
-    }
-
-    this.setClass(domElement, this.hiddenClass);
-  }
-
   removeStyleClasses(domElement) {
     if (domElement.tagName.toLowerCase() === "table") {
       this.unmarkTable(domElement);
@@ -71,15 +132,6 @@ class TableManager {
     }
 
     this.deleteClass(domElement, this.hiddenClass);
-  }
-
-  setClass(domElement, newClass) {
-    if (domElement.classList.add) {
-      domElement.classList.add(newClass);
-      return;
-    }
-
-    domElement.className += ` ${newClass}`;
   }
 
   deleteClass(domElement, oldClass) {
@@ -117,27 +169,11 @@ class TableManager {
     buttons.forEach(b => b.remove());
   }
 
-  highlightTableElements() {
-    const body = document.querySelector("body");
-
-    this.setClass(body, this.hiddenClass);
-    this.addStyleClasses(body);
-    this.deleteClass(this.container, this.hiddenClass);
-  }
-
   unhighlightTableElements() {
     const body = document.querySelector("body");
 
     this.deleteClass(body, this.hiddenClass);
     this.removeStyleClasses(body);
-  }
-
-  defineStrategy(domElement) {
-    if (!this.cluster) {
-      return null;
-    }
-
-    return this.cluster.rightStrategy(domElement);
   }
 
   export(domElement) {
