@@ -5,9 +5,12 @@ browser.browserAction.onClicked.addListener(tab => {
 });
 
 // Messages coming from content script will be executed here
-browser.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   console.log("message: ", message, " (at main.js)");
-  if (manager[message.call]) {
-    return manager[message.call](message.args); //in case you need to return a promise
+
+  if (!manager[message.call]) {
+    return null;
   }
+
+  return manager[message.call](message.args); // in case you need to return a promise
 });

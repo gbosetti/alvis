@@ -27,10 +27,10 @@ class RelatedTableManager {
   storeCurrentDataset(data) {
     browser.storage.local.set({
       "currentDataset": data.dataset
-    }).catch((err)=>{console.log(err)});
+    }).catch(err => {console.log(err);});
   }
 
-  notifyDocumentLoaded(data){
+  notifyDocumentLoaded(data) {
     return browser.storage.local.get("currentDataset");
   }
 }

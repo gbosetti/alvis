@@ -47,9 +47,8 @@ class TableManager {
   }
 
   showVisualization(domElement) {
-
     this.defineStrategy(domElement);
-    var dataset = this.extractor.convertDataFrom(domElement);
+    const dataset = this.extractor.convertDataFrom(domElement);
     console.log(dataset);
 
     const visFrame = this.createVisualizationContainer(Date.now(), `${domElement.offsetWidth}px`, "100%");
@@ -57,7 +56,7 @@ class TableManager {
 
     browser.runtime.sendMessage({
       "call": "storeCurrentDataset",
-      "args": { "dataset": dataset }
+      "args": {dataset}
     });   
   }
 
