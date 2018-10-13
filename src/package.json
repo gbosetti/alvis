@@ -8,5 +8,8 @@
     "webextension-polyfill": "^0.3.1"
   },
   "main": "",
-  "private": false
+  "private": false,
+  "dependencies": {
+    "d3": "^5.7.0"
+  }
 }
