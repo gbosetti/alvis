@@ -9,8 +9,5 @@
   },
   "main": "",
   "private": false,
-  "dependencies": {
-    "d3": "^5.7.0",
-    "dimple-js": "^2.1.4"
-  }
+  "dependencies": {}
 }
