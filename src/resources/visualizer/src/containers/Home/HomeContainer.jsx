@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import {
+  Header,
+  Icon,
+} from 'semantic-ui-react'
 
 import dataActions from 'infovis/actions/data-actions'
 
@@ -36,7 +40,13 @@ class Home extends Component {
 
     return (
       <div style={{ height: '100%' }}>
-        {JSON.stringify(dataset)}
+        <Icon name='chart line' />
+        <Header as='h3'>
+          Dataset: 
+          <Header.Subheader>
+            {JSON.stringify(dataset)}
+          </Header.Subheader>
+        </Header>
       </div>
     )
   }
