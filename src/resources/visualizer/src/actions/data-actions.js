@@ -17,14 +17,12 @@ export function getData() {
     dispatch(actionRequest(GET_DATA_REQUEST))
     return browser.runtime.sendMessage({ call: 'notifyDocumentLoaded' })
       .then(dataset => {
-        console.table(dataset);
-
         if (dataset && dataset.currentDataset) {
           dispatch(actionSuccess(GET_DATA_SUCCESS, 'dataset', dataset.currentDataset))
           return null
         }
         
-        throw new Error('No dataset provided');
+        throw new Error('No dataset provided')
       })
       .catch(err => {
         dispatch(actionFailure(GET_DATA_FAILURE, err))

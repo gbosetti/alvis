@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import {
-  Header,
   Icon,
+  List
 } from 'semantic-ui-react'
 
 import dataActions from 'infovis/actions/data-actions'
@@ -22,31 +23,23 @@ function mapDispatchToProps(dispatch) {
 
 class Home extends Component {
   componentDidMount() {
-    const {
-      actions: {
-        getData,
-      }
-    } = this.props
-
-    getData()
+    
   }
 
   render() {
-    const {
-      data: {
-        dataset,
-      }
-    } = this.props
-
+    console.log(this.props)
     return (
       <div style={{ height: '100%' }}>
-        <Icon name='chart line' />
-        <Header as='h3'>
-          Dataset: 
-          <Header.Subheader>
-            {JSON.stringify(dataset)}
-          </Header.Subheader>
-        </Header>
+        <List horizontal relaxed>
+          <List.Item>
+            <Icon circular name='chart pie' color='red' />
+            <List.Content>
+              <List.Header as={Link} to='/chart/pie'>
+                Pie Chart
+              </List.Header>
+            </List.Content>
+          </List.Item>
+        </List>
       </div>
     )
   }
