@@ -1,6 +1,7 @@
 .eslintrc.js
 src/background/hot-reload.js
 src/resources/
+src/visualizer/
 build
 dist
 node_modules
