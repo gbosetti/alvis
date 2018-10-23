@@ -8,7 +8,7 @@ const config = {
   output: {
     filename: 'bundle.js',
     path: commonPaths.outputServerPath,
-    publicPath: '/'
+    publicPath: '/resources/visualizer/'
   },
   devtool: 'source-map',
   mode: 'production',
@@ -27,7 +27,7 @@ const config = {
         to: commonPaths.templatesOutputServerPath,
         transform: content => {
           return Buffer.from(
-            content.toString().replace(new RegExp('{{base}}', 'g'), '/'),
+            content.toString().replace(new RegExp('{{base}}', 'g'), ''),
             'utf8'
           )
         }

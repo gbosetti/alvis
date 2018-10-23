@@ -52,6 +52,7 @@
   },
 
   "web_accessible_resources": [
-    "resources/*"
+    "resources/*",
+    "visualizer/dist/*"
   ]
 }

@@ -15,7 +15,7 @@ const config = {
   output: {
     filename: 'bundle.js',
     path: commonPaths.outputPath,
-    publicPath: '/resources/visualizer/dist/'
+    publicPath: '/visualizer/dist/'
   },
   module: {
     rules: [{
