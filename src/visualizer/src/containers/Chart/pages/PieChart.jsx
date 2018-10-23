@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {
-
+  Select,
 } from 'semantic-ui-react'
 
 import {
@@ -33,24 +33,34 @@ class PieChartPage extends Component {
   }
 
   render() {
-    var data = {
+    const {
+      data: {
+        dataset: {
+          headers,
+        }
+      }
+    } = this.props
+
+    const data = {
       label: 'somethingA',
       values: [{x: 'SomethingA', y: 10}, {x: 'SomethingB', y: 4}, {x: 'SomethingC', y: 3}]
     }
 
-    var sort = null
-
     return (
       <div id='pie-chart-container'>
-        
-        
-        
+        <Select 
+          options={Array.from(headers || []).map(header => ({
+            key: header,
+            value: header,
+            text: header,
+          }))}
+        />
         <PieChart
           data={data}
           width={600}
           height={400}
           margin={{top: 10, bottom: 10, left: 100, right: 100}}
-          sort={sort}
+          sort={null}
         />
       </div>
     )

@@ -51,7 +51,7 @@ class TableManager {
     const dataset = this.extractor.convertDataFrom(domElement);
     console.log(dataset);
 
-    const visFrame = this.createVisualizationContainer(Date.now(), /* `${domElement.offsetWidth}px` */ "100%", "100%");
+    const visFrame = this.createVisualizationContainer(Date.now(), `${domElement.offsetWidth}px`, "550px");
     domElement.parentNode.insertBefore(visFrame, domElement.nextSibling);
 
     browser.runtime.sendMessage({
