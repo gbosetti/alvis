@@ -42,14 +42,14 @@ class Chart extends Component {
 
     return (
       <div style={{ height: '100%' }}>
+        <ChartRoutes
+          trans={name => trans(`chart:${name}`)}
+        />
         <Segment tertiary>
           <pre>
             {JSON.stringify(dataset, null, 2)}
           </pre>
         </Segment>
-        <ChartRoutes
-          trans={name => trans(`chart:${name}`)}
-        />
       </div>
     )
   }
