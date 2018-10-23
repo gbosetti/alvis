@@ -2697,7 +2697,7 @@ d3-zoom@1:
     d3-selection "1"
     d3-transition "1"
 
-d3@^3.5.6:
+d3@^3.5.3, d3@^3.5.6:
   version "3.5.17"
   resolved "https://registry.yarnpkg.com/d3/-/d3-3.5.17.tgz#bc46748004378b21a360c9fc7cf5231790762fb8"
   integrity sha1-vEZ0gAQ3iyGjYMn8fPUjF5B2L7g=
@@ -2970,11 +2970,6 @@ diffie-hellman@^5.0.0:
     bn.js "^4.1.0"
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
-
-dimple-js@^2.1.4:
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/dimple-js/-/dimple-js-2.1.4.tgz#69f84f2b226947fa3ad8f4b766339facc3e3c431"
-  integrity sha1-afhPKyJpR/o62PS3ZjOfrMPjxDE=
 
 dir-glob@^2.0.0:
   version "2.0.0"
@@ -7121,6 +7116,15 @@ react-base16-styling@^0.5.1:
     lodash.curry "^4.0.1"
     lodash.flow "^3.3.0"
     pure-color "^1.2.0"
+
+react-d3-components@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/react-d3-components/-/react-d3-components-0.9.1.tgz#a110495da37ff9157a60dc89842257bf2c8b4691"
+  integrity sha512-TfUmlheSGDsa/x0h8wJ8FcR2+0zYy+VIF9vRhOFnRavnjkiQHrDzdmiVYoS+6Kte70cLtkr/Tej9vvggzLaqeQ==
+  dependencies:
+    create-react-class "^15.6.2"
+    d3 "^3.5.3"
+    prop-types "^15.6.0"
 
 react-dock@^0.2.4:
   version "0.2.4"

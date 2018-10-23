@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {
-  Header,
+  Segment
 } from 'semantic-ui-react'
 
 import dataActions from 'infovis/actions/data-actions'
@@ -42,13 +42,11 @@ class Chart extends Component {
 
     return (
       <div style={{ height: '100%' }}>
-        <Header as='h3'>
-          Dataset:
-          <Header.Subheader>
-            {JSON.stringify(dataset)}
-          </Header.Subheader>
-        </Header>
-
+        <Segment tertiary>
+          <pre>
+            {JSON.stringify(dataset, null, 2)}
+          </pre>
+        </Segment>
         <ChartRoutes
           trans={name => trans(`chart:${name}`)}
         />
