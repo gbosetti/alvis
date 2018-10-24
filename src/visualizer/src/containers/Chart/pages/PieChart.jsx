@@ -72,6 +72,7 @@ class PieChartPage extends Component {
       <div id='pie-chart-container'>
         <Form>
           <Form.Select
+            width={6}
             label='Header'
             options={getEnumOptions(headers)}
             placeholder='Header'

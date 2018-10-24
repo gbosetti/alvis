@@ -47,7 +47,7 @@ class Home extends Component {
 
     return (
       <div style={{ height: '100%' }}>
-        <Container>
+        <Container id='home-container'>
           <Tab
             menu={{ borderless: true, attached: false, tabular: false }} 
             panes={[
