@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { descending } from 'd3'
-import { PieChart } from 'react-d3-components'
+import { BarChart } from 'react-d3-components'
 import { getEnumOptions } from 'infovis/helpers/select-options';
 import {
   Divider,
-  Form,
+  Form, 
 } from 'semantic-ui-react'
 
 
@@ -20,7 +19,7 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-class PieChartPage extends Component {
+class BarChartPage extends Component {
   constructor(props) {
     super(props)
 
@@ -57,7 +56,7 @@ class PieChartPage extends Component {
 
     let values = Array.from(rows[header] || [])
       .reduce((values, value) => ({ 
-        ...values, 
+        ...values,
         [value]: values[value] ? values[value] + 1 : 1 
       }), {})
       
@@ -70,7 +69,7 @@ class PieChartPage extends Component {
     }
 
     return (
-      <div id='pie-chart-container'>
+      <div id='bar-chart-container'>
         <Form>
           <Form.Select
             width={6}
@@ -82,15 +81,13 @@ class PieChartPage extends Component {
         </Form>
         <Divider hidden />
         {!data.values.length ? null : (
-          <PieChart
+          <BarChart
             data={data}
             width={600}
             height={400}
-            margin={{top: 10, bottom: 10, left: 100, right: 100}}
-            tooltipOffset={{top: 175, left: 200}}
-            tooltipHtml={(_, y) => `${y}`}
-            tooltipMode='fixed'
-            sort={descending}
+            margin={{top: 10, bottom: 50, left: 50, right: 10}}
+            tooltipHtml={(x, _, y,) => `${x}: ${y}`}
+            colorByLabel={false}
           />
         )}
       </div>
@@ -98,4 +95,4 @@ class PieChartPage extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PieChartPage)
+export default connect(mapStateToProps, mapDispatchToProps)(BarChartPage)
