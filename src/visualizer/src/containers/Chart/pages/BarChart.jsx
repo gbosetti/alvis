@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import { BarChart } from 'react-d3-components'
 import { getEnumOptions } from 'infovis/helpers/select-options';
 import {
-  Form,
+  Divider,
+  Form, 
 } from 'semantic-ui-react'
 
 
@@ -78,6 +79,7 @@ class BarChartPage extends Component {
             onChange={this.handleChange}
           />
         </Form>
+        <Divider hidden />
         {!data.values.length ? null : (
           <BarChart
             data={data}

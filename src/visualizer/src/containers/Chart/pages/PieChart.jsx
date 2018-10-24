@@ -5,6 +5,7 @@ import { descending } from 'd3'
 import { PieChart } from 'react-d3-components'
 import { getEnumOptions } from 'infovis/helpers/select-options';
 import {
+  Divider,
   Form,
 } from 'semantic-ui-react'
 
@@ -79,6 +80,7 @@ class PieChartPage extends Component {
             onChange={this.handleChange}
           />
         </Form>
+        <Divider hidden />
         {!data.values.length ? null : (
           <PieChart
             data={data}
