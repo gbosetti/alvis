@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import {
-  Select,
-} from 'semantic-ui-react'
+import { PieChart } from 'react-d3-components'
+import { getEnumOptions } from 'infovis/helpers/select-options';
 
 import {
-  PieChart
-} from 'react-d3-components'
+  Form,
+} from 'semantic-ui-react'
+
 
 function mapStateToProps(state) {
   return state
@@ -24,37 +24,60 @@ class PieChartPage extends Component {
     super(props)
 
     this.state = {
-      // header: null,
+      header: null,
     }
+
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
 
   }
 
+  handleChange(e, {value}) {
+    this.setState(() => ({
+      header: value,
+    }))
+  }
+
   render() {
+    const {
+      header,
+    } = this.state
+
     const {
       data: {
         dataset: {
           headers,
+          rows,
         }
       }
     } = this.props
 
+    let values = Array.from(rows[header] || [])
+      .reduce((values, value) => ({ 
+        ...values, 
+        [value]: values[value] ? values[value] + 1 : 1 
+      }), {})
+      
+    values = Object.keys(values)
+      .map(header => ({ x: header, y: values[header] }))
+
     const data = {
-      label: 'somethingA',
-      values: [{x: 'SomethingA', y: 10}, {x: 'SomethingB', y: 4}, {x: 'SomethingC', y: 3}]
+      lable: '',
+      values,
     }
 
     return (
       <div id='pie-chart-container'>
-        <Select 
-          options={Array.from(headers || []).map(header => ({
-            key: header,
-            value: header,
-            text: header,
-          }))}
-        />
+        <Form>
+          <Form.Select
+            label='Header'
+            options={getEnumOptions(headers)}
+            placeholder='Header'
+            onChange={this.handleChange}
+          />
+        </Form>
         <PieChart
           data={data}
           width={600}

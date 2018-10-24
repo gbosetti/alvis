@@ -9,7 +9,7 @@ function loadLocales(url, options, callback, data) {
     url[0] = url[0].split('-')[0]
     url = url.join('/')
 
-    let locale = require(`infovis-static/locales/${url}.json`)
+    let locale = require(`infovis-locales/${url}.json`)
     callback(locale, { status: '200' })
 
     void options

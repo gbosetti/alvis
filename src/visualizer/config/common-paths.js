@@ -10,8 +10,8 @@ module.exports = {
   entryPath: path.resolve(__dirname, '../', 'src/index.js'),
   sourcePath: path.resolve(__dirname, '../', 'src/'),
 
-  locales: path.resolve(__dirname, '../', 'static/locales/'),
-  images: path.resolve(__dirname, '../', 'static/images/'),
+  locales: path.resolve(__dirname, '../../', '_locales/'),
+  images: path.resolve(__dirname, '../../', 'resources/images/'),
   template: path.resolve(__dirname, '../', 'public/index.html'),
   favicon: path.resolve(__dirname, '../', 'public/favicon.ico'),
 }

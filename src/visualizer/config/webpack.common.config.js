@@ -65,6 +65,8 @@ const config = {
     alias: {
       infovis: commonPaths.sourcePath,
       'infovis-static': path.resolve(__dirname, '../', 'static/'),
+      'infovis-locales': path.resolve(__dirname, '../../', '_locales/'),
+      'infovis-resources': path.resolve(__dirname, '../../', 'resources/'),
       '../../theme.config$': path.resolve(__dirname, '../', 'src/styles/semantic-ui/theme.config'),
       heading: path.resolve(__dirname, '../', 'src/semantic/heading.less'),
     },
