@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { descending } from 'd3'
 import { PieChart } from 'react-d3-components'
 import { getEnumOptions } from 'infovis/helpers/select-options';
-
 import {
   Form,
 } from 'semantic-ui-react'
@@ -83,7 +83,10 @@ class PieChartPage extends Component {
           width={600}
           height={400}
           margin={{top: 10, bottom: 10, left: 100, right: 100}}
-          sort={null}
+          tooltipOffset={{top: 175, left: 200}}
+          tooltipHtml={(_, y) => `${y}`}
+          tooltipMode='fixed'
+          sort={descending}
         />
       </div>
     )
