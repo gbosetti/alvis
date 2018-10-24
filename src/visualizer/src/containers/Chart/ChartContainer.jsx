@@ -54,6 +54,10 @@ class Chart extends Component {
               <Icon circular name='chart pie' color='red' />
               Pie Chart
             </Menu.Item>
+            <Menu.Item as={Link} to='/chart/bar'>
+              <Icon circular name='chart bar' color='blue' />
+              Bar Chart
+            </Menu.Item>
           </Menu>
           <Divider hidden />
           <ChartRoutes

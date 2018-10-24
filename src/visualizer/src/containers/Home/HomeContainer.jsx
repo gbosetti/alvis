@@ -64,6 +64,14 @@ class Home extends Component {
                           </List.Header>
                         </List.Content>
                       </List.Item>
+                      <List.Item>
+                        <Icon circular name='chart bar' color='blue' />
+                        <List.Content>
+                          <List.Header as={Link} to='/chart/bar'>
+                            Bar Chart
+                          </List.Header>
+                        </List.Content>
+                      </List.Item>
                     </List>
                   </Tab.Pane>
                 )
