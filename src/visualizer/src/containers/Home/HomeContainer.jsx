@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import {
   Container,
-  Icon,
-  List,
   Segment,
   Tab,
 } from 'semantic-ui-react'
 
+import ChartsOptions from 'infovis/components/Menu/ChartsOptions'
 import dataActions from 'infovis/actions/data-actions'
 
 function mapStateToProps(state) {
@@ -49,35 +47,26 @@ class Home extends Component {
       <div style={{ height: '100%' }}>
         <Container id='home-container'>
           <Tab
-            menu={{ borderless: true, attached: false, tabular: false }} 
+            menu={{ pointing: true, borderless: true, attached: false, tabular: false }} 
             panes={[
               {
-                menuItem: 'Statistics',
+                menuItem: trans('home:options.charts.title'),
                 render: () => (
-                  <Tab.Pane attached={false}>
-                    <List horizontal relaxed>
-                      <List.Item>
-                        <Icon circular name='chart pie' color='red' />
-                        <List.Content>
-                          <List.Header as={Link} to='/chart/pie'>
-                            Pie Chart
-                          </List.Header>
-                        </List.Content>
-                      </List.Item>
-                      <List.Item>
-                        <Icon circular name='chart bar' color='blue' />
-                        <List.Content>
-                          <List.Header as={Link} to='/chart/bar'>
-                            Bar Chart
-                          </List.Header>
-                        </List.Content>
-                      </List.Item>
-                    </List>
-                  </Tab.Pane>
+                  <ChartsOptions
+                    trans={name => trans(`home:${name}`)}
+                    options={[
+                      { chart: 'pie', icon: 'pie chart' },
+                      { chart: 'bar', icon: 'bar chart', color: 'blue' }
+                    ]} 
+                  />
                 )
               },
               {
-                menuItem: 'Data',
+                menuItem: trans('home:options.advancedCharts.title'),
+                render: () => null
+              },
+              {
+                menuItem: trans('home:options.data.title'),
                 render: () => (
                   <Tab.Pane attached={false}>
                     <Segment tertiary>

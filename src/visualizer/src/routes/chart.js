@@ -9,8 +9,8 @@ import BarChartPage from 'infovis/containers/Chart/pages/BarChart'
 const AppRoutes = props => {
   return (
     <Switch>
-      <PropsRoute path='/chart/pie' component={PieChartPage} {...props} />
-      <PropsRoute path='/chart/bar' component={BarChartPage} {...props} />
+      <PropsRoute path='/chart/basic/pie' component={PieChartPage} {...props} />
+      <PropsRoute path='/chart/basic/bar' component={BarChartPage} {...props} />
       <Redirect to='/notFound' />
     </Switch>
   )

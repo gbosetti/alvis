@@ -1,0 +1,12 @@
+{
+    "charts": {
+        "basic": {
+            "pie": {
+                "title": "Gráfico de Torta"
+            },
+            "bar": {
+                "title": "Gráfico de Barra"
+            }
+        }
+    }
+}

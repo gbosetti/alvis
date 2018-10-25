@@ -11,7 +11,7 @@ const AppRoutes = props => {
   return (
     <AppContainer {...props}>
       <Switch>
-        <PropsRoute path='/chart/:chart' component={ChartPage} {...props} />
+        <PropsRoute path='/chart/basic/:chart' component={ChartPage} {...props} />
         <PropsRoute path='/' component={HomePage} {...props} />
         <Redirect to='/notFound' />
       </Switch>

@@ -50,13 +50,13 @@ class Chart extends Component {
               <Image src={logo} size='mini' />
             </Menu.Item>
 
-            <Menu.Item as={Link} to='/chart/pie'>
+            <Menu.Item as={Link} to='/chart/basic/pie'>
               <Icon circular name='chart pie' color='red' />
-              Pie Chart
+              {trans('chart:charts.basic.pie.title')}
             </Menu.Item>
-            <Menu.Item as={Link} to='/chart/bar'>
+            <Menu.Item as={Link} to='/chart/basic/bar'>
               <Icon circular name='chart bar' color='blue' />
-              Bar Chart
+              {trans('chart:charts.basic.bar.title')}
             </Menu.Item>
           </Menu>
           <Divider hidden />
