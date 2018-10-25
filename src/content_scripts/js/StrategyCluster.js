@@ -11,7 +11,6 @@ class StrategyCluster {
 
   rightStrategy(domElement) {
     const strategy = this.strategies.filter(strat => strat.canExtract(domElement));
-    
     if (!strategy.length) {
       return "No strategy defined for this element.";
     }

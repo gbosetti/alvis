@@ -1,32 +1,38 @@
 class NoHeaderListStrategy {
-  convertDataFrom(domElem) {
-    return {
-      rows: this.extractRows(domElem)
-    };
-  }
+   convertDataFrom(domElem) {
+      return {
+         rows: this.extractRows(domElem)
+      };
+   }
 
-  extractRows(domElem) {
-    const domRows = Array.from(domElem.querySelectorAll("li"));
-    const rows = [];
-    domRows.forEach(row => rows.push(this.extractCell(row.children)));
-    return rows;
-  }
+   extractRows(domElem) {
+      const domRows = Array.from(domElem.querySelectorAll("li"));
+      const visitor = new Visitor();
+      domRows.forEach(row => this.extractRow(row, visitor));
+      visitor.filter();
+      return visitor.getRows();
+   }
 
-  extractCell(tds) {
-    const cells = [];
-    Array.from(tds).forEach(td => cells.push(td.textContent.trim()));
-    return cells;
-  }
+   extractRow(row, visitor) {
+      this.extractCells(row, visitor);
+      visitor.newRow();
+   }
 
-  canExtract(domElem) {
-    return this.hasAList(Array.from(domElem.children));
-  }
+   canExtract(domElem) {
+      return this.hasAList(Array.from(domElem.children));
+   }
 
-  hasAList(elementChilds) {
-    return !!(elementChilds.filter(el => el.tagName.toLowerCase() === "li").length);
-  }
+   hasAList(elementChilds) {
+      return Boolean(elementChilds.filter(el => el.tagName.toLowerCase() === "li").length);
+   }
 
-  exportData(div, data) {
-
-  }
+   extractCells(nodeElement, visitor) {
+      if(nodeElement.children.length){
+         Array.from(nodeElement.children).forEach(child => {
+            this.extractCells(child, visitor);
+         });
+      }else{
+         visitor.add(nodeElement.textContent.trim());
+      }
+   }
 }
