@@ -1,0 +1,12 @@
+{
+    "charts": {
+        "basic": {
+            "pie": {
+                "title": "Pie Chart"
+            },
+            "bar": {
+                "title": "Bar Chart"
+            }
+        }
+    }
+}
