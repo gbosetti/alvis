@@ -1,23 +1,38 @@
-import _ from 'underscore'
+export function mapRowsToColumns(dataset) {
+  let { headers, rows } = dataset
+
+  headers = Array.from(headers || [])
+
+  const transpose = a => 
+    Object.keys(headers).map(c => a.map(r => r[c]))
+
+  return {
+    ...dataset,
+    columns: transpose(Array.from(rows || []))
+  }
+}
 
 export function sanitize(dataset) {
-  const { rows } = dataset
+  const { columns, rows } = dataset
 
-  const sanitizeRow = row => {
-    row = Array.from(row || [])
+  const sanitizeData = data => {
+    data = Array.from(data || [])
 
-    if (row.find(val => _.isNaN(Number(val))))
-      return row
+    if (data.filter(val => val !== undefined).find(val => !Number(val))) {
+      return data
+    }
 
-    return row.map(Number)
+    return data.map(Number)
   }
 
   return {
     ...dataset,
-    rows: Array.from(rows || []).map(sanitizeRow)
+    columns: Array.from(columns || []).map(sanitizeData),
+    rows: Array.from(rows || []).map(sanitizeData),
   }
 }
 
 export default {
+  mapRowsToColumns,
   sanitize,
 }

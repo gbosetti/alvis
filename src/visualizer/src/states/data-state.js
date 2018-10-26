@@ -5,6 +5,7 @@ export default {
   isFetching: false,
   dataset: {
     headers: null,
+    columns: null,
     rows: null,
   },
 }

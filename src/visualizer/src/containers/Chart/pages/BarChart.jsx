@@ -49,12 +49,12 @@ class BarChartPage extends Component {
       data: {
         dataset: {
           headers,
-          rows,
+          columns,
         }
       }
     } = this.props
 
-    let values = Array.from(rows[header] || [])
+    let values = Array.from(columns[header] || [])
       .reduce((values, value) => ({ 
         ...values,
         [value]: values[value] ? values[value] + 1 : 1 

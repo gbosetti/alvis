@@ -1,5 +1,5 @@
 import browser from 'webextension-polyfill'
-import { sanitize } from 'infovis/helpers/data-processor'
+import { sanitize, mapRowsToColumns } from 'infovis/helpers/data-processor'
 import {
   GET_DATA_REQUEST,
   GET_DATA_SUCCESS,
@@ -18,7 +18,7 @@ export function getData() {
     return browser.runtime.sendMessage({ call: 'notifyDocumentLoaded' })
       .then(dataset => {
         if (dataset && dataset.currentDataset) {
-          dispatch(actionSuccess(GET_DATA_SUCCESS, 'dataset', sanitize(dataset.currentDataset)))
+          dispatch(actionSuccess(GET_DATA_SUCCESS, 'dataset', sanitize(mapRowsToColumns(dataset.currentDataset))))
           return null
         }
         
