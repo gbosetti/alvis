@@ -8,7 +8,8 @@
   "private": false,
   "scripts": {
     "build": "yarn lint && grunt",
-    "prepublish": "yarn build && yarn test",
+    "build:visualizer": "yarn --cwd \"src/visualizer/\" && yarn --cwd \"src/visualizer/\" build:prod",
+    "prepublish": "yarn --cwd \"src/\" && yarn build && yarn test",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "start:chrome": "chrome --load-extension=$(pwd)/src",

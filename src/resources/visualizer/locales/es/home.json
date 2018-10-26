@@ -1,0 +1,19 @@
+{
+    "options": {
+        "charts": {
+            "title": "Gráficas",
+            "pie": {
+                "text": "Gráfico de Torta"
+            },
+            "bar": {
+                "text": "Gráfico de Barras"
+            }
+        },
+        "advancedCharts": {
+            "title": "Gráficos Avanzados"
+        },
+        "data": {
+            "title": "Datos"
+        }
+    }
+}

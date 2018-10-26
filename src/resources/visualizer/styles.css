@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin);#chart-container{margin-top:45px !important}.tooltip{padding:3px;border:2px solid;border-radius:4px;background-color:#eee;opacity:.6;justify-content:center;align-items:center}.arc path:hover{fill:#E55}#home-container{margin-top:45px !important}/*!
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin);#chart-container{margin-top:45px !important;margin-bottom:45px !important}.tooltip{padding:3px;border:2px solid;border-radius:4px;background-color:#eee;opacity:.6;justify-content:center;align-items:center}.arc path:hover{fill:#E55}#home-container{margin-top:45px !important}/*!
  * # Semantic UI - Reset
  * http://github.com/semantic-org/semantic-ui/
  *
