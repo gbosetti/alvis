@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import ReactJson from 'react-json-view'
 import {
   Container,
-  Segment,
   Tab,
 } from 'semantic-ui-react'
 
@@ -52,28 +52,31 @@ class Home extends Component {
               {
                 menuItem: trans('home:options.charts.title'),
                 render: () => (
-                  <ChartsOptions
-                    trans={name => trans(`home:${name}`)}
-                    options={[
-                      { chart: 'pie', icon: 'pie chart' },
-                      { chart: 'bar', icon: 'bar chart', color: 'blue' }
-                    ]} 
-                  />
+                  <Tab.Pane attached={false}>
+                    <ChartsOptions
+                      trans={name => trans(`home:${name}`)}
+                      options={[
+                        { chart: 'pie', icon: 'pie chart' },
+                        { chart: 'bar', icon: 'bar chart', color: 'blue' }
+                      ]} 
+                    />
+                  </Tab.Pane>
                 )
               },
               {
                 menuItem: trans('home:options.advancedCharts.title'),
-                render: () => null
+                render: () => (
+                  <Tab.Pane attached={false} />
+                )
               },
               {
                 menuItem: trans('home:options.data.title'),
                 render: () => (
                   <Tab.Pane attached={false}>
-                    <Segment tertiary>
-                      <pre>
-                        {JSON.stringify(dataset, null, 2)}
-                      </pre>
-                    </Segment>
+                    <ReactJson 
+                      name='dataset'
+                      src={dataset} 
+                    />
                   </Tab.Pane>
                 )
               }
