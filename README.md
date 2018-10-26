@@ -1,4 +1,8 @@
-# README #
+# Infovis
+
+* * *
+
+## About the project
 
 As it's right now this project contains:  
 A class diagram of the extractors (readable from [draw.io](https://www.draw.io/)).  
@@ -8,23 +12,36 @@ As the proyect it's brand new, the scripts are prepared to run **only** on the t
   
 The pages and tables we're actually using as guide are the ones listed [here](https://docs.google.com/spreadsheets/d/1yNP9g8WUKFXFEjaJTGbIcg-HSwPsolSsEcc0ps4WN8Y/edit#gid=0).  
 
-# INSTALL #
+## Building the extension
 
-Clone the repo
-`git clone https://gabybosetti@bitbucket.org/gabybosetti/infovis.git`
+Clone the repo:
 
-Check out which is the more convenient branch and move there. E.g.
-`git checkout Development`
+```bash
+$ git clone https://gabybosetti@bitbucket.org/gabybosetti/infovis.git
+```
 
-Change to the src dir where the extension is installed
-`cd src`
+Download the dependencies:
 
-Install the dependencies
-`npm install`
+```bash
+$ cd infovis
+$ yarn
+```
 
-Open chrome:about with the Chrome/Chromium browser, and install the extension by selecting the src folder "as an unpackaged extension".
+## Installing the extension in Chrome
 
-# USE #
+After performing the steps described above,
+
+1.  Open "chrome://extensions/" in Chrome
+2.  Click "Load not packaged extension"
+3.  Select any file in your add-on's root directory, `infovis/src/`
+
+or run the following scripts,
+
+```bash
+$ yarn start:chrome # yarn start:chromium, for chromium
+```
+
+## Using the tool
 
 Visit https://en.wikipedia.org/wiki/The_Rolling_Stones_discography
 
