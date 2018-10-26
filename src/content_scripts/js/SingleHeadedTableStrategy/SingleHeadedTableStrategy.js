@@ -41,13 +41,14 @@ class SingleHeadedTableStrategy {
   }
 
   checkOnlyBody(domElem) {
-    const childs = (domElem.querySelector("tbody"));
+    let childs = domElem.querySelector("tbody");
+
     if (childs) {
-        childs = Array.from(childs.children);
-        return (this.firstLineHeader(childs[0]) && this.uniqueHeader(childs.slice(1)));        
-    } else {
-        return false;
-    }
+      childs = Array.from(childs.children);
+      return this.firstLineHeader(childs[0]) && this.uniqueHeader(childs.slice(1));        
+    } 
+
+    return false;
   }
 
   firstLineHeader(childs) {

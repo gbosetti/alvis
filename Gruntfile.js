@@ -41,6 +41,10 @@ module.exports = function(grunt) {
 
   grunt.registerTask("build:webextension", () => {
     grunt.file.recurse("src", (abspath, rootdir, subdir, filename) => {
+      if (subdir && subdir.startsWith("visualizer")) {
+        return;
+      }
+      
       subdir = subdir ? `${subdir}/` : "";
       grunt.file.copy(abspath, `build/infovis/${subdir}${filename}`);
     });
