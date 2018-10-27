@@ -7,8 +7,9 @@ import {
   Tab,
 } from 'semantic-ui-react'
 
-import ChartsOptions from 'infovis/components/Menu/ChartsOptions'
 import dataActions from 'infovis/actions/data-actions'
+import ChartsOptions from 'infovis/components/Menu/ChartsOptions'
+import StatsView from 'infovis/components/Stats/View'
 
 function mapStateToProps(state) {
   return state
@@ -50,11 +51,22 @@ class Home extends Component {
             menu={{ pointing: true, borderless: true, attached: false, tabular: false }} 
             panes={[
               {
+                menuItem: trans('home:options.stats.title'),
+                render: () => (
+                  <Tab.Pane attached={false}>
+                    <StatsView
+                      dataset={dataset}
+                      trans={(name, ...args) => trans(`home:${name}`, ...args)}
+                    />
+                  </Tab.Pane>
+                )
+              },
+              {
                 menuItem: trans('home:options.charts.title'),
                 render: () => (
                   <Tab.Pane attached={false}>
                     <ChartsOptions
-                      trans={name => trans(`home:${name}`)}
+                      trans={(name, ...args) => trans(`home:${name}`, ...args)}
                       options={[
                         { chart: 'pie', icon: 'pie chart' },
                         { chart: 'bar', icon: 'bar chart', color: 'blue' }

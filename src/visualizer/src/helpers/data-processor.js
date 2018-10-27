@@ -1,3 +1,5 @@
+import { isUndefined } from 'util'
+
 export function mapRowsToColumns(dataset) {
   let { headers, rows } = dataset
 
@@ -32,7 +34,15 @@ export function sanitize(dataset) {
   }
 }
 
+export function isMissingValue(value) {
+  return [
+    isUndefined,
+    v => v === '',
+  ].find(f => f(value))
+}
+
 export default {
+  isMissingValue,
   mapRowsToColumns,
   sanitize,
 }
