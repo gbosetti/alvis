@@ -7,5 +7,6 @@ export default {
     headers: null,
     columns: null,
     rows: null,
+    types: null,
   },
 }

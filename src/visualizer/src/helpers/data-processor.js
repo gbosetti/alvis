@@ -1,5 +1,24 @@
 import { isUndefined } from 'util'
 
+export function hydrate(dataset) {
+  let { columns } = dataset
+
+  const types = data => {
+    data = Array.from(data || [])
+
+    if (data.filter(val => val !== undefined).find(val => !Number(val))) {
+      return typeof String()
+    }
+
+    return typeof Number()
+  }
+
+  return {
+    ...dataset,
+    types: Array.from(columns || []).map(types),
+  }
+}
+
 export function mapRowsToColumns(dataset) {
   let { headers, rows } = dataset
 
@@ -42,6 +61,7 @@ export function isMissingValue(value) {
 }
 
 export default {
+  hydrate,
   isMissingValue,
   mapRowsToColumns,
   sanitize,

@@ -14,6 +14,7 @@ class StatsView extends Component {
         headers,
         columns,
         rows,
+        types,
       },
     } = this.props
 
@@ -45,7 +46,7 @@ class StatsView extends Component {
                   {header}
                 </Table.Cell>
                 <Table.Cell>
-                  {'type'}
+                  {!types ? null : types[i]}
                 </Table.Cell>
                 <Table.Cell>
                   {!columns ? null : columns[i].filter(isMissingValue).length}

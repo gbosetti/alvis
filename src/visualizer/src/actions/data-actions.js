@@ -1,11 +1,14 @@
 import browser from 'webextension-polyfill'
-import { sanitize, mapRowsToColumns } from 'infovis/helpers/data-processor'
 import {
   GET_DATA_REQUEST,
   GET_DATA_SUCCESS,
   GET_DATA_FAILURE
 } from 'infovis/constants/data.constants'
-
+import { 
+  hydrate,
+  sanitize,
+  mapRowsToColumns
+} from 'infovis/helpers/data-processor'
 import {
   actionRequest,
   actionSuccess,
@@ -18,8 +21,8 @@ export function getData() {
     return browser.runtime.sendMessage({ call: 'notifyDocumentLoaded' })
       .then(dataset => {
         if (dataset && dataset.currentDataset) {
-          dispatch(actionSuccess(GET_DATA_SUCCESS, 'dataset', sanitize(mapRowsToColumns(dataset.currentDataset))))
-          return null
+          let data = hydrate(sanitize(mapRowsToColumns(dataset.currentDataset)))
+          return dispatch(actionSuccess(GET_DATA_SUCCESS, 'dataset', data))
         }
         
         throw new Error('No dataset provided')
