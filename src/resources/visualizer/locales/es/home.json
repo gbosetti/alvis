@@ -1,7 +1,15 @@
 {
     "options": {
+        "stats": {
+            "title": "Estadísticas",
+            "description": "Conjunto con {{examples}} ejemplos",
+            "fields": {
+                "type": "Tipo",
+                "missing": "Valores faltantes"
+            }
+        },
         "charts": {
-            "title": "Gráficas",
+            "title": "Gráficos",
             "pie": {
                 "text": "Gráfico de Torta"
             },

@@ -1,0 +1,19 @@
+{
+    "options": {
+        "charts": {
+            "title": "Charts",
+            "pie": {
+                "text": "Pie Chart"
+            },
+            "bar": {
+                "text": "Bar Chart"
+            }
+        },
+        "advancedCharts": {
+            "title": "Advanced Charts"
+        },
+        "data": {
+            "title": "Data"
+        }
+    }
+}
