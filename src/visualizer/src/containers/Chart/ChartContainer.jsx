@@ -29,12 +29,17 @@ function mapDispatchToProps(dispatch) {
 class Chart extends Component {
   componentDidMount() {
     const {
+      data: {
+        dataset: {
+          headers,
+        }
+      },
       actions: {
         getData,
       }
     } = this.props
 
-    getData()
+    headers === null && getData()
   }
 
   render() {

@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import {
+  Divider,
   Grid,
   Header,
   Icon,
+  Popup,
   Table,
 } from 'semantic-ui-react'
 
@@ -10,6 +12,7 @@ class DatasetView extends Component {
   render() {
     const {
       trans,
+      onReloadButtonClick,
       onTransposeButtonClick,
       dataset: {
         headers,
@@ -29,13 +32,32 @@ class DatasetView extends Component {
             </Header>
           </Grid.Column>
           <Grid.Column textAlign='right'>
-            <Icon.Group
-              size='large'
-              onClick={onTransposeButtonClick}
-            >
-              <Icon name='list' />
-              <Icon corner name='redo' />
-            </Icon.Group>
+            <Popup
+              header={trans('options.dataset.options.redo.header')}
+              content={trans('options.dataset.options.redo.content')}
+              trigger={(
+                <Icon
+                  style={{cursor: 'pointer'}}
+                  color='blue'
+                  name='redo alternate'
+                  onClick={onReloadButtonClick}
+                />
+              )}
+            />
+            <Divider vertical hidden />
+            <Popup
+              header={trans('options.dataset.options.transpose.header')}
+              content={trans('options.dataset.options.transpose.content')}
+              trigger={(
+                <Icon.Group
+                  style={{cursor: 'pointer'}}
+                  onClick={onTransposeButtonClick}
+                >
+                  <Icon color='blue' name='list' />
+                  <Icon corner name='sync alternate' />
+                </Icon.Group>
+              )}
+            />
           </Grid.Column>
         </Grid>
         <Table celled padded size='small'>

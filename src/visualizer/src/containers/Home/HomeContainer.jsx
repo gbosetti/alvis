@@ -30,6 +30,7 @@ class Home extends Component {
 
     this.state = {}
 
+    this.handleReloadButtonClick = this.handleReloadButtonClick.bind(this)
     this.handleTransposeButtonClick = this.handleTransposeButtonClick.bind(this)
   }
 
@@ -46,6 +47,16 @@ class Home extends Component {
     } = this.props
 
     headers === null && getData()
+  }
+
+  handleReloadButtonClick() {
+    const {
+      actions: {
+        getData,
+      }
+    } = this.props
+
+    getData()
   }
 
   handleTransposeButtonClick() {
@@ -115,6 +126,7 @@ class Home extends Component {
                     <DatasetView
                       dataset={dataset}
                       onTransposeButtonClick={this.handleTransposeButtonClick}
+                      onReloadButtonClick={this.handleReloadButtonClick}
                       trans={(name, ...args) => trans(`home:${name}`, ...args)}
                     />
                   </Tab.Pane>

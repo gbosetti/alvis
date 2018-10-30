@@ -25,7 +25,17 @@
         },
         "dataset": {
             "title": "Datos",
-            "description": "Conjunto con {{examples}} ejemplos"
+            "description": "Conjunto con {{examples}} ejemplos",
+            "options": {
+                "redo": {
+                    "header": "Recargar datos",
+                    "content": "Los datos volverán a su estado original"
+                },
+                "transpose": {
+                    "header": "Rotar tabla",
+                    "content": "Permite intercambiar filas por columnas"
+                }
+            }
         }
     }
 }
