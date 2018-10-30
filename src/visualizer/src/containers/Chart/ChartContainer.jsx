@@ -65,9 +65,11 @@ class Chart extends Component {
             </Menu.Item>
           </Menu>
           <Divider hidden />
-          <ChartRoutes
-            trans={(name, ...args) => trans(`chart:${name}`, ...args)}
-          />
+          <Container>
+            <ChartRoutes
+              trans={(name, ...args) => trans(`chart:${name}`, ...args)}
+            />
+          </Container>
         </Container>
       </div>
     )

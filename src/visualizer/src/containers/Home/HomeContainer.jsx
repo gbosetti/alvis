@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import ReactJson from 'react-json-view'
 import {
   Container,
+  Divider,
+  Image,
+  Menu,
   Tab,
 } from 'semantic-ui-react'
+
+import logo from 'infovis-resources/images/infovis-logo.png'
 
 import dataActions from 'infovis/actions/data-actions'
 import ChartsOptions from 'infovis/components/Menu/ChartsOptions'
@@ -85,6 +91,12 @@ class Home extends Component {
     return (
       <div style={{ height: '100%' }}>
         <Container fluid id='home-container'>
+          <Menu>
+            <Menu.Item as={Link} to='/'>
+              <Image src={logo} size='mini' />
+            </Menu.Item>
+          </Menu>
+          <Divider hidden />
           <Tab
             menu={{ pointing: true, borderless: true, attached: false, tabular: false }} 
             panes={[
