@@ -1,8 +1,10 @@
 import {
+  TRANSPOSE_DATA,
   SET_STATE,
 } from 'infovis/constants'
   
 import initialState from 'infovis/states/data-state'
+import { hydrate, sanitize } from 'infovis/helpers/data-processor'
 
 /**
  * ## dataReducer function
@@ -39,6 +41,20 @@ export default function dataReducer(state = initialState, action) {
         isFetching: false,
         error: action.payload,
         success: null,
+      }
+    }
+
+    case TRANSPOSE_DATA === action.type:
+    {
+      const { dataset } = state
+
+      return {
+        ...state,
+        dataset: hydrate(sanitize({
+          ...dataset,
+          rows: dataset.columns,
+          columns: dataset.rows,
+        }))
       }
     }
 

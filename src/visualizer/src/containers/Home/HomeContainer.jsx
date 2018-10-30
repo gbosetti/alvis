@@ -10,6 +10,7 @@ import {
 import dataActions from 'infovis/actions/data-actions'
 import ChartsOptions from 'infovis/components/Menu/ChartsOptions'
 import StatsView from 'infovis/components/Stats/View'
+import DatasetView from 'infovis/components/Dataset/View'
 
 function mapStateToProps(state) {
   return state
@@ -24,14 +25,42 @@ function mapDispatchToProps(dispatch) {
 }
 
 class Home extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {}
+
+    this.handleTransposeButtonClick = this.handleTransposeButtonClick.bind(this)
+  }
+
   componentDidMount() {
     const {
+      data: {
+        dataset: {
+          headers,
+        }
+      },
       actions: {
         getData,
       }
     } = this.props
 
-    getData()
+    headers === null && getData()
+  }
+
+  handleTransposeButtonClick() {
+    const {
+      data: {
+        dataset: {
+          headers,
+        }
+      },
+      actions: {
+        transposeData,
+      }
+    } = this.props
+
+    headers !== null && transposeData()
   }
 
   render() {
@@ -42,11 +71,9 @@ class Home extends Component {
       }
     } = this.props
 
-    void trans
-
     return (
       <div style={{ height: '100%' }}>
-        <Container id='home-container'>
+        <Container fluid id='home-container'>
           <Tab
             menu={{ pointing: true, borderless: true, attached: false, tabular: false }} 
             panes={[
@@ -82,7 +109,19 @@ class Home extends Component {
                 )
               },
               {
-                menuItem: trans('home:options.data.title'),
+                menuItem: trans('home:options.dataset.title'),
+                render: () => (
+                  <Tab.Pane attached={false}>
+                    <DatasetView
+                      dataset={dataset}
+                      onTransposeButtonClick={this.handleTransposeButtonClick}
+                      trans={(name, ...args) => trans(`home:${name}`, ...args)}
+                    />
+                  </Tab.Pane>
+                )
+              },
+              {
+                menuItem: trans('home:options.json.title'),
                 render: () => (
                   <Tab.Pane attached={false}>
                     <ReactJson 

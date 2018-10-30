@@ -2,7 +2,9 @@ import browser from 'webextension-polyfill'
 import {
   GET_DATA_REQUEST,
   GET_DATA_SUCCESS,
-  GET_DATA_FAILURE
+  GET_DATA_FAILURE,
+
+  TRANSPOSE_DATA,
 } from 'infovis/constants/data.constants'
 import { 
   hydrate,
@@ -14,6 +16,12 @@ import {
   actionSuccess,
   actionFailure
 } from 'infovis/helpers/action-dispatcher'
+
+export function transposeData() {
+  return {
+    type: TRANSPOSE_DATA,
+  }
+}
 
 export function getData() {
   return dispatch => {
@@ -35,4 +43,5 @@ export function getData() {
 
 export default {
   getData,
+  transposeData,
 }

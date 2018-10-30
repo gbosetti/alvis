@@ -10,6 +10,7 @@ class StatsView extends Component {
   render() {
     const {
       trans,
+      onTransposeButtonClick,
       dataset: {
         headers,
         columns,
@@ -17,6 +18,8 @@ class StatsView extends Component {
         types,
       },
     } = this.props
+
+    void onTransposeButtonClick
 
     return (
       <div>
@@ -26,7 +29,7 @@ class StatsView extends Component {
             {trans('options.stats.description', { examples: Array.from(rows || []).length })}
           </Header.Subheader>
         </Header>
-        <Table definition>
+        <Table definition size='small'>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell />

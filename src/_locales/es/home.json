@@ -20,8 +20,12 @@
         "advancedCharts": {
             "title": "Gráficos Avanzados"
         },
-        "data": {
-            "title": "Datos"
+        "json": {
+            "title": "Datos - JSON"
+        },
+        "dataset": {
+            "title": "Datos",
+            "description": "Conjunto con {{examples}} ejemplos"
         }
     }
 }

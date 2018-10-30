@@ -1,5 +1,13 @@
 {
     "options": {
+        "stats": {
+            "title": "Statistics",
+            "description": " Set with {{examples}} examples",
+            "fields": {
+                "type": "Type",
+                "missing": "Missing Values"
+            }
+        },
         "charts": {
             "title": "Charts",
             "pie": {
@@ -12,8 +20,12 @@
         "advancedCharts": {
             "title": "Advanced Charts"
         },
-        "data": {
-            "title": "Data"
+        "json": {
+            "title": "JSON Data"
+        },
+        "dataset": {
+            "title": "Data",
+            "description": " Set with {{examples}} examples"
         }
     }
 }
