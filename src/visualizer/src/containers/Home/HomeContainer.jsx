@@ -6,6 +6,7 @@ import ReactJson from 'react-json-view'
 import {
   Container,
   Divider,
+  Icon,
   Image,
   Menu,
   Tab,
@@ -101,7 +102,16 @@ class Home extends Component {
             menu={{ pointing: true, borderless: true, attached: false, tabular: false }} 
             panes={[
               {
-                menuItem: trans('home:options.stats.title'),
+                menuItem: {
+                  key: 'stats',
+                  content: trans('home:options.stats.title'),
+                  icon: () => (
+                    <Icon.Group size='large' style={{marginRight: '5px'}}>
+                      <Icon color='blue' name='table' />
+                      <Icon corner inverted name='line chart' />
+                    </Icon.Group>
+                  ),
+                },
                 render: () => (
                   <Tab.Pane attached={false}>
                     <StatsView
@@ -112,7 +122,13 @@ class Home extends Component {
                 )
               },
               {
-                menuItem: trans('home:options.charts.title'),
+                menuItem: {
+                  key: 'charts',
+                  content: trans('home:options.charts.title'),
+                  icon: () => (
+                    <Icon size='large' color='red' name='pie chart' />
+                  ),
+                },
                 render: () => (
                   <Tab.Pane attached={false}>
                     <ChartsOptions
@@ -126,13 +142,25 @@ class Home extends Component {
                 )
               },
               {
-                menuItem: trans('home:options.advancedCharts.title'),
+                menuItem: {
+                  key: 'advancedCharts',
+                  content: trans('home:options.advancedCharts.title'),
+                  icon: () => (
+                    <Icon size='large' color='violet' name='line chart' />
+                  ),
+                },
                 render: () => (
                   <Tab.Pane attached={false} />
                 )
               },
               {
-                menuItem: trans('home:options.dataset.title'),
+                menuItem: {
+                  key: 'dataset',
+                  content: trans('home:options.dataset.title'),
+                  icon: () => (
+                    <Icon size='large' color='blue' name='table' />
+                  ),
+                },
                 render: () => (
                   <Tab.Pane attached={false}>
                     <DatasetView
@@ -145,7 +173,15 @@ class Home extends Component {
                 )
               },
               {
-                menuItem: trans('home:options.json.title'),
+                menuItem: {
+                  content: trans('home:options.json.title'),
+                  icon: () => (
+                    <Icon.Group size='large' style={{marginRight: '8.5px'}}>
+                      <Icon color='blue' name='table' />
+                      <Icon corner inverted color='yellow' name='js' />
+                    </Icon.Group>
+                  ),
+                },
                 render: () => (
                   <Tab.Pane attached={false}>
                     <ReactJson 

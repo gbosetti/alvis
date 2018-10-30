@@ -54,7 +54,7 @@ class DatasetView extends Component {
                   onClick={onTransposeButtonClick}
                 >
                   <Icon color='blue' name='list' />
-                  <Icon corner name='sync alternate' />
+                  <Icon corner inverted name='sync alternate' />
                 </Icon.Group>
               )}
             />
