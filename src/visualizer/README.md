@@ -1,3 +1,9 @@
+# Data visualizer
+
+Tool developed by using [React Redux + Webpack Starter](https://github.com/ulises-jeremias/react-redux-webpack-starter).
+
+* * *
+
 # React Redux + Webpack Starter
 
 The template consists of:
