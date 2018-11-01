@@ -13,7 +13,7 @@ class TableManager {
   }
 
   addStyleClasses(domElement) {
-    if (domElement.tagName.toLowerCase() === "table") {
+    if ((domElement.tagName.toLowerCase() === "table") || (domElement.tagName.toLowerCase() === "ul")) {
       this.enableTableExtraction(domElement);
       return;
     }
