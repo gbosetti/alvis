@@ -38,7 +38,7 @@ class DatasetView extends Component {
               trigger={(
                 <Icon
                   style={{cursor: 'pointer'}}
-                  color='blue'
+                  color='teal'
                   name='redo alternate'
                   onClick={onReloadButtonClick}
                 />

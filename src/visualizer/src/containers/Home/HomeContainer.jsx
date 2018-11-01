@@ -135,7 +135,8 @@ class Home extends Component {
                       trans={(name, ...args) => trans(`home:${name}`, ...args)}
                       options={[
                         { chart: 'pie', icon: 'pie chart' },
-                        { chart: 'bar', icon: 'bar chart', color: 'blue' }
+                        { chart: 'bar', icon: 'bar chart', color: 'blue' },
+                        { chart: 'line', icon: 'line chart', color: 'purple', path: 'simple-line' }
                       ]} 
                     />
                   </Tab.Pane>

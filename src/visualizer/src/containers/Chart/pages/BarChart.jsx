@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { BarChart } from 'react-d3-components'
-import { getEnumOptions } from 'infovis/helpers/select-options';
 import {
   Divider,
   Form, 
 } from 'semantic-ui-react'
 
+import { getEnumOptions } from 'infovis/helpers/select-options';
 
 function mapStateToProps(state) {
   return state
