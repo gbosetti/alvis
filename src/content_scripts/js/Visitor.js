@@ -4,7 +4,12 @@ class Visitor {
     this.index = 0;
   }
 
+  rows() {
+    return this.dataRows;
+  }
+
   getRows() {
+    this.filter();
     return this.dataRows;
   }
 
