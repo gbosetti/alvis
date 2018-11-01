@@ -19,12 +19,35 @@ export function hydrate(dataset) {
   }
 }
 
+export function filterColumns(dataset) {
+  let { headers, columns } = dataset
+
+  if (headers === null)
+    return dataset
+
+  headers = Array.from(headers || [])
+  const filteredHeaders = headers.filter(Boolean)
+  
+  if (filteredHeaders.length === headers.length)
+    columns = filteredHeaders.map((_, i) => columns[i])
+
+  const transpose = a =>
+    Object.keys(filteredHeaders).map(c => a.map(r => r[c]))
+
+  return {
+    ...dataset,
+    headers: filteredHeaders,
+    columns,
+    rows: transpose(columns)
+  }
+}
+
 export function mapRowsToColumns(dataset) {
   let { headers, rows } = dataset
 
   headers = Array.from(headers || [])
 
-  const transpose = a => 
+  const transpose = a =>
     Object.keys(headers).map(c => a.map(r => r[c]))
 
   return {
@@ -61,6 +84,7 @@ export function isMissingValue(value) {
 }
 
 export default {
+  filterColumns,
   hydrate,
   isMissingValue,
   mapRowsToColumns,
