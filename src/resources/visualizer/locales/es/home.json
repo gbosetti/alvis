@@ -15,13 +15,30 @@
             },
             "bar": {
                 "text": "Gráfico de Barras"
+            },
+            "line": {
+                "text": "Gráfico de Lineas"
             }
         },
         "advancedCharts": {
             "title": "Gráficos Avanzados"
         },
-        "data": {
-            "title": "Datos"
+        "json": {
+            "title": "Datos - JSON"
+        },
+        "dataset": {
+            "title": "Datos",
+            "description": "Conjunto con {{examples}} ejemplos",
+            "options": {
+                "redo": {
+                    "header": "Recargar datos",
+                    "content": "Los datos volverán a su estado original"
+                },
+                "transpose": {
+                    "header": "Rotar tabla",
+                    "content": "Permite intercambiar filas por columnas"
+                }
+            }
         }
     }
 }

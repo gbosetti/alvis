@@ -15,6 +15,9 @@
             },
             "bar": {
                 "text": "Bar Chart"
+            },
+            "line": {
+                "text": "Line Chart"
             }
         },
         "advancedCharts": {

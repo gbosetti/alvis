@@ -1,5 +1,13 @@
 {
     "options": {
+        "stats": {
+            "title": "Statistics",
+            "description": " Set with {{examples}} examples",
+            "fields": {
+                "type": "Type",
+                "missing": "Missing Values"
+            }
+        },
         "charts": {
             "title": "Charts",
             "pie": {
@@ -7,13 +15,30 @@
             },
             "bar": {
                 "text": "Bar Chart"
+            },
+            "line": {
+                "text": "Line Chart"
             }
         },
         "advancedCharts": {
             "title": "Advanced Charts"
         },
-        "data": {
-            "title": "Data"
+        "json": {
+            "title": "JSON Data"
+        },
+        "dataset": {
+            "title": "Data",
+            "description": " Set with {{examples}} examples",
+            "options": {
+                "redo": {
+                    "header": "Reload data",
+                    "content": "The data will return to its original state"
+                },
+                "transpose": {
+                    "header": "Rotate table",
+                    "content": "Allow to exchange rows by columns"
+                }
+            }
         }
     }
 }
