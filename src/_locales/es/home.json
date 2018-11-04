@@ -22,6 +22,9 @@
             },
             "line": {
                 "text": "Gráfico de Linea"
+            },
+            "scatter": {
+                "text": "Gráfico de Dispersión"
             }
         },
         "advancedCharts": {

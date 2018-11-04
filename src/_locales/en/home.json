@@ -22,6 +22,9 @@
             },
             "line": {
                 "text": "Line Chart"
+            },
+            "scatter": {
+                "text": "Scatter Chart"
             }
         },
         "advancedCharts": {

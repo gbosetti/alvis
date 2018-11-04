@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
+import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
 import {
   Divider,
   Form,
@@ -58,12 +58,12 @@ class PieChartPage extends Component {
 
     let data = xAxis !== null && yAxis !== null ? 
       Array.from(columns[xAxis] || []).map((x, i) => ({
-        name: x,
+        x,
         y: columns[yAxis][i],
       })) : []
 
     return (
-      <div id='line-chart-container'>
+      <div id='scatter-chart-container'>
         <Form>
           <Form.Group>
             <Form.Select
@@ -86,19 +86,18 @@ class PieChartPage extends Component {
         </Form>
         <Divider hidden />
         {!data.length ? null : (
-          <LineChart
+          <ScatterChart
             width={600}
             height={300}
-            data={data}
             margin={{top: 5, right: 30, left: 20, bottom: 5}}
           >
-            <XAxis dataKey='name' />
-            <YAxis />
-            <CartesianGrid strokeDasharray='3 3' />
-            <Tooltip />
+            <XAxis dataKey='x' />
+            <YAxis dataKey='y' />
+            <CartesianGrid />
+            <Tooltip cursor={{strokeDasharray: '3 3'}} />
             <Legend />
-            <Line type='monotone' dataKey='y' stroke='#8884d8' />
-          </LineChart>
+            <Scatter name={`${headers[xAxis]} vs ${headers[yAxis]}`} data={data} fill='#8884d8' />
+          </ScatterChart>
         )}
       </div>
     )
