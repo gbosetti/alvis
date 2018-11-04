@@ -5,12 +5,13 @@ export function hydrate(dataset) {
 
   const types = data => {
     data = Array.from(data || [])
+      .filter(val => val !== undefined)
 
-    if (data.filter(val => val !== undefined).find(val => !Number(val))) {
-      return typeof String()
+    if (data.find(val => !Number(val))) {
+      return 'categorical'
     }
 
-    return typeof Number()
+    return 'numeric'
   }
 
   return {

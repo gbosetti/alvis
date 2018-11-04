@@ -3,6 +3,10 @@
         "stats": {
             "title": "Estadísticas",
             "description": "Conjunto con {{examples}} ejemplos",
+            "types": {
+                "numeric": "Numérico",
+                "categorical": "Categórico"
+            },
             "fields": {
                 "type": "Tipo",
                 "missing": "Valores faltantes"
@@ -17,7 +21,7 @@
                 "text": "Gráfico de Barras"
             },
             "line": {
-                "text": "Gráfico de Lineas"
+                "text": "Gráfico de Linea"
             }
         },
         "advancedCharts": {

@@ -63,6 +63,10 @@ class Chart extends Component {
               <Icon circular name='chart bar' color='blue' />
               {trans('chart:charts.basic.bar.title')}
             </Menu.Item>
+            <Menu.Item as={Link} to='/chart/basic/simple-line'>
+              <Icon circular name='chart line' color='blue' />
+              {trans('chart:charts.basic.line.title')}
+            </Menu.Item>
           </Menu>
           <Divider hidden />
           <Container>

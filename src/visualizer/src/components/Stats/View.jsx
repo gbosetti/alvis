@@ -49,7 +49,10 @@ class StatsView extends Component {
                   {header}
                 </Table.Cell>
                 <Table.Cell>
-                  {!types ? null : types[i]}
+                  {!types ? 
+                    null : 
+                    trans(`options.stats.types.${types[i]}`)
+                  }
                 </Table.Cell>
                 <Table.Cell>
                   {!columns ? null : columns[i].filter(isMissingValue).length}
