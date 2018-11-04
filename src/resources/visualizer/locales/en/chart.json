@@ -6,6 +6,9 @@
             },
             "bar": {
                 "title": "Bar Chart"
+            },
+            "line": {
+                "title": "Scatter Chart"
             }
         }
     }

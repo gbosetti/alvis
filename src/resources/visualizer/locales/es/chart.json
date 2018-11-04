@@ -6,6 +6,9 @@
             },
             "bar": {
                 "title": "Gráfico de Barra"
+            },
+            "line": {
+                "title": "Gráfico de Dispersión"
             }
         }
     }

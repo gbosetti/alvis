@@ -3,6 +3,10 @@
         "stats": {
             "title": "Statistics",
             "description": " Set with {{examples}} examples",
+            "types": {
+                "numeric": "Numeric",
+                "categorical": "Categorical"
+            },
             "fields": {
                 "type": "Type",
                 "missing": "Missing Values"
@@ -18,6 +22,9 @@
             },
             "line": {
                 "text": "Line Chart"
+            },
+            "scatter": {
+                "text": "Scatter Chart"
             }
         },
         "advancedCharts": {
