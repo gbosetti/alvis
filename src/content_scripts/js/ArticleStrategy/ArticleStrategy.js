@@ -1,43 +1,26 @@
 class ArticleStrategy {
-  convertDataFrom(domElement) {
-    return {
-      rows: this.extractRows(domElement.querySelectorAll("article"))
-    };
-  }
-
-  extractRows(rows) {
-    const data = {};
-    console.log(data);
-    Array.from(rows).forEach(row => {
-      this.lastNodes(row, data);
-      this.fillMissingData(data);
-    });
-    return this.formatRows(data);
-  }
-
-   fillMissingData(data){
-      
+   convertDataFrom(domElement) {
+      return this.extractRows(domElement.querySelectorAll("article"));
    }
 
-  lastNodes(elem, data) {
-    if (elem.children.length) {
-      Array.from(elem.children).forEach(child => this.lastNodes(child,data));
-    } else {
-      this.addToRow(elem, data);
-    }
-  }
+   extractRows(rows) {
+      const visitor = new ArticleVisitor();
+      Array.from(rows).forEach(row => {
+         visitor.newRow();
+         this.lastNodes(row, visitor);
+      });
+      return visitor.formattedRows();
+   }
 
-  addToRow(elem, data) {
-    var tag = elem.tagName.toLowerCase()
-    if (elem.textContent){
-       if (!data[tag]) {
-         data[tag] = [];
-       }
-       data[tag].push(elem.textContent.trim());
-    }
-  }
+   lastNodes(elem, visitor) {
+      if ((elem.hasChildNodes())&!(this.hasOnlyTextChildren(elem.childNodes))) {
+         Array.from(elem.childNodes).forEach(child => this.lastNodes(child,visitor));
+      } else {
+         visitor.addData(elem);
+      }
+   }
 
-  formatRows(data) {
-    return data;
-  }
+   hasOnlyTextChildren(col){
+      return Array.from(col).every(child=> Boolean(child.nodeType===3));
+   }
 }

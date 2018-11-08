@@ -8,7 +8,7 @@ class NoHeaderListStrategy {
   extractRows(domElem) {
     const arr = Array.from(domElem.children);
     const domRows = Array.from(domElem.querySelectorAll("li")).filter(elem => arr.includes(elem));
-    const visitor = new Visitor();
+    const visitor = new ListVisitor();
     domRows.forEach(row => this.extractRow(row, visitor));
     return visitor.getRows();
   }

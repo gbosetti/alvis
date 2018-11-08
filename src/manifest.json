@@ -38,9 +38,12 @@
     ],
     "js": [
       "node_modules/webextension-polyfill/dist/browser-polyfill.js",
-      "content_scripts/js/Visitor.js",
+      "content_scripts/js/Visitor/Visitor.js",
+      "content_scripts/js/Visitor/ListVisitor.js",
+      "content_scripts/js/Visitor/ArticleVisitor.js",
       "content_scripts/js/SingleHeadedTableStrategy/SingleHeadedTableStrategy.js",
       "content_scripts/js/NoHeaderListStrategy/NoHeaderListStrategy.js",
+      "content_scripts/js/ArticleStrategy/ArticleStrategy.js",
       "content_scripts/js/StrategyCluster.js",
       "content_scripts/js/TableManager.js"
     ],
