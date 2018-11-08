@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import _ from 'underscore'
 import {
   Divider,
   Grid,
@@ -9,14 +10,54 @@ import {
 } from 'semantic-ui-react'
 
 class DatasetView extends Component {
+  constructor(props) {
+    super(props)
+
+    const {
+      dataset: {
+        rows,
+      }
+    } = this.props
+
+    this.state = {
+      rows,
+      column: null,
+      direction: null,
+    }
+
+    this.handleSort = this.handleSort.bind(this)
+  }
+
+  handleSort(clickedColumn) {
+    return () => {
+      const { column, rows, direction } = this.state
+
+      if (column !== clickedColumn) {
+        this.setState({
+          column: clickedColumn,
+          rows: _.sortBy(rows, [clickedColumn]),
+          direction: 'ascending',
+        })
+
+        return
+      }
+
+      this.setState({
+        rows: rows.reverse(),
+        direction: direction === 'ascending' ? 'descending' : 'ascending',
+      })
+    }
+  }
+
   render() {
+    const { column, rows, direction } = this.state
+
     const {
       trans,
       onReloadButtonClick,
       onTransposeButtonClick,
       dataset: {
         headers,
-        rows,
       },
     } = this.props
 
@@ -60,11 +101,15 @@ class DatasetView extends Component {
             />
           </Grid.Column>
         </Grid>
-        <Table celled padded size='small'>
+        <Table sortable celled padded size='small'>
           <Table.Header>
             <Table.Row>
               {headers && headers.map((header, i) => (
-                <Table.HeaderCell key={`header-${i+1}`}>
+                <Table.HeaderCell
+                  key={`header-${i+1}`}
+                  sorted={column === i ? direction : null}
+                  onClick={this.handleSort(i)}
+                >
                   {header.trim()}
                 </Table.HeaderCell>
               ))}
