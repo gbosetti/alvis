@@ -58,12 +58,12 @@ export function mapRowsToColumns(dataset) {
 }
 
 export function sanitize(dataset) {
-  const { columns, rows } = dataset
+  const { columns, types, rows } = dataset
 
-  const sanitizeData = data => {
+  const sanitizeData = (data, i) => {
     data = Array.from(data || [])
 
-    if (data.filter(val => val !== undefined).find(val => !Number(val))) {
+    if (types[i] === 'categorical') {
       return data
     }
 

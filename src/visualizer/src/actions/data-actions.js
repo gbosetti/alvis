@@ -30,7 +30,7 @@ export function getData() {
     return browser.runtime.sendMessage({ call: 'notifyDocumentLoaded' })
       .then(dataset => {
         if (dataset && dataset.currentDataset) {
-          let data = hydrate(sanitize(filterColumns(mapRowsToColumns(dataset.currentDataset))))
+          let data = sanitize(hydrate(filterColumns(mapRowsToColumns(dataset.currentDataset))))
           return dispatch(actionSuccess(GET_DATA_SUCCESS, 'dataset', data))
         }
         
