@@ -37,8 +37,8 @@ class Home extends Component {
 
     this.state = {}
 
-    this.handleReloadButtonClick = this.handleReloadButtonClick.bind(this)
-    this.handleTransposeButtonClick = this.handleTransposeButtonClick.bind(this)
+    this.handleReloadButtonClickHandler = this.handleReloadButtonClickHandler.bind(this)
+    this.handleTransposeButtonClickHandler = this.handleTransposeButtonClickHandler.bind(this)
   }
 
   componentDidMount() {
@@ -56,29 +56,40 @@ class Home extends Component {
     headers === null && getData()
   }
 
-  handleReloadButtonClick() {
-    const {
-      actions: {
-        getData,
-      }
-    } = this.props
-
-    getData()
+  handleReloadButtonClickHandler(callback) {
+    return () => {
+      const {
+        actions: {
+          getData,
+        }
+      } = this.props
+  
+      return getData()
+        .then(() => {
+          callback()
+          return null
+        })
+    }
   }
 
-  handleTransposeButtonClick() {
-    const {
-      data: {
-        dataset: {
-          headers,
+  handleTransposeButtonClickHandler(callback) {
+    return () => {
+      const {
+        data: {
+          dataset: {
+            headers,
+          }
+        },
+        actions: {
+          transposeData,
         }
-      },
-      actions: {
-        transposeData,
+      } = this.props
+  
+      if (headers !== null) {
+        transposeData()
+        callback()
       }
-    } = this.props
-
-    headers !== null && transposeData()
+    }
   }
 
   render() {
@@ -167,8 +178,8 @@ class Home extends Component {
                   <Tab.Pane attached={false}>
                     <DatasetView
                       dataset={dataset}
-                      onTransposeButtonClick={this.handleTransposeButtonClick}
-                      onReloadButtonClick={this.handleReloadButtonClick}
+                      onTransposeButtonClickHandler={this.handleTransposeButtonClickHandler}
+                      onReloadButtonClickHandler={this.handleReloadButtonClickHandler}
                       trans={(name, ...args) => trans(`home:${name}`, ...args)}
                     />
                   </Tab.Pane>

@@ -26,6 +26,7 @@ class DatasetView extends Component {
     }
 
     this.handleSort = this.handleSort.bind(this)
+    this.eventHandler = this.eventHandler.bind(this)
   }
 
   handleSort(clickedColumn) {
@@ -49,13 +50,27 @@ class DatasetView extends Component {
     }
   }
 
+  eventHandler() {
+    const {
+      dataset: {
+        rows,
+      }
+    } = this.props
+
+    this.setState(() => ({
+      rows,
+      column: null,
+      direction: null,
+    }))
+  }
+
   render() {
     const { column, rows, direction } = this.state
 
     const {
       trans,
-      onReloadButtonClick,
-      onTransposeButtonClick,
+      onReloadButtonClickHandler,
+      onTransposeButtonClickHandler,
       dataset: {
         headers,
       },
@@ -81,7 +96,7 @@ class DatasetView extends Component {
                   style={{cursor: 'pointer'}}
                   color='teal'
                   name='redo alternate'
-                  onClick={onReloadButtonClick}
+                  onClick={onReloadButtonClickHandler(this.eventHandler)}
                 />
               )}
             />
@@ -92,7 +107,7 @@ class DatasetView extends Component {
               trigger={(
                 <Icon.Group
                   style={{cursor: 'pointer'}}
-                  onClick={onTransposeButtonClick}
+                  onClick={onTransposeButtonClickHandler(this.eventHandler)}
                 >
                   <Icon color='blue' name='list' />
                   <Icon corner inverted name='sync alternate' />
