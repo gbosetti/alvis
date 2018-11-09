@@ -50,7 +50,7 @@ export default function dataReducer(state = initialState, action) {
 
       return {
         ...state,
-        dataset: hydrate(sanitize({
+        dataset: sanitize(hydrate({
           ...dataset,
           rows: dataset.columns,
           columns: dataset.rows,
@@ -66,7 +66,7 @@ export default function dataReducer(state = initialState, action) {
 
       return {
         ...state,
-        ...data
+        ...data,
       }
     }
 

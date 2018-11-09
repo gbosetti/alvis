@@ -32,14 +32,10 @@ export function filterColumns(dataset) {
   if (filteredHeaders.length === headers.length)
     columns = filteredHeaders.map((_, i) => columns[i])
 
-  const transpose = a =>
-    Object.keys(filteredHeaders).map(c => a.map(r => r[c]))
-
   return {
     ...dataset,
     headers: filteredHeaders,
     columns,
-    rows: transpose(columns)
   }
 }
 
@@ -58,7 +54,7 @@ export function mapRowsToColumns(dataset) {
 }
 
 export function sanitize(dataset) {
-  const { columns, types, rows } = dataset
+  const { columns, types } = dataset
 
   const sanitizeData = (data, i) => {
     data = Array.from(data || [])
@@ -73,7 +69,6 @@ export function sanitize(dataset) {
   return {
     ...dataset,
     columns: Array.from(columns || []).map(sanitizeData),
-    rows: Array.from(rows || []).map(sanitizeData),
   }
 }
 
