@@ -51,7 +51,7 @@ class TableManager {
     const dataset = this.extractor.convertDataFrom(domElement);
     console.log(dataset);
 
-    const visFrame = this.createVisualizationContainer(Date.now(), `${domElement.offsetWidth}px`, "550px");
+    const visFrame = this.createVisualizationContainer(Date.now(), /* `${domElement.offsetWidth}px` */ "100%", "550px");
     domElement.parentNode.insertBefore(visFrame, domElement.nextSibling);
 
     browser.runtime.sendMessage({
@@ -64,7 +64,7 @@ class TableManager {
     const container = document.createElement("iframe");
 
     container.id = `infovis-container-${id}`;
-    container.src = browser.extension.getURL("resources/visualizer/index.html");
+    container.src = browser.extension.getURL("visualizer/dist/index.html");
     container.style.margin = "0px";
     container.style.border = "0px";
     container.style.height = height;
