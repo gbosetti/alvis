@@ -54,9 +54,9 @@ export function mapRowsToColumns(dataset) {
 }
 
 export function sanitize(dataset) {
-  const { columns, types } = dataset
+  const { columns, rows, types } = dataset
 
-  const sanitizeData = (data, i) => {
+  const sanitizeColumnData = (data, i) => {
     data = Array.from(data || [])
 
     if (types[i] === 'categorical') {
@@ -66,9 +66,20 @@ export function sanitize(dataset) {
     return data.map(Number)
   }
 
+  const sanitizeRowData = data => {
+    data = Array.from(data || [])
+
+    return data.map((value, i) => {
+      return types[i] === 'numeric' ?
+        Number(value) :
+        value
+    })
+  }
+
   return {
     ...dataset,
-    columns: Array.from(columns || []).map(sanitizeData),
+    columns: Array.from(columns || []).map(sanitizeColumnData),
+    rows: Array.from(rows || []).map(sanitizeRowData),
   }
 }
 
