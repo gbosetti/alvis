@@ -1,17 +1,17 @@
 class Visitor {
- constructor(){
-   this.dataRows=null;
- }
+  constructor() {
+    this.dataRows = null;
+  }
 
- rows() {
-   return this.dataRows;
- }
+  rows() {
+    return this.dataRows;
+  }
 
- add(){
+  add() {
 
- }
+  }
 
- filter(){
+  filter() {
 
- }
+  }
 }
