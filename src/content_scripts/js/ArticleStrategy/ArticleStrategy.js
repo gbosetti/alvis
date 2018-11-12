@@ -13,7 +13,7 @@ class ArticleStrategy {
   }
 
   lastNodes(elem, visitor) {
-    if ((elem.hasChildNodes()) & !(this.hasOnlyTextChildren(elem.childNodes))) {
+    if ((elem.hasChildNodes()) && !(this.hasOnlyTextChildren(elem.childNodes))) {
       Array.from(elem.childNodes).forEach(child => this.lastNodes(child, visitor));
     } else {
       visitor.addData(elem);
@@ -21,6 +21,6 @@ class ArticleStrategy {
   }
 
   hasOnlyTextChildren(col) {
-    return Array.from(col).every(child => Boolean(child.nodeType === 3));
+    return Array.from(col).every(child => child.nodeType === 3);
   }
 }

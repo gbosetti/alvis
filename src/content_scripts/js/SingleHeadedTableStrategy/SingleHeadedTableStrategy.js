@@ -6,30 +6,31 @@ class SingleHeadedTableStrategy {
     };
   }
 
+  /**
+   * Extract headers from DOM Element. Map headers to JSON
+   */
   extractHeaders(domElem) {
-    const domHeaders = domElem.querySelectorAll("th");
-    const jsonHeader = [];
-    domHeaders.forEach(header => jsonHeader.push(header.textContent.trim())); // to json
-    return jsonHeader;
+    return Array.from(domElem.querySelectorAll("th"))
+      .map(header => header.textContent.trim());
   }
 
+  /**
+   * Extract rows from DOM Element. Map rows to JSON
+   */
   extractRows(domElem) {
-    const domRows = domElem.querySelectorAll("tr");
-    let jsonRows = [];
-    domRows.forEach(row => jsonRows.push(this.extractCells(row))); // to json
-    jsonRows = jsonRows.slice(1); // remove header
-    return jsonRows;
+    return Array.from(domElem.querySelectorAll("tr"))
+      .map(this.extractCells) // to JSON
+      .slice(1); // remove header
   }
 
   extractCells(rowElem) {
-    const domCells = rowElem.querySelectorAll("td");
-    const jsonCells = [];
-    domCells.forEach(cell => jsonCells.push(cell.textContent.trim())); // to json
-    return jsonCells;
+    return Array.from(rowElem.querySelectorAll("td"))
+      .map(cell => cell.textContent.trim()); // to JSON
   }
 
   canExtract(domElem) {
-    return this.checkHeadAndBody(domElem) || this.checkOnlyBody(domElem); // check wether it has or not thead
+    // check wether it has or not thead
+    return this.checkHeadAndBody(domElem) || this.checkOnlyBody(domElem); 
   }
 
   checkHeadAndBody(domElem) {
@@ -37,7 +38,7 @@ class SingleHeadedTableStrategy {
   }
 
   checkHeadAndBodyExistance(domElem) {
-    return ((domElem.querySelector("thead")) && (domElem.querySelector("tbody")));
+    return domElem.querySelector("thead") && domElem.querySelector("tbody");
   }
 
   checkOnlyBody(domElem) {
@@ -52,25 +53,13 @@ class SingleHeadedTableStrategy {
   }
 
   firstLineHeader(childs) {
-    let res = true;
-    for (let i = 0; i < childs.cells.length; i++) {
-      if ((childs.cells[i].tagName.toLowerCase() !== "th") && (childs.cells[i].tagName.toLowerCase() !== "td")) {
-        res = false;
-        break;
-      }
-    }
-    return res;
+    return !childs.cells.find(cell =>
+      cell.tagName.toLowerCase() !== "th" && cell.tagName.toLowerCase() !== "td"
+    );
   }
 
   uniqueHeader(childs) {
-    let res = true;
-    for (let i = 0; i < childs.length; i++) {
-      if (!this.checkAllHeaders(childs[i])) {
-        res = false;
-        break;
-      }
-    }
-    return res;
+    return !childs.find(child => !this.checkAllHeaders(child));
   }
 
   checkAllHeaders(col) {

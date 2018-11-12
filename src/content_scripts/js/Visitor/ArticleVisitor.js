@@ -36,7 +36,7 @@ class ArticleVisitor {
   }
 
   shouldIncludeHeader(tag) {
-    return Boolean(!this.dataHeaders.includes(tag) | (this.dataHeaders.length < this.dataRows.length));  
+    return !this.dataHeaders.includes(tag) || (this.dataHeaders.length < this.dataRows.length);  
   }
 
   formattedRows() {
@@ -48,7 +48,7 @@ class ArticleVisitor {
 }
 
 /* insertDelimeters(){
- *  this.dataRows.keys.forEach(key=>{
+ *  this.dataRows.keys.forEach(key => {
  *     this.dataRows[key].push(this.delimeter);
  *  });
 }
