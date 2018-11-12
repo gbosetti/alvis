@@ -64,7 +64,7 @@ class TableManager {
     const container = document.createElement("iframe");
 
     container.id = `infovis-container-${id}`;
-    container.src = browser.extension.getURL("visualizer/dist/index.html");
+    container.src = browser.extension.getURL("resources/visualizer/index.html");
     container.style.margin = "0px";
     container.style.border = "0px";
     container.style.height = height;
