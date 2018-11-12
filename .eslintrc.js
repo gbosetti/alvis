@@ -112,7 +112,7 @@ module.exports = {
       2, "unix"
     ],
     "lines-around-comment": [
-      2, {
+      1, {
         "beforeBlockComment": true,
         "allowObjectStart": true
       }

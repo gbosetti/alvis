@@ -1,36 +1,42 @@
 class RelatedTableManager {
   constructor() {
+    this.storageManager = new StorageManager();
     this.highlighted = false;
     this.first = true;
   }
 
   highlightTableElements(tab) {
-    if (this.highlighted) {
-      console.log("Sending message to ContentScript, waiting for unhighlighting");
-      browser.tabs.sendMessage(tab.id, {"message": "unhighlightTableElements"});
-    } else {
-      if (this.first) {
-        this.initializeTableManager(tab);
-        this.first = !this.first;
-      }
-      console.log("Sending message to ContentScript, waiting for highlighting");
-      browser.tabs.sendMessage(tab.id, {"message": "highlightTableElements"});
-    }
     this.highlighted = !this.highlighted;
+
+    if (!this.highlighted) {
+      browser.tabs.sendMessage(tab.id, {
+        message: "unhighlightTableElements"
+      });
+      return;
+    }
+
+    if (this.first) {
+      this.initializeTableManager(tab);
+      this.first = !this.first;
+    }
+
+    browser.tabs.sendMessage(tab.id, {
+      message: "highlightTableElements"
+    });
   }
 
   initializeTableManager(tab) {
     console.log("Sending message to ContentScript, initializing");
-    browser.tabs.sendMessage(tab.id, {"message": "initializeManager"});
+
+    browser.tabs.sendMessage(tab.id, {
+      message: "initializeManager"});
   }
 
-  storeCurrentDataset(data) {
-    browser.storage.local.set({
-      "currentDataset": data.dataset
-    }).catch(err => {console.log(err);});
+  storeCurrentDataset({dataset}) {
+    this.storageManager.set(dataset).catch(console.log);
   }
 
   notifyDocumentLoaded(data) {
-    return browser.storage.local.get("currentDataset");
+    return this.storageManager.get();
   }
 }
