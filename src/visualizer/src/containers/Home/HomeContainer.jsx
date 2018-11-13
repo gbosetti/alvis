@@ -187,6 +187,7 @@ class Home extends Component {
               },
               {
                 menuItem: {
+                  key: 'json',
                   content: trans('home:options.json.title'),
                   icon: () => (
                     <Icon.Group size='large' style={{marginRight: '8.5px'}}>

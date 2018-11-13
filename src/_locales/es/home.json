@@ -44,6 +44,10 @@
                 "transpose": {
                     "header": "Rotar tabla",
                     "content": "Permite intercambiar filas por columnas"
+                },
+                "settings": {
+                    "header": "Configuración",
+                    "content": "Configurar la visualización de los datos"
                 }
             }
         }

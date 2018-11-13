@@ -29,14 +29,17 @@ class RelatedTableManager {
     console.log("Sending message to ContentScript, initializing");
 
     browser.tabs.sendMessage(tab.id, {
-      message: "initializeManager"});
+      message: "initializeManager"
+    });
   }
 
   storeCurrentDataset({dataset}) {
-    this.storageManager.set(dataset).catch(console.log);
+    this.storageManager
+      .setDataset(dataset)
+      .catch(console.error);
   }
 
   notifyDocumentLoaded(data) {
-    return this.storageManager.get();
+    return this.storageManager.getDataset();
   }
 }

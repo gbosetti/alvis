@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import _ from 'underscore'
 import {
-  Divider,
+  Button,
   Grid,
   Header,
   Icon,
@@ -92,26 +93,48 @@ class DatasetView extends Component {
               header={trans('options.dataset.options.redo.header')}
               content={trans('options.dataset.options.redo.content')}
               trigger={(
-                <Icon
-                  style={{cursor: 'pointer'}}
-                  color='teal'
-                  name='redo alternate'
+                <Button
+                  basic
+                  circular
                   onClick={onReloadButtonClickHandler(this.eventHandler)}
+                  icon={(
+                    <Icon
+                      link
+                      color='teal'
+                      name='redo alternate'
+                    />
+                  )}
                 />
               )}
             />
-            <Divider vertical hidden />
             <Popup
               header={trans('options.dataset.options.transpose.header')}
               content={trans('options.dataset.options.transpose.content')}
               trigger={(
-                <Icon.Group
-                  style={{cursor: 'pointer'}}
+                <Button
+                  basic
+                  circular
                   onClick={onTransposeButtonClickHandler(this.eventHandler)}
-                >
-                  <Icon color='blue' name='list' />
-                  <Icon corner inverted name='sync alternate' />
-                </Icon.Group>
+                  icon={(
+                    <Icon.Group link>
+                      <Icon color='blue' name='list' />
+                      <Icon corner inverted name='sync alternate' />
+                    </Icon.Group>
+                  )}
+                />
+              )}
+            />
+            <Popup
+              header={trans('options.dataset.options.settings.header')}
+              content={trans('options.dataset.options.settings.content')}
+              trigger={(
+                <Button
+                  as={Link}
+                  to='/settings'
+                  basic
+                  circular
+                  icon='settings'
+                />
               )}
             />
           </Grid.Column>

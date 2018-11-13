@@ -11,7 +11,7 @@ class Storage {
   /**
    * Retrieves one or more items from the storage area.
    *
-   * @param {string | Object} keys - A key (string) or keys (an array of strings or an
+   * @param {String | Object} keys - A key (string) or keys (an array of strings or an
    * object specifying default values)  to identify the item to be
    * retrieved from the storage.
    *
@@ -36,7 +36,7 @@ class Storage {
   /**
    * Removes one or more items from the storage area.
    *
-   * @param {string | Array} keys - A string, or array of strings,
+   * @param {String | Array} keys - A string, or array of strings,
    * representing the key(s) of the item(s) to be removed.
    *
    * @returns A Promise that will be fulfilled with no arguments if

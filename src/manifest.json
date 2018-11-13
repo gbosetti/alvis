@@ -28,7 +28,7 @@
       "background/hot-reload.js",
       "background/storage/Storage.js",
       "background/storage/LocalStorage.js",
-      "background/storage/StorageManager.js",
+      "background/StorageManager.js",
       "background/RelatedTableManager.js",
       "background/main.js"
     ]
