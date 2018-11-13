@@ -53,7 +53,7 @@ class SingleHeadedTableStrategy {
   }
 
   firstLineHeader(childs) {
-    return !childs.cells.find(cell =>
+    return !Array.from(childs.cells).find(cell =>
       cell.tagName.toLowerCase() !== "th" && cell.tagName.toLowerCase() !== "td"
     );
   }
