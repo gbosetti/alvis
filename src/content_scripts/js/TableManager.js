@@ -1,5 +1,3 @@
-// TODO: This class expects a message from Background, then it should highlight certain table elements for now.
-
 class TableManager {
   constructor() {
     this.hiddenClass = "infovis-blurred";
@@ -13,7 +11,7 @@ class TableManager {
   }
 
   addStyleClasses(domElement) {
-    if ((domElement.tagName.toLowerCase() === "table") || (domElement.tagName.toLowerCase() === "ul")) {
+    if (this.cluster.isSupportedElement(domElement)) {
       this.enableTableExtraction(domElement);
       return;
     }
@@ -48,7 +46,7 @@ class TableManager {
 
   showVisualization(domElement) {
     this.defineStrategy(domElement);
-    const dataset = this.extractor.convertDataFrom(domElement);
+    const dataset = this.extractor.createDataSetFrom(domElement);
     console.log(dataset);
 
     const visFrame = this.createVisualizationContainer(Date.now(), /* `${domElement.offsetWidth}px` */ "100%", "550px");
@@ -184,19 +182,7 @@ class TableManager {
       return;
     }
 
-    const data = strategy.convertDataFrom(domElement);
+    const data = strategy.createDataSetFrom(domElement);
     strategy.exportData(this, data);
   }
 }
-
-const tableManager = new TableManager(); 
-
-browser.runtime.onMessage.addListener(function callPageSideActions(request, sender) {
-  console.log(`Message: ${request.message} in TableManager.`);
-  if (tableManager[request.message]) {
-    return tableManager[request.message](request.args); 
-  }
-
-  console.log("Wrong message.");
-  return null;
-});
