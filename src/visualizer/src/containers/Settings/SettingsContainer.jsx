@@ -44,7 +44,7 @@ class Settings extends Component {
     this.state = {}
 
     this.onChangeHandler = this.onChangeHandler.bind(this)
-    this.hadleHeaderChange = this.hadleHeaderChange.bind(this)
+    this.handleHeaderChange = this.handleHeaderChange.bind(this)
   }
 
   componentDidMount() {
@@ -74,7 +74,7 @@ class Settings extends Component {
     }
   }
 
-  hadleHeaderChange(e, {name, value}) {
+  handleHeaderChange(e, {name, value}) {
     const {
       actions: {
         onSettingsFormFieldChange,
@@ -95,12 +95,7 @@ class Settings extends Component {
       },
       settings: {
         dataset: {
-          fields: {
-            selectedHeader,
-            selectedHeaderHasError,
-            headerName,
-            headerNameHasError,
-          }
+          fields,
         }
       }
     } = this.props
@@ -116,29 +111,29 @@ class Settings extends Component {
             </Menu.Item>
           </Menu>
           <Divider hidden />
-          <Form>
-            <Form.Group>
-              <Form.Select
-                width={6}
-                name='selectedHeader'
-                label='Header'
-                options={getEnumOptions(headers)}
-                value={selectedHeader}
-                error={selectedHeaderHasError}
-                placeholder='Header'
-                onChange={this.hadleHeaderChange}
-              />
-              <Form.Input
-                width={6}
-                label='New header name'
-                name='headerName'
-                placeholder='New header name'
-                value={headerName}
-                error={headerNameHasError}
-                onChange={this.onChangeHandler('dataset')}
-              />
-            </Form.Group>
-          </Form>
+          <Container text>
+            <Form>
+              <Form.Group widths='equal'>
+                <Form.Select
+                  name='selectedHeader'
+                  label={fields.selectedHeaderErrorMsg || 'Header'}
+                  options={getEnumOptions(headers)}
+                  value={fields.selectedHeader}
+                  error={fields.selectedHeaderHasError}
+                  placeholder='Header'
+                  onChange={this.handleHeaderChange}
+                />
+                <Form.Input
+                  label={fields.headerNameErrorMsg || 'New header name'}
+                  name='headerName'
+                  placeholder='New header name'
+                  value={fields.headerName}
+                  error={fields.headerNameHasError}
+                  onChange={this.onChangeHandler('dataset')}
+                />
+              </Form.Group>
+            </Form>
+          </Container>
         </Container> 
       </div>
     )

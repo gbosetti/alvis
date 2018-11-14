@@ -44,6 +44,10 @@
                 "transpose": {
                     "header": "Rotate table",
                     "content": "Allow to exchange rows by columns"
+                },
+                "settings": {
+                    "header": "Settings",
+                    "content": "Configure the visualization of the data"
                 }
             }
         }
