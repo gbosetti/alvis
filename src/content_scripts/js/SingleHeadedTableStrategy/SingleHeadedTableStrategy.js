@@ -1,4 +1,4 @@
-class SingleHeadedTableStrategy { 
+class SingleHeadedTableStrategy extends AbstractStrategy{ 
   convertDataFrom(domElem) {   
     return {
       headers: this.extractHeaders(domElem),
@@ -28,13 +28,13 @@ class SingleHeadedTableStrategy {
       .map(cell => cell.textContent.trim()); // to JSON
   }
 
-  canExtract(domElem) {
-    // check wether it has or not thead
-    return this.checkHeadAndBody(domElem) || this.checkOnlyBody(domElem); 
+  couldExtract(domElem){
+    return this.checkHeadAndBody(domElem) || this.checkOnlyBody(domElem)
   }
 
   checkHeadAndBody(domElem) {
-    return (this.checkHeadAndBodyExistance(domElem) && this.uniqueHeader(Array.from(domElem.querySelector("tbody").children)));
+    return (this.checkHeadAndBodyExistance(domElem) &&
+     this.uniqueHeader(Array.from(domElem.querySelector("tbody").children)));
   }
 
   checkHeadAndBodyExistance(domElem) {

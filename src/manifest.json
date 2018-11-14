@@ -44,11 +44,13 @@
       "content_scripts/js/Visitor/Visitor.js",
       "content_scripts/js/Visitor/ListVisitor.js",
       "content_scripts/js/Visitor/ArticleVisitor.js",
+      "content_scripts/js/AbstractStrategy/AbstractStrategy.js",
       "content_scripts/js/SingleHeadedTableStrategy/SingleHeadedTableStrategy.js",
       "content_scripts/js/NoHeaderListStrategy/NoHeaderListStrategy.js",
       "content_scripts/js/ArticleStrategy/ArticleStrategy.js",
       "content_scripts/js/StrategyCluster.js",
-      "content_scripts/js/TableManager.js"
+      "content_scripts/js/TableManager.js",
+      "content_scripts/js/main.js"
     ],
     "all_frames": true
   }],

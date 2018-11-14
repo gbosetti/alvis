@@ -1,4 +1,5 @@
-class NoHeaderListStrategy {
+class NoHeaderListStrategy extends AbstractStrategy{
+  
   convertDataFrom(domElem) {
     return {
       rows: this.extractRows(domElem)
@@ -18,12 +19,8 @@ class NoHeaderListStrategy {
     visitor.newRow();
   }
 
-  canExtract(domElem) {
-    return this.hasAList(Array.from(domElem.children));
-  }
-
-  hasAList(elementChilds) {
-    return Boolean(elementChilds.filter(el => el.tagName.toLowerCase() === "li").length);
+  couldExtract(domElem) {
+    return Boolean(Array.from(domElem.children).filter(el => el.tagName.toLowerCase() === "li").length);
   }
 
   extractCells(nodeElement, visitor) {
