@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import {
   Container,
   Divider,
+  Form,
   Image,
   Menu,
 } from 'semantic-ui-react'
@@ -12,6 +13,8 @@ import {
 import logo from 'infovis-resources/images/infovis-logo.png'
 
 import dataActions from 'infovis/actions/data-actions'
+import settingsActions from 'infovis/actions/settings-actions'
+import { getEnumOptions } from 'infovis/helpers/select-options';
 
 function mapStateToProps(state) {
   return state
@@ -20,12 +23,30 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      ...dataActions
+      ...dataActions,
+      ...settingsActions,
     }, dispatch),
   }
 }
 
 class Settings extends Component {
+  constructor(props) {
+    super(props)
+    
+    const {
+      actions: {
+        onSettingsFormClear,
+      }
+    } = this.props
+
+    onSettingsFormClear('dataset')
+
+    this.state = {}
+
+    this.onChangeHandler = this.onChangeHandler.bind(this)
+    this.hadleHeaderChange = this.hadleHeaderChange.bind(this)
+  }
+
   componentDidMount() {
     const {
       data: {
@@ -41,16 +62,50 @@ class Settings extends Component {
     headers === null && getData()
   }
 
+  onChangeHandler(context) {
+    return (e, {name, value}) => {
+      const {
+        actions: {
+          onSettingsFormFieldChange,
+        }
+      } = this.props
+  
+      onSettingsFormFieldChange(context, name, value)
+    }
+  }
+
+  hadleHeaderChange(e, {name, value}) {
+    const {
+      actions: {
+        onSettingsFormFieldChange,
+      }
+    } = this.props
+
+    onSettingsFormFieldChange('dataset', name, value)
+    onSettingsFormFieldChange('dataset', 'headerName', '')    
+  }
+
   render() {
     const {
       trans,
       data: {
-        dataset,
+        dataset: {
+          headers,
+        },
+      },
+      settings: {
+        dataset: {
+          fields: {
+            selectedHeader,
+            selectedHeaderHasError,
+            headerName,
+            headerNameHasError,
+          }
+        }
       }
     } = this.props
 
     void trans
-    void dataset
 
     return (
       <div style={{ height: '100%' }}>
@@ -61,6 +116,29 @@ class Settings extends Component {
             </Menu.Item>
           </Menu>
           <Divider hidden />
+          <Form>
+            <Form.Group>
+              <Form.Select
+                width={6}
+                name='selectedHeader'
+                label='Header'
+                options={getEnumOptions(headers)}
+                value={selectedHeader}
+                error={selectedHeaderHasError}
+                placeholder='Header'
+                onChange={this.hadleHeaderChange}
+              />
+              <Form.Input
+                width={6}
+                label='New header name'
+                name='headerName'
+                placeholder='New header name'
+                value={headerName}
+                error={headerNameHasError}
+                onChange={this.onChangeHandler('dataset')}
+              />
+            </Form.Group>
+          </Form>
         </Container> 
       </div>
     )

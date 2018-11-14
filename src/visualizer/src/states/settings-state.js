@@ -11,6 +11,12 @@ export default {
       amountPerPage: null,
       amountPerPageErrorMsg: '',
       amountPerPageHasError: false,
+      headerName: '',
+      headerNameErrorMsg: '',
+      headerNameHasError: false,
+      selectedHeader: null,
+      selectedHeaderErrorMsg: '',
+      selectedHeaderHasError: false,
     }
   },
 }

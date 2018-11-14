@@ -1,8 +1,13 @@
 import {
+  ON_SETTINGS_FORM_CLEAR,
+  ON_SETTINGS_FORM_FIELD_CHANGE,
+
   SET_STATE,
-} from 'infovis/constants'
-    
+} from 'infovis/constants'    
 import initialState from 'infovis/states/settings-state'
+import formValidation from './form'
+import fieldValidation from './field'
+
   
 /**
    * ## settingsReducer function
@@ -10,6 +15,8 @@ import initialState from 'infovis/states/settings-state'
    * @param {Object} action - type and payload
    */
 export default function settingsReducer(state = initialState, action) {
+  var nextSettingsState
+
   switch (true) {
     case RegExp('.*settings.*-request').test(action.type):
     {
@@ -49,6 +56,52 @@ export default function settingsReducer(state = initialState, action) {
         error: action.payload,
         success: null,
       }
+    }
+
+    case ON_SETTINGS_FORM_CLEAR === action.type:
+    {
+      const { context, options } = action.payload
+
+      nextSettingsState = {
+        ...state,
+      }
+
+      if (context) {
+        nextSettingsState[context] = initialState[context]
+      }
+
+      Object.keys(options || {})
+        .filter(option => options[option])
+        .forEach(option => {
+          nextSettingsState[option] = initialState[option]
+        })
+
+      return nextSettingsState
+    }
+
+    case ON_SETTINGS_FORM_FIELD_CHANGE === action.type:
+    {
+      const {
+        context,
+        field,
+        value,
+      } = action.payload
+
+      const contextData = state[context]
+
+      nextSettingsState = {
+        error: null,
+        success: null,
+        [context]: {
+          ...contextData,
+          fields: {
+            ...contextData.fields,
+            [field]: value,
+          },
+        }
+      }
+
+      return formValidation(context, fieldValidation(context, nextSettingsState, action), action)
     }
   
     case SET_STATE === action.type:

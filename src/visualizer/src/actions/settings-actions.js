@@ -3,12 +3,34 @@ import {
   GET_DATASET_VIEW_SETTINGS_REQUEST,
   GET_DATASET_VIEW_SETTINGS_SUCCESS,
   GET_DATASET_VIEW_SETTINGS_FAILURE,
+
+  ON_SETTINGS_FORM_FIELD_CHANGE,
+  ON_SETTINGS_FORM_CLEAR,
 } from 'infovis/constants/settings.constants'
 import {
   actionRequest,
   actionSuccess,
   actionFailure
 } from 'infovis/helpers/action-dispatcher'
+
+export function onSettingsFormClear(context, options) {
+  options = options || { error: true, success: true }
+
+  return {
+    type: ON_SETTINGS_FORM_CLEAR,
+    payload: {
+      context,
+      options,
+    },
+  }
+}
+
+export function onSettingsFormFieldChange(context, field, value) {
+  return {
+    type: ON_SETTINGS_FORM_FIELD_CHANGE,
+    payload: { context, field, value },
+  }
+}
 
 export function getDatasetViewSettings() {
   return dispatch => {
@@ -28,5 +50,7 @@ export function getDatasetViewSettings() {
 }
 
 export default {
+  onSettingsFormClear,
+  onSettingsFormFieldChange,
   getDatasetViewSettings,
 }
