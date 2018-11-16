@@ -145,7 +145,7 @@ class Home extends Component {
                   <Tab.Pane attached={false}>
                     <ChartsOptions
                       trans={(name, ...args) => trans(`home:${name}`, ...args)}
-                      options={config.graphs} 
+                      options={config.charts} 
                     />
                   </Tab.Pane>
                 )

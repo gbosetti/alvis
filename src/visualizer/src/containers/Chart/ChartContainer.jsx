@@ -57,7 +57,7 @@ class Chart extends Component {
               <Image src={logo} size='mini' />
             </Menu.Item>
 
-            {config.graphs.map(({chart, icon, color, disabled, type, path}, i) => (
+            {config.charts.map(({chart, icon, color, disabled, type, path}, i) => (
               <Menu.Item
                 disabled={disabled}
                 key={`chart-option-${i+1}`}
