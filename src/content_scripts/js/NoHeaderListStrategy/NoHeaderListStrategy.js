@@ -1,5 +1,4 @@
-class NoHeaderListStrategy extends AbstractStrategy{
-  
+class NoHeaderListStrategy extends AbstractStrategy {
   convertDataFrom(domElem) {
     return {
       rows: this.extractRows(domElem)

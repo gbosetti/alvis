@@ -1,4 +1,4 @@
-class ArticleStrategy extends AbstractStrategy{
+class ArticleStrategy extends AbstractStrategy {
   convertDataFrom(domElement) {
     return this.extractRows(domElement.querySelectorAll("article"));
   }
@@ -24,7 +24,7 @@ class ArticleStrategy extends AbstractStrategy{
     return Array.from(col).every(child => child.nodeType === 3);
   }
 
-  couldExtract(elem){
-    return Array.from(elem.children).filter(elem => elem.tagName.toLowerCase()==="article").length>1;
+  couldExtract(elem) {
+    return Array.from(elem.children).filter(elem => elem.tagName.toLowerCase() === "article").length > 1;
   }
 }
