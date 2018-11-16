@@ -12,6 +12,8 @@ import {
 
 import dataActions from 'infovis/actions/data-actions'
 import ChartRoutes from 'infovis/routes/chart'
+
+import config from 'infovis/config'
 import logo from 'infovis-resources/images/infovis-logo.png'
 
 function mapStateToProps(state) {
@@ -55,18 +57,16 @@ class Chart extends Component {
               <Image src={logo} size='mini' />
             </Menu.Item>
 
-            <Menu.Item as={Link} to='/chart/basic/pie'>
-              <Icon circular name='chart pie' color='red' />
-              {trans('chart:charts.basic.pie.title')}
-            </Menu.Item>
-            <Menu.Item as={Link} to='/chart/basic/bar'>
-              <Icon circular name='chart bar' color='blue' />
-              {trans('chart:charts.basic.bar.title')}
-            </Menu.Item>
-            <Menu.Item as={Link} to='/chart/basic/simple-line'>
-              <Icon circular name='chart line' color='blue' />
-              {trans('chart:charts.basic.line.title')}
-            </Menu.Item>
+            {config.graphs.map(({chart, icon, color, type, path}, i) => (
+              <Menu.Item 
+                key={`chart-option-${i+1}`}
+                as={Link} 
+                to={`/chart/${type || 'basic'}/${path || chart}`}
+              >
+                <Icon circular name={icon || `chart ${chart}`} color={color || 'red'} />
+                { trans(`chart:charts.${type || 'basic'}.${chart}.title`) }
+              </Menu.Item>
+            ))}
           </Menu>
           <Divider hidden />
           <Container>

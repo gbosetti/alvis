@@ -9,6 +9,9 @@
             },
             "line": {
                 "title": "Line Chart"
+            },
+            "scatter": {
+                "title": "Scatter Chart"
             }
         }
     }

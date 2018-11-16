@@ -13,6 +13,7 @@ import {
 } from 'semantic-ui-react'
 
 import logo from 'infovis-resources/images/infovis-logo.png'
+import config from 'infovis/config'
 
 import dataActions from 'infovis/actions/data-actions'
 import ChartsOptions from 'infovis/components/Menu/ChartsOptions'
@@ -144,12 +145,7 @@ class Home extends Component {
                   <Tab.Pane attached={false}>
                     <ChartsOptions
                       trans={(name, ...args) => trans(`home:${name}`, ...args)}
-                      options={[
-                        { chart: 'pie', icon: 'pie chart' },
-                        { chart: 'bar', icon: 'bar chart', color: 'blue' },
-                        { chart: 'line', icon: 'line chart', color: 'purple', path: 'simple-line' },
-                        { chart: 'scatter', icon: 'line chart', color: 'teal' }
-                      ]} 
+                      options={config.graphs} 
                     />
                   </Tab.Pane>
                 )
