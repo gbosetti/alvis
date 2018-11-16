@@ -25,6 +25,9 @@
             },
             "scatter": {
                 "text": "Gráfico de Dispersión"
+            },
+            "multiline": {
+                "text": "Gráfico Multilinea"
             }
         },
         "advancedCharts": {

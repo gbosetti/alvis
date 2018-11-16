@@ -8,7 +8,13 @@
                 "title": "Gráfico de Barra"
             },
             "line": {
+                "title": "Gráfico de Linea"
+            },
+            "scatter": {
                 "title": "Gráfico de Dispersión"
+            },
+            "multiline": {
+                "title": "Gráfico Multilinea"
             }
         }
     }

@@ -8,7 +8,13 @@
                 "title": "Bar Chart"
             },
             "line": {
+                "title": "Line Chart"
+            },
+            "scatter": {
                 "title": "Scatter Chart"
+            },
+            "multiline": {
+                "title": "Multiline Chart"
             }
         }
     }
