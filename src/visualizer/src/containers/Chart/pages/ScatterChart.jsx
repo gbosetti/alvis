@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import _ from 'underscore'
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
 import {
   Divider,
@@ -52,6 +53,7 @@ class PieChartPage extends Component {
         dataset: {
           headers,
           columns,
+          types,
         }
       }
     } = this.props
@@ -91,12 +93,12 @@ class PieChartPage extends Component {
             height={300}
             margin={{top: 5, right: 30, left: 20, bottom: 5}}
           >
-            <XAxis dataKey='x' />
-            <YAxis dataKey='y' />
+            <XAxis dataKey='x' type={types[xAxis] === 'numeric' ? 'number' : undefined} />
+            <YAxis dataKey='y' type={types[yAxis] === 'numeric' ? 'number' : undefined} />
             <CartesianGrid />
             <Tooltip cursor={{strokeDasharray: '3 3'}} />
             <Legend />
-            <Scatter name={`${headers[xAxis]} vs ${headers[yAxis]}`} data={data} fill='#8884d8' />
+            <Scatter name={`${headers[xAxis]} vs ${headers[yAxis]}`} data={_.sortBy(data, ['y'])} fill='#8884d8' />
           </ScatterChart>
         )}
       </div>

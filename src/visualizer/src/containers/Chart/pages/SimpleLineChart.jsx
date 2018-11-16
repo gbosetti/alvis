@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
+import _ from 'underscore'
+import { Brush, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
 import {
   Divider,
   Form,
@@ -52,13 +53,14 @@ class PieChartPage extends Component {
         dataset: {
           headers,
           columns,
+          types,
         }
       }
     } = this.props
 
     let data = xAxis !== null && yAxis !== null ? 
       Array.from(columns[xAxis] || []).map((x, i) => ({
-        name: x,
+        x,
         y: columns[yAxis][i],
       })) : []
 
@@ -89,15 +91,16 @@ class PieChartPage extends Component {
           <LineChart
             width={600}
             height={300}
-            data={data}
+            data={_.sortBy(data, ['y'])}
             margin={{top: 5, right: 30, left: 20, bottom: 5}}
           >
-            <XAxis dataKey='name' />
-            <YAxis />
+            <XAxis dataKey='x' type={types[xAxis] === 'numeric' ? 'number' : undefined} />
+            <YAxis dataKey='y' type={types[yAxis] === 'numeric' ? 'number' : undefined} />
             <CartesianGrid strokeDasharray='3 3' />
             <Tooltip />
             <Legend />
-            <Line type='monotone' dataKey='y' stroke='#8884d8' />
+            <Line type='monotone' name={headers[yAxis]} dataKey='y' stroke='#8884d8' />
+            <Brush />
           </LineChart>
         )}
       </div>
