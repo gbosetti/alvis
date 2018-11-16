@@ -21,21 +21,22 @@ export function hydrate(dataset) {
 }
 
 export function filterColumns(dataset) {
-  let { headers, columns } = dataset
+  let { headers, columns, rows } = dataset
 
   if (headers === null)
     return dataset
 
   headers = Array.from(headers || [])
-  const filteredHeaders = headers.filter(Boolean)
-  
-  if (filteredHeaders.length === headers.length)
-    columns = filteredHeaders.map((_, i) => columns[i])
+  const filteredHeaders = Object.entries(headers)
+    .filter(header => header[1])
 
   return {
     ...dataset,
-    headers: filteredHeaders,
-    columns,
+    headers: filteredHeaders.map(header => header[1]),
+    columns: filteredHeaders.map(header => columns[header[0]]),
+    rows: Array.from(rows).map(row => Array.from(row || []).filter((_, i) => (
+      filteredHeaders.find(header => header[0] == i
+      ))))
   }
 }
 

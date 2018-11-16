@@ -7,4 +7,4 @@ browser.runtime.onMessage.addListener(function callPageSideActions(request, send
   }
   
   throw new Error("Wrong message.");
-}).catch(console.log);
+});
