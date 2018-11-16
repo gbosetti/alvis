@@ -88,7 +88,8 @@ class Home extends Component {
   
       if (headers !== null) {
         transposeData()
-        callback()
+          .then(callback)
+          .catch(console.err)
       }
     }
   }

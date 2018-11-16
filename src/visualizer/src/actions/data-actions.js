@@ -19,9 +19,12 @@ import {
 } from 'infovis/helpers/action-dispatcher'
 
 export function transposeData() {
-  return {
-    type: TRANSPOSE_DATA,
-  }
+  return dispatch => Promise.resolve([])
+    .then(() => {
+      dispatch({ type: TRANSPOSE_DATA })
+      return
+    })
+    .catch(console.err)
 }
 
 export function getData() {
