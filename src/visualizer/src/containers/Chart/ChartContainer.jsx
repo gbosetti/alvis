@@ -57,11 +57,12 @@ class Chart extends Component {
               <Image src={logo} size='mini' />
             </Menu.Item>
 
-            {config.graphs.map(({chart, icon, color, type, path}, i) => (
-              <Menu.Item 
+            {config.graphs.map(({chart, icon, color, disabled, type, path}, i) => (
+              <Menu.Item
+                disabled={disabled}
                 key={`chart-option-${i+1}`}
-                as={Link} 
-                to={`/chart/${type || 'basic'}/${path || chart}`}
+                as={disabled ? undefined : Link} 
+                to={disabled ? undefined : `/chart/${type || 'basic'}/${path || chart}`}
               >
                 <Icon circular name={icon || `chart ${chart}`} color={color || 'red'} />
                 { trans(`chart:charts.${type || 'basic'}.${chart}.title`) }

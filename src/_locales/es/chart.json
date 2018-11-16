@@ -12,6 +12,9 @@
             },
             "scatter": {
                 "title": "Gráfico de Dispersión"
+            },
+            "multiline": {
+                "title": "Gráfico Multilinea"
             }
         }
     }

@@ -25,6 +25,9 @@
             },
             "scatter": {
                 "text": "Scatter Chart"
+            },
+            "multiline": {
+                "text": "Multiline Chart"
             }
         },
         "advancedCharts": {

@@ -12,6 +12,9 @@
             },
             "scatter": {
                 "title": "Scatter Chart"
+            },
+            "multiline": {
+                "title": "Multiline Chart"
             }
         }
     }
