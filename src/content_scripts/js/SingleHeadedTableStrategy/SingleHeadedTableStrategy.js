@@ -1,26 +1,142 @@
 class SingleHeadedTableStrategy extends AbstractStrategy { 
+
+
+  constructor(){
+    super();
+    this.indexes = 0;
+  }
+
   convertDataFrom(domElem) {   
+
+    var extractedRows = this.extractRows(domElem); //Be careful: indexes are updated here
+
     return {
-      headers: this.extractHeaders(domElem),
-      rows: this.extractRows(domElem)
+      headers: this.extractHeaders(domElem, extractedRows[0].length, this.indexes),
+      rows: extractedRows
     };
   }
 
   /**
    * Extract headers from DOM Element. Map headers to JSON
    */
-  extractHeaders(domElem) {
-    return Array.from(domElem.querySelectorAll("th"))
+  extractHeaders(domElem, expectedHeadersSize, indexes) {
+
+    //Get all the headers
+    var headers = Array.from(domElem.querySelectorAll("th"))
       .map(header => header.textContent.trim());
+
+      //Remove the splittable
+      indexes.forEach(index=> { headers.splice(index.index, 1); });
+
+      //Complete 
+      if(headers.length < expectedHeadersSize){
+        var diff = expectedHeadersSize - headers.length;
+        for (var i = 0; i < diff; i++) {
+          headers.push("");
+        }
+      }
+
+      return headers;
   }
 
   /**
    * Extract rows from DOM Element. Map rows to JSON
    */
   extractRows(domElem) {
-    return Array.from(domElem.querySelectorAll("tr"))
-      .map(this.extractCells) // to JSON
-      .slice(1); // remove header
+
+    var rawTableRows = Array.from(domElem.querySelectorAll("tr")).slice(this.numberOfHeaderRows());
+    var processedRows = [];
+
+    rawTableRows.forEach(row => {  
+      var cells = Array.from(row.cells);
+      processedRows.push(cells);
+    });
+
+    this.indexes = this.getSplittableCellsIndex(processedRows);
+    console.log(this.indexes);
+    var processedRows = this.spliCellsAtIndexes(processedRows, this.indexes);
+    
+    processedRows = this.rowsWithCellsWithTextualValues(processedRows);
+
+
+    return processedRows; // remove header
+  }
+
+  removeDuplicatedIndexes(indexes){
+
+    return indexes.filter((elem, index, self) =>
+      index === self.findIndex((t) => (
+        t.index === elem.index && t.instances === elem.instances
+      ))
+    )
+  }
+
+  spliCellsAtIndexes(rows, indexes){
+
+    var rowsWithExpandedCells = [];
+
+    rows.forEach(cells => {  
+
+      indexes.forEach(index=> { 
+
+        var containerNode = cells[index.index];
+
+        for (var i = 0; i < index.instances; i++) {
+          if(containerNode.childNodes[i])
+            cells.push(containerNode.childNodes[i]);
+          else cells.push(undefined);
+        }
+
+        cells.splice(index.index, 1);
+      });
+
+      rowsWithExpandedCells.push(cells);
+    });
+
+    return rowsWithExpandedCells;
+  }
+
+  getSplittableCellsIndex(rows){
+
+    var indexes = [];
+
+    rows.forEach(cells => {  
+
+      cells.forEach((cell, index)=> { 
+
+        if(cell.childNodes && cell.childNodes.length>1)
+          indexes.push({"index": index, "instances": cell.childNodes.length})
+      })
+    });
+
+    return this.removeDuplicatedIndexes(indexes);
+  }
+
+  rowsWithCellsWithTextualValues(rows){
+
+    var processedRows = [];
+
+    rows.forEach(cells => {  
+
+      var processedCells = [];
+      cells.forEach(cell=> { 
+
+        //cell.childNodes.forEach(cellNode => { 
+          if(cell)
+            processedCells.push(cell.textContent.trim());
+          else processedCells.push(undefined);
+        //})
+      })
+
+      processedRows.push(processedCells);
+
+    });
+
+    return processedRows;
+  }
+
+  numberOfHeaderRows() {
+    return 1; //TODO: complete
   }
 
   extractCells(rowElem) {
