@@ -10,7 +10,8 @@ class AbstractStrategy {
   fillHeaders(data) {
     data.headers = [];
     
-    const {length} = data.rows.reduce((row, rowL) => (row.length < rowL ? row.length : rowL), 0);
+    const length = data.rows.reduce(
+      ((rowL, row) => (row.length > rowL ? row.length : rowL)), 0);
 
     this.fillRows(data.rows, length);
 

@@ -1,14 +1,22 @@
 class Visitor {
   constructor() {
-    this.dataRows = null;
+    this.index = -1;
+    this.dataRows = [];
   }
 
-  rows() {
-    return this.dataRows;
+  getRows() {
+    return this.rows();
   }
 
-  add() {
+  newRow() {
+    this.index++;
+    this.dataRows[this.index] = [];
+  }
 
+  add(data) {
+    if (data) {
+      this.dataRows[this.index].push(data);
+    }
   }
 
   filter() {

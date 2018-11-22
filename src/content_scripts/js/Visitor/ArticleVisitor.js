@@ -2,12 +2,7 @@ class ArticleVisitor {
   constructor() {
     this.dataHeaders = [];
     this.dataRows = [];
-    this.index = -1;
-  }
-
-  newRow() {
-    this.index++;
-    this.dataRows[this.index] = [];
+    this.index = 0;
   }
 
   addData(elem) {
@@ -39,17 +34,10 @@ class ArticleVisitor {
     return !this.dataHeaders.includes(tag) || (this.dataHeaders.length < this.dataRows.length);  
   }
 
-  formattedRows() {
+  rows() {
     return {
       headers: this.dataHeaders,
       rows: this.dataRows
     };
   }
 }
-
-/* insertDelimeters(){
- *  this.dataRows.keys.forEach(key => {
- *     this.dataRows[key].push(this.delimeter);
- *  });
-}
-*/
