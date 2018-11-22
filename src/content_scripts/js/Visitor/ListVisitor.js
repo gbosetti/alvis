@@ -1,24 +1,12 @@
 class ListVisitor extends Visitor {
-  constructor() {
-    super();
-    this.dataRows = [[]];
-    this.index = 0;
-  }
-
-  getRows() {
+  rows() {
     this.filter();
     return this.dataRows;
   }
 
-  add(data) {
-    if (data) {
-      this.dataRows[this.index].push(data);
-    }
-  }
-
   newRow() {
-    this.index++;
     this.dataRows[this.index] = [];
+    this.index++;
   }
 
   filter() {

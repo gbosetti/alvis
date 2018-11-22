@@ -9,7 +9,7 @@ class ArticleStrategy extends AbstractStrategy {
       visitor.newRow();
       this.lastNodes(row, visitor);
     });
-    return visitor.formattedRows();
+    return visitor.getRows();
   }
 
   lastNodes(elem, visitor) {

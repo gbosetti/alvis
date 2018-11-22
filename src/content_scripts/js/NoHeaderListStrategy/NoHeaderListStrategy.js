@@ -14,8 +14,8 @@ class NoHeaderListStrategy extends AbstractStrategy {
   }
 
   extractRow(row, visitor) {
-    this.extractCells(row, visitor);
     visitor.newRow();
+    this.extractCells(row, visitor);
   }
 
   couldExtract(domElem) {
