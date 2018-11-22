@@ -8,6 +8,8 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
 
   convertDataFrom(domElem) {   
 
+    //TODO: first process the whole dataset, splitting columns and completing values. Then, extract headers and rows.
+
     var extractedRows = this.extractRows(domElem); //Be careful: indexes are updated here
 
     return {
@@ -26,13 +28,19 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
       .map(header => header.textContent.trim());
 
       //Remove the splittable
-      indexes.forEach(index=> { headers.splice(index.index, 1); });
+      indexes.forEach(index=> { 
+        var removedHeader = headers.splice(index.index, 1); 
+
+        for (var i = 0; i < index.instances; i++) {
+          headers.push(removedHeader + "[" + i + "]");
+        }
+      });
 
       //Complete 
       if(headers.length < expectedHeadersSize){
         var diff = expectedHeadersSize - headers.length;
         for (var i = 0; i < diff; i++) {
-          headers.push("");
+          headers.push("...");
         }
       }
 
