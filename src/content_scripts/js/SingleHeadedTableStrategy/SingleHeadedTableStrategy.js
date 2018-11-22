@@ -61,7 +61,6 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
     });
 
     this.indexes = this.getSplittableCellsIndex(processedRows);
-    console.log(this.indexes);
     var processedRows = this.spliCellsAtIndexes(processedRows, this.indexes);
     
     processedRows = this.rowsWithCellsWithTextualValues(processedRows);
@@ -85,20 +84,24 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
 
     rows.forEach(cells => {  
 
-      indexes.forEach(index=> { 
+        indexes.forEach(index=> { 
 
-        var containerNode = cells[index.index];
+          var containerNode = cells[index.index];
+          for (var i = 0; i < index.instances; i++) {
 
-        for (var i = 0; i < index.instances; i++) {
-          if(containerNode.childNodes[i])
-            cells.push(containerNode.childNodes[i]);
-          else cells.push(undefined);
-        }
+            var td = document.createElement("td");
 
-        cells.splice(index.index, 1);
-      });
+            if(containerNode.childNodes[i])
+              td.appendChild(containerNode.childNodes[i]);
+            //else td.push(undefined);
 
-      rowsWithExpandedCells.push(cells);
+            cells.push(td);
+          }
+
+          cells.splice(index.index, 1);
+        });
+
+        rowsWithExpandedCells.push(cells);
     });
 
     return rowsWithExpandedCells;
@@ -130,8 +133,16 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
       cells.forEach(cell=> { 
 
         //cell.childNodes.forEach(cellNode => { 
-          if(cell)
-            processedCells.push(cell.textContent.trim());
+          if(cell){
+
+            console.log(cell.tagName, cell);
+            if(cell.childNodes[0] && cell.childNodes[0].tagName && cell.childNodes[0].tagName.toUpperCase() == "IMG"){
+              var cellValue = cell.childNodes[0].title || cell.childNodes[0].alt || cell.childNodes[0].name || cell.childNodes[0].tagName;
+              
+              processedCells.push(cellValue);
+            }
+            else processedCells.push(cell.textContent.trim());
+          }
           else processedCells.push(undefined);
         //})
       })
