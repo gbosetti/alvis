@@ -1,8 +1,7 @@
-class ArticleVisitor {
+class ArticleVisitor extends Visitor{
   constructor() {
+    super();
     this.dataHeaders = [];
-    this.dataRows = [];
-    this.index = 0;
   }
 
   addData(elem) {

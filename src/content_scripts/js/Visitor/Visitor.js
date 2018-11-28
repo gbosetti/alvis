@@ -18,8 +18,4 @@ class Visitor {
       this.dataRows[this.index].push(data);
     }
   }
-
-  filter() {
-
-  }
 }
