@@ -2,12 +2,13 @@ class CategorizedTableStrategy extends AbstractStrategy {
   constructor() {
     super();
     this.rowHeader = false;
+    this.headerPosition = null;
   }
 
   convertDataFrom(domElem) {
     return {
       headers: this.extractHeaders(domElem),
-      rows: this.normalizeRows(this.extractCategories(domElem), this.extractData(domElem))
+      rows: this.normalizeRows(this.extractData(domElem))
     };
   }
 
@@ -16,9 +17,16 @@ class CategorizedTableStrategy extends AbstractStrategy {
     if (!headers.length) {
       this.rowHeader = true;
       headers = this.getDataRows(domElem).shift();
+      this.setHeaderPosition(headers,
+        domElem.querySelectorAll("tr"));
       headers = Array.from(headers.querySelectorAll("td"));
     }
     return headers.map(header => header.textContent.trim());
+  }
+
+  setHeaderPosition(header,childs){
+    this.headerPosition = Array.from(childs)
+      .findIndex(child => header.isSameNode(child));
   }
 
   extractCategories(domElem) {
@@ -27,18 +35,28 @@ class CategorizedTableStrategy extends AbstractStrategy {
   }
 
   extractData(domElem) {
-    const rows = Array.from(domElem.querySelectorAll("tr"));
-    this.filterRows(rows);
-    const res = [];
+    const rows = this.filterRows(Array.from(domElem.querySelectorAll("tr")));
+    const res = {
+      categories:[],
+      data:[]
+    };
     rows.forEach(row => {
-      if (row.querySelectorAll("td").length === 1) {res.push(null);}
-      else {res.push(this.extractCells(row));}
+      if (row.querySelectorAll("td").length === 1) {
+        res.data.push(null);
+        res.categories.push(row.querySelector("td").textContent.trim());
+      }else {
+        res.data.push(this.extractCells(row));
+      }
     });
     return res;
   }
 
   filterRows(rowArray) {
-    if (this.rowHeader) {rowArray.shift();}
+    if (this.rowHeader) {
+      console.log(this.headerPosition);
+      rowArray.splice(0,this.headerPosition+1);
+    }
+    return rowArray;
   }
 
   extractCells(rowElem) {
@@ -56,11 +74,13 @@ class CategorizedTableStrategy extends AbstractStrategy {
       .filter(row => row.querySelectorAll("td").length === 1);
   }
 
-  normalizeRows(categoryRows, normalRows) {
+  normalizeRows(rows) {
+    console.log(rows.data);
+    console.log(rows.categories);
     const tempArr = [];
-    categoryRows.forEach(cat =>
+    rows.categories.forEach(cat =>
       tempArr.push({category: cat,
-        data: this.getCategorizedData(normalRows)
+        data: this.getCategorizedData(rows.data)
       })
     );
     return tempArr;
@@ -68,15 +88,28 @@ class CategorizedTableStrategy extends AbstractStrategy {
 
   getCategorizedData(rows) {
     const tempArr = [];
-    console.log(rows);
+    rows.shift();
     while (rows[0]) {
       tempArr.push(rows.shift());
     }
-    rows.shift();
     return tempArr;
   }
 
   couldExtract(domElem) {
-    return Boolean(getCategoryRows(domElem).length);
+    return Boolean(this.getCategoryRows(domElem).length && 
+      this.getDataRows(domElem).length &&
+      this.checkStructure(domElem)
+      );
+  }
+
+  checkStructure(domElem){
+    const rows = this.getCategoryRows(domElem);
+    return rows.every(row => this.siblingsAreExtractable(row));
+  }
+
+  siblingsAreExtractable(row){
+    return Boolean (
+      Array.from(row.children)
+      .filter(child => child.tagName.toLowerCase()==="td").length);
   }
 }
