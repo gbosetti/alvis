@@ -8,6 +8,7 @@
                 "categorical": "Categórico"
             },
             "fields": {
+                "headerName": "Nombre",
                 "type": "Tipo",
                 "missing": "Valores faltantes",
                 "options": {

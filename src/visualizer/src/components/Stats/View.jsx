@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import {
+  Form,
   Header,
   Icon,
+  Input,
   Popup,
   Table,
 } from 'semantic-ui-react'
@@ -9,10 +11,40 @@ import {
 import { isMissingValue } from 'infovis/helpers/data-processor'
 
 class StatsView extends Component {
+  constructor(props) {
+    super(props)
+
+    this.handleChange = this.handleChange.bind(this)
+    this.editButtonClickHandler = this.editButtonClickHandler.bind(this)
+  }
+
+  handleChange(e, {name, value}) {
+    const {
+      onSettingsFormFieldChange,
+    } = this.props
+
+    onSettingsFormFieldChange('dataset', name, value)
+  }
+
+  editButtonClickHandler(header) {
+    const {
+      onSettingsFormFieldChange,
+    } = this.props
+
+    return () => {
+      onSettingsFormFieldChange('dataset', 'headerName', '')
+      onSettingsFormFieldChange('dataset', 'selectedHeader', header)
+    }
+  }
+
   render() {
     const {
       trans,
-      onTransposeButtonClick,
+      settings: {
+        dataset: {
+          fields,
+        }
+      },
       dataset: {
         headers,
         columns,
@@ -20,8 +52,6 @@ class StatsView extends Component {
         types,
       },
     } = this.props
-
-    void onTransposeButtonClick
 
     return (
       <div>
@@ -41,7 +71,7 @@ class StatsView extends Component {
               <Table.HeaderCell>
                 {trans('options.stats.fields.missing')}
               </Table.HeaderCell>
-              <Table.HeaderCell />
+              <Table.HeaderCell textAlign='left' />
             </Table.Row>
           </Table.Header>
 
@@ -60,31 +90,55 @@ class StatsView extends Component {
                 <Table.Cell>
                   {!columns ? null : columns[i].filter(isMissingValue).length}
                 </Table.Cell>
-                <Table.Cell singleLine>
-                  <Popup
-                    size='tiny'
-                    trigger={(
-                      <Icon
-                        color='green'
-                        link
-                        name='pencil'
-                        size='small'
+                <Table.Cell singleLine textAlign='left'>
+                  {fields.selectedHeader === header ? (
+                    <Form size='tiny'>
+                      <Form.Field
+                        error={fields.headerNameHasError}
+                        size='tiny'
+                        width={10}
+                      >
+                        <Input
+                          size='tiny'
+                          name='headerName'
+                          placeholder={trans('options.stats.fields.headerName')}
+                          onChange={this.handleChange}
+                          value={fields.headerName}
+                        />
+                        <span className='error'>
+                          {fields.headerNameErrorMsg}
+                        </span>
+                      </Form.Field>
+                    </Form>
+                  ) : (
+                    <div>
+                      <Popup
+                        size='tiny'
+                        trigger={(
+                          <Icon
+                            color='green'
+                            link
+                            name='pencil'
+                            size='small'
+                            onClick={this.editButtonClickHandler(header)}
+                          />
+                        )}
+                        content={trans('options.stats.fields.options.edit')}
                       />
-                    )}
-                    content={trans('options.stats.fields.options.edit')}
-                  />
-                  <Popup
-                    size='tiny'
-                    trigger={(
-                      <Icon
-                        color='red'
-                        link
-                        name='trash alternate outline'
-                        size='small'
+                      <Popup
+                        size='tiny'
+                        trigger={(
+                          <Icon
+                            color='red'
+                            link
+                            name='trash alternate outline'
+                            size='small'
+                          />
+                        )}
+                        content={trans('options.stats.fields.options.delete')}
                       />
-                    )}
-                    content={trans('options.stats.fields.options.delete')}
-                  />
+                    </div>
+                  )}
                 </Table.Cell>
               </Table.Row>
             ))}

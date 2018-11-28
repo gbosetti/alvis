@@ -16,6 +16,8 @@ import logo from 'infovis-resources/images/infovis-logo.png'
 import config from 'infovis/config'
 
 import dataActions from 'infovis/actions/data-actions'
+import settingsActions from 'infovis/actions/settings-actions'
+
 import ChartsOptions from 'infovis/components/Menu/ChartsOptions'
 import StatsView from 'infovis/components/Stats/View'
 import DatasetView from 'infovis/components/Dataset/View'
@@ -27,7 +29,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      ...dataActions
+      ...dataActions,
+      ...settingsActions,
     }, dispatch),
   }
 }
@@ -97,6 +100,10 @@ class Home extends Component {
   render() {
     const {
       trans,
+      actions: {
+        onSettingsFormFieldChange,
+      },
+      settings,
       data: {
         dataset,
       }
@@ -129,6 +136,8 @@ class Home extends Component {
                   <Tab.Pane attached={false}>
                     <StatsView
                       dataset={dataset}
+                      settings={settings}
+                      onSettingsFormFieldChange={onSettingsFormFieldChange}
                       trans={(name, ...args) => trans(`home:${name}`, ...args)}
                     />
                   </Tab.Pane>
