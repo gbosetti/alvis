@@ -9,7 +9,11 @@
             },
             "fields": {
                 "type": "Tipo",
-                "missing": "Valores faltantes"
+                "missing": "Valores faltantes",
+                "options": {
+                    "edit": "Editar header",
+                    "delete": "Borrar header"
+                }
             }
         },
         "charts": {

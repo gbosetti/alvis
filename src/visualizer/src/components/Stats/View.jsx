@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import {
   Header,
+  Icon,
+  Popup,
   Table,
 } from 'semantic-ui-react'
 
@@ -29,7 +31,7 @@ class StatsView extends Component {
             {trans('options.stats.description', { examples: Array.from(rows || []).length })}
           </Header.Subheader>
         </Header>
-        <Table definition size='small'>
+        <Table definition size='tiny'>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell />
@@ -39,6 +41,7 @@ class StatsView extends Component {
               <Table.HeaderCell>
                 {trans('options.stats.fields.missing')}
               </Table.HeaderCell>
+              <Table.HeaderCell />
             </Table.Row>
           </Table.Header>
 
@@ -56,6 +59,32 @@ class StatsView extends Component {
                 </Table.Cell>
                 <Table.Cell>
                   {!columns ? null : columns[i].filter(isMissingValue).length}
+                </Table.Cell>
+                <Table.Cell singleLine>
+                  <Popup
+                    size='tiny'
+                    trigger={(
+                      <Icon
+                        color='green'
+                        link
+                        name='pencil'
+                        size='small'
+                      />
+                    )}
+                    content={trans('options.stats.fields.options.edit')}
+                  />
+                  <Popup
+                    size='tiny'
+                    trigger={(
+                      <Icon
+                        color='red'
+                        link
+                        name='trash alternate outline'
+                        size='small'
+                      />
+                    )}
+                    content={trans('options.stats.fields.options.delete')}
+                  />
                 </Table.Cell>
               </Table.Row>
             ))}
