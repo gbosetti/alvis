@@ -1,7 +1,16 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { BarChart } from 'react-d3-components'
+import {
+  Bar,
+  BarChart,
+  Brush,
+  CartesianGrid,
+  Legend,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts'
 import {
   Divider,
   Form, 
@@ -54,19 +63,14 @@ class BarChartPage extends Component {
       }
     } = this.props
 
-    let values = Array.from(columns[header] || [])
-      .reduce((values, value) => ({ 
-        ...values,
-        [value]: values[value] ? values[value] + 1 : 1 
+    let data = Array.from(columns[header] || [])
+      .reduce((data, value) => ({ 
+        ...data,
+        [value]: data[value] ? data[value] + 1 : 1 
       }), {})
       
-    values = Object.keys(values)
-      .map(header => ({ x: header, y: values[header] }))
-
-    const data = {
-      label: '',
-      values,
-    }
+    data = Object.keys(data)
+      .map(header => ({ x: header, y: data[header] }))
 
     return (
       <div id='bar-chart-container'>
@@ -80,15 +84,21 @@ class BarChartPage extends Component {
           />
         </Form>
         <Divider hidden />
-        {!data.values.length ? null : (
+        {!data.length ? null : (
           <BarChart
-            data={data}
             width={600}
-            height={400}
-            margin={{top: 10, bottom: 50, left: 50, right: 10}}
-            tooltipHtml={(x, _, y,) => `${x}: ${y}`}
-            colorByLabel={false}
-          />
+            height={300}
+            data={data}
+            margin={{top: 5, right: 30, left: 20, bottom: 5}}
+          >
+            <CartesianGrid strokeDasharray='3 3' />
+            <XAxis dataKey='x' />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey='y' name={headers[header]} fill='#8884d8' />
+            <Brush />
+          </BarChart>
         )}
       </div>
     )
