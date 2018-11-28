@@ -29,7 +29,7 @@
       "background/storage/Storage.js",
       "background/storage/LocalStorage.js",
       "background/StorageManager.js",
-      "background/RelatedTableManager.js",
+      "background/BackgroundManager.js",
       "background/main.js"
     ]
   },

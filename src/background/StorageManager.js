@@ -17,21 +17,30 @@ class StorageManager {
 
   getDataset() {
     return this.storage
-      .get("currentDataset")
-      .catch(this.errorHandler);
+      .get("currentDataset");
   }
 
   setDataset(dataset) {
     return this.storage
       .set({
         currentDataset: dataset
-      })
-      .catch(this.errorHandler);
+      });
   }
 
   removeDataset() {
     return this.storage
-      .remove("currentDataset")
-      .catch(this.errorHandler);
+      .remove("currentDataset");
+  }
+
+  getDatasetViewSettings() {
+    return this.storage
+      .get("currentDatasetViewSettings");
+  }
+
+  setDatasetViewSettings(settings) {
+    return this.storage
+      .set({
+        currentDatasetViewSettings: settings,
+      });
   }
 }

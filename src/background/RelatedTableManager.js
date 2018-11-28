@@ -1,8 +1,14 @@
-class RelatedTableManager {
+class BackgroundManager {
   constructor() {
     this.storageManager = new StorageManager();
     this.highlighted = false;
     this.first = true;
+  }
+
+  errorHandler(err) {
+    if (err) {
+      throw err;
+    }
   }
 
   highlightTableElements(tab) {
@@ -36,10 +42,28 @@ class RelatedTableManager {
   storeCurrentDataset({dataset}) {
     this.storageManager
       .setDataset(dataset)
-      .catch(console.error);
+      .catch(this.errorHandler);
   }
 
   notifyDocumentLoaded(data) {
     return this.storageManager.getDataset();
+  }
+
+  getDatasetViewSettings() {
+    return this.storageManager.getDatasetViewSettings()
+      .then(datasetViewSettings => {
+        if (!datasetViewSettings) {
+          return {
+            amountPerPage: 7,
+          };
+        }
+
+        return datasetViewSettings;
+      })
+      .catch(this.errorHandler);
+  }
+
+  setDatasetViewSettings(settings) {
+    return this.storageManager.setDatasetViewSettings(settings);
   }
 }

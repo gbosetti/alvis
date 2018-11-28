@@ -1,4 +1,4 @@
-const manager = new RelatedTableManager();
+const manager = new BackgroundManager();
 
 browser.browserAction.onClicked.addListener(tab => {
   manager.highlightTableElements(tab);
