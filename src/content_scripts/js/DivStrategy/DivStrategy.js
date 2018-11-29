@@ -1,8 +1,22 @@
 class DivStrategy extends AbstractStrategy {
+  constructor(){
+    super();
+    this.rowHeader = false;
+  }
+
   convertDataFrom(domElem) {
     return {
+      ...(this.checkHeaderExistance(domElem) ? {header:this.extractHeaders(domElem)} : {}),
       rows: this.extractRows(domElem)
     };
+  }
+
+  checkHeaderExistance(domElem){
+    return (this.checkClassHeaders(domElem));
+  }
+
+  checkClassHeaders(childs){
+    return Boolean(childs.getElementsByClassName("th").length);
   }
 
   extractRows(domElem) {
@@ -11,7 +25,12 @@ class DivStrategy extends AbstractStrategy {
       visitor.newRow();
       this.getDataFrom(child, visitor);
     });
+    if (this.rowHeader) visitor.removeHeader();
     return visitor.getRows();
+  }
+
+  extractHeaders(domElem){
+
   }
 
   getDataFrom(rowElem, visitor) {
@@ -22,3 +41,4 @@ class DivStrategy extends AbstractStrategy {
     }
   }
 }
+

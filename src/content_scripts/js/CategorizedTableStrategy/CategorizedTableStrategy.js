@@ -108,8 +108,12 @@ class CategorizedTableStrategy extends AbstractStrategy {
   }
 
   siblingsAreExtractable(row){
-    return Boolean (
-      Array.from(row.children)
-      .filter(child => child.tagName.toLowerCase()==="td").length);
+    let tempArr = [];
+    let tempRow = row.nextSibling;
+    while(tempRow & tempRow.querySelectorAll("td").length > 1){
+      tempArr.push(tempRow);
+      tempRow = tempRow.nextSibling;
+    }
+    return Boolean(tempArr.length);
   }
 }
