@@ -8,8 +8,13 @@
                 "categorical": "Categorical"
             },
             "fields": {
+                "headerName": "Header name",
                 "type": "Type",
-                "missing": "Missing Values"
+                "missing": "Missing Values",
+                "options": {
+                    "edit": "Edit header",
+                    "delete": "Delete header"
+                }
             }
         },
         "charts": {

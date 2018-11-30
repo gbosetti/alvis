@@ -40,6 +40,7 @@ class StatsView extends Component {
   render() {
     const {
       trans,
+      handleSubmit,
       settings: {
         dataset: {
           fields,
@@ -91,7 +92,7 @@ class StatsView extends Component {
                   {!columns ? null : columns[i].filter(isMissingValue).length}
                 </Table.Cell>
                 <Table.Cell singleLine textAlign='left'>
-                  {fields.selectedHeader === header ? (
+                  {fields.selectedHeader === i ? (
                     <Form size='tiny'>
                       <Form.Field
                         error={fields.headerNameHasError}
@@ -99,11 +100,16 @@ class StatsView extends Component {
                         width={10}
                       >
                         <Input
-                          size='tiny'
+                          size='mini'
                           name='headerName'
                           placeholder={trans('options.stats.fields.headerName')}
                           onChange={this.handleChange}
                           value={fields.headerName}
+                          action={{
+                            icon: 'send',
+                            color: 'blue',
+                            onClick: handleSubmit,
+                          }}
                         />
                         <span className='error'>
                           {fields.headerNameErrorMsg}
@@ -120,7 +126,7 @@ class StatsView extends Component {
                             link
                             name='pencil'
                             size='small'
-                            onClick={this.editButtonClickHandler(header)}
+                            onClick={this.editButtonClickHandler(i)}
                           />
                         )}
                         content={trans('options.stats.fields.options.edit')}

@@ -5,6 +5,7 @@ import {
   GET_DATA_FAILURE,
 
   TRANSPOSE_DATA,
+  HEADER_NAME_UPDATE,
 } from 'infovis/constants/data.constants'
 import {
   hydrate,
@@ -16,6 +17,21 @@ import {
   actionSuccess,
   actionFailure
 } from 'infovis/helpers/action-dispatcher'
+
+export function headerNameUpdate(selectedHeader, headerName) {
+  return dispatch => Promise.resolve([])
+    .then(() => {
+      dispatch({
+        type: HEADER_NAME_UPDATE,
+        payload: {
+          selectedHeader,
+          headerName,
+        }
+      })
+      return
+    })
+    .catch(console.err)
+}
 
 export function transposeData() {
   return dispatch => Promise.resolve([])
@@ -47,4 +63,5 @@ export function getData() {
 export default {
   getData,
   transposeData,
+  headerNameUpdate,
 }

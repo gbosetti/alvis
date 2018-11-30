@@ -41,6 +41,7 @@ class Home extends Component {
 
     this.state = {}
 
+    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleReloadButtonClickHandler = this.handleReloadButtonClickHandler.bind(this)
     this.handleTransposeButtonClickHandler = this.handleTransposeButtonClickHandler.bind(this)
   }
@@ -58,6 +59,41 @@ class Home extends Component {
     } = this.props
 
     headers === null && getData()
+  }
+
+  handleSubmit() {
+    const {
+      actions: {
+        headerNameUpdate,
+        onSettingsFormFieldChange,
+      },
+      data: {
+        dataset: {
+          headers,
+        }
+      },
+      settings: {
+        dataset: {
+          fields: {
+            selectedHeader,
+            headerName,
+          }
+        }
+      },
+    } = this.props
+
+    if (headers.includes(headerName)) {
+      return
+    }
+    
+    headerNameUpdate(selectedHeader, headerName)
+      .then(() => {
+        onSettingsFormFieldChange('dataset', 'selectedHeader', null)
+        onSettingsFormFieldChange('dataset', 'headerName', '')
+
+        return null
+      })
+      .catch(console.err)
   }
 
   handleReloadButtonClickHandler(callback) {
@@ -137,6 +173,7 @@ class Home extends Component {
                     <StatsView
                       dataset={dataset}
                       settings={settings}
+                      handleSubmit={this.handleSubmit}
                       onSettingsFormFieldChange={onSettingsFormFieldChange}
                       trans={(name, ...args) => trans(`home:${name}`, ...args)}
                     />
