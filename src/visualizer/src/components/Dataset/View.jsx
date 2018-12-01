@@ -139,7 +139,7 @@ class DatasetView extends Component {
             />
           </Grid.Column>
         </Grid>
-        <Table sortable celled padded size='small'>
+        <Table sortable selectable celled padded size='small'>
           <Table.Header>
             <Table.Row>
               {headers && headers.map((header, i) => (
