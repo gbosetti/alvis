@@ -67,7 +67,7 @@ class StatsView extends Component {
           </Header.Subheader>
         </Header>
         <Container>
-          <Table selectable definition size='tiny'>
+          <Table selectable definition size='small'>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell />
