@@ -2325,7 +2325,7 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-create-react-class@^15.5.3, create-react-class@^15.6.2:
+create-react-class@^15.6.2:
   version "15.6.3"
   resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.6.3.tgz#2d73237fb3f970ae6ebe011a9e66f46dbca80036"
   integrity sha512-M+/3Q6E6DLO6Yx3OwrWjwHBnvfXXYA7W+dFjt/ZDBemHO1DDZhsalX/NUtnTYclN6GfnBDRh4qRHjcDHmlJBJg==
@@ -2702,7 +2702,7 @@ d3-zoom@1:
     d3-selection "1"
     d3-transition "1"
 
-d3@^3.5.3, d3@^3.5.6:
+d3@^3.5.6:
   version "3.5.17"
   resolved "https://registry.yarnpkg.com/d3/-/d3-3.5.17.tgz#bc46748004378b21a360c9fc7cf5231790762fb8"
   integrity sha1-vEZ0gAQ3iyGjYMn8fPUjF5B2L7g=
@@ -5247,11 +5247,6 @@ js-yaml@^3.8.2, js-yaml@^3.9.1:
     argparse "^1.0.7"
     esprima "^4.0.0"
 
-jsbarcode@^3.8.0:
-  version "3.11.0"
-  resolved "https://registry.yarnpkg.com/jsbarcode/-/jsbarcode-3.11.0.tgz#20623e008b101ef45d0cce9c8022cdf49be28547"
-  integrity sha512-/ozCd7wsa+VIHo9sUc03HneVEQrH7cVWfJolUT/WOW1m8mJ2e3iYZje6C9X3LFHdczlesqFHRpxLtbVsNtjyow==
-
 jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
@@ -7155,15 +7150,6 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-barcode@^1.3.4:
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/react-barcode/-/react-barcode-1.3.4.tgz#bb1315c0340726c6d37c1a0d65a4aff0f89989bd"
-  integrity sha512-28/PTqtD5YA2WmVrEi858BswA8uv1x8IZXx/ApnByVjjZjmLDOfo/vgbW/+RggFkNZbmzw2A2QR6ziY0z6HrRA==
-  dependencies:
-    create-react-class "^15.5.3"
-    jsbarcode "^3.8.0"
-    prop-types "^15.5.10"
-
 react-base16-styling@^0.5.1:
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/react-base16-styling/-/react-base16-styling-0.5.3.tgz#3858f24e9c4dd8cbd3f702f3f74d581ca2917269"
@@ -7183,15 +7169,6 @@ react-base16-styling@^0.6.0:
     lodash.curry "^4.0.1"
     lodash.flow "^3.3.0"
     pure-color "^1.2.0"
-
-react-d3-components@^0.9.1:
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/react-d3-components/-/react-d3-components-0.9.1.tgz#a110495da37ff9157a60dc89842257bf2c8b4691"
-  integrity sha512-TfUmlheSGDsa/x0h8wJ8FcR2+0zYy+VIF9vRhOFnRavnjkiQHrDzdmiVYoS+6Kte70cLtkr/Tej9vvggzLaqeQ==
-  dependencies:
-    create-react-class "^15.6.2"
-    d3 "^3.5.3"
-    prop-types "^15.6.0"
 
 react-dock@^0.2.4:
   version "0.2.4"
