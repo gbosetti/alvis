@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { descending } from 'd3'
-import { PieChart } from 'react-d3-components'
+import { PieChart, Pie, Tooltip } from 'recharts'
 import {
   Divider,
   Form,
@@ -55,19 +54,14 @@ class PieChartPage extends Component {
       }
     } = this.props
 
-    let values = Array.from(columns[header] || [])
-      .reduce((values, value) => ({ 
-        ...values, 
-        [value]: values[value] ? values[value] + 1 : 1 
+    let data = Array.from(columns[header] || [])
+      .reduce((data, value) => ({ 
+        ...data, 
+        [value]: data[value] ? data[value] + 1 : 1 
       }), {})
       
-    values = Object.keys(values)
-      .map(header => ({ x: header, y: values[header] }))
-
-    const data = {
-      label: '',
-      values,
-    }
+    data = Object.keys(data)
+      .map(header => ({ name: header, value: data[header] }))
 
     return (
       <div id='pie-chart-container'>
@@ -81,17 +75,21 @@ class PieChartPage extends Component {
           />
         </Form>
         <Divider hidden />
-        {!data.values.length ? null : (
-          <PieChart
-            data={data}
-            width={600}
-            height={400}
-            margin={{top: 10, bottom: 10, left: 100, right: 100}}
-            tooltipOffset={{top: 175, left: 200}}
-            tooltipHtml={(_, y) => `${y}`}
-            tooltipMode='fixed'
-            sort={descending}
-          />
+        {!data.length ? null : (
+          <PieChart 
+            width={1200} 
+            height={1200}
+          >
+            <Pie
+              data={data}
+              cx={200}
+              cy={150}
+              innerRadius={70}
+              outerRadius={110}
+              fill="#82ca9d"
+            />
+            <Tooltip />
+          </PieChart>
         )}
       </div>
     )
