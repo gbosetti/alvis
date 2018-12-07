@@ -20,7 +20,7 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-class PieChartPage extends Component {
+class LineChartPage extends Component {
   constructor(props) {
     super(props)
 
@@ -99,7 +99,7 @@ class PieChartPage extends Component {
             <CartesianGrid strokeDasharray='3 3' />
             <Tooltip />
             <Legend />
-            <Line type='monotone' name={headers[yAxis]} dataKey='y' stroke='#8884d8' />
+            <Line name={headers[yAxis]} dataKey='y' stroke='#8884d8' />
             <Brush />
           </LineChart>
         )}
@@ -108,4 +108,4 @@ class PieChartPage extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PieChartPage)
+export default connect(mapStateToProps, mapDispatchToProps)(LineChartPage)

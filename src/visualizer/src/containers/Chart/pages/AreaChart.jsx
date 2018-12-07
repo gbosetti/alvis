@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import _ from 'underscore'
-import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
+import { Brush, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
 import {
   Divider,
   Form,
@@ -20,7 +20,7 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-class ScatterChartPage extends Component {
+class AreaChartPage extends Component {
   constructor(props) {
     super(props)
 
@@ -65,7 +65,7 @@ class ScatterChartPage extends Component {
       })) : []
 
     return (
-      <div id='scatter-chart-container'>
+      <div id='line-chart-container'>
         <Form>
           <Form.Group>
             <Form.Select
@@ -88,22 +88,24 @@ class ScatterChartPage extends Component {
         </Form>
         <Divider hidden />
         {!data.length ? null : (
-          <ScatterChart
+          <AreaChart
             width={600}
             height={300}
+            data={_.sortBy(data, ['y'])}
             margin={{top: 5, right: 30, left: 20, bottom: 5}}
           >
             <XAxis dataKey='x' type={types[xAxis] === 'numeric' ? 'number' : undefined} />
             <YAxis dataKey='y' type={types[yAxis] === 'numeric' ? 'number' : undefined} />
-            <CartesianGrid />
-            <Tooltip cursor={{strokeDasharray: '3 3'}} />
+            <CartesianGrid strokeDasharray='3 3' />
+            <Tooltip />
             <Legend />
-            <Scatter name={`${headers[xAxis]} vs ${headers[yAxis]}`} data={_.sortBy(data, ['y'])} fill='#8884d8' />
-          </ScatterChart>
+            <Area name={headers[yAxis]} dataKey='y' stroke='#8884d8' />
+            <Brush />
+          </AreaChart>
         )}
       </div>
     )
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ScatterChartPage)
+export default connect(mapStateToProps, mapDispatchToProps)(AreaChartPage)

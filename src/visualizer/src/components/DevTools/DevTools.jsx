@@ -6,7 +6,15 @@ import DockMonitor from 'redux-devtools-dock-monitor'
 import LogMonitor from 'redux-devtools-log-monitor'
 import MultipleMonitors from 'redux-devtools-multiple-monitors'
 
-const actions = {}
+import globalActions from 'infovis/actions/global-actions'
+import dataActions from 'infovis/actions/data-actions'
+import settingsActions from 'infovis/actions/settings-actions'
+
+const actions = {
+  ...globalActions,
+  ...dataActions,
+  ...settingsActions,
+}
 
 export default createDevTools(
   <DockMonitor

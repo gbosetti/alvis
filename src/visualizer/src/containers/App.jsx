@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
+import reactMixin from 'react-mixin'
+import TimerMixin from 'react-timer-mixin'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import DevTools from 'infovis/components/DevTools'
+
+import settingsActions from 'infovis/actions/settings-actions'
 
 function mapStateToProps(state) {
   return state
@@ -11,7 +15,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({}, dispatch),
+    actions: bindActionCreators({ ...settingsActions }, dispatch),
   }
 }
 
@@ -31,5 +35,7 @@ class App extends Component {
 App.propTypes = {
   children: PropTypes.node.isRequired,
 }
+
+reactMixin(App.prototype, TimerMixin)
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

@@ -15,7 +15,7 @@ import { hydrate, sanitize } from 'infovis/helpers/data-processor'
  */
 export default function dataReducer(state = initialState, action) {
   switch (true) {
-    case RegExp('.*data.*-request').test(action.type):
+    case RegExp('.*data-.*request').test(action.type):
     {
       return {
         ...state,
@@ -24,7 +24,7 @@ export default function dataReducer(state = initialState, action) {
       }
     }
 
-    case RegExp('.*data.*-success').test(action.type):
+    case RegExp('.*data-.*success').test(action.type):
     {
       const { name, data } = action.payload
 
@@ -36,7 +36,7 @@ export default function dataReducer(state = initialState, action) {
       }
     }
 
-    case RegExp('.*data.*-failure').test(action.type):
+    case RegExp('.*data-.*failure').test(action.type):
     {
       return {
         ...state,

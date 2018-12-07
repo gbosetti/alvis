@@ -18,7 +18,7 @@ export default function settingsReducer(state = initialState, action) {
   var nextSettingsState
 
   switch (true) {
-    case RegExp('.*settings.*-request').test(action.type):
+    case RegExp('.*settings-.*request').test(action.type):
     {
       return {
         ...state,
@@ -27,7 +27,7 @@ export default function settingsReducer(state = initialState, action) {
       }
     }
   
-    case RegExp('.*settings.*-success').test(action.type):
+    case RegExp('.*settings-.*success').test(action.type):
     {
       const { name, data } = action.payload
   
@@ -48,7 +48,7 @@ export default function settingsReducer(state = initialState, action) {
       }
     }
   
-    case RegExp('.*settings.*-failure').test(action.type):
+    case RegExp('.*settings-.*failure').test(action.type):
     {
       return {
         ...state,

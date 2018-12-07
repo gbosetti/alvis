@@ -55,8 +55,11 @@ class Home extends Component {
       },
       actions: {
         getData,
+        getDatasetViewSettings,
       }
     } = this.props
+
+    getDatasetViewSettings()
 
     headers === null && getData()
   }

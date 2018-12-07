@@ -33,6 +33,9 @@
             },
             "multiline": {
                 "text": "Gráfico Multilinea"
+            },
+            "area": {
+                "text": "Gráfico de Area"
             }
         },
         "advancedCharts": {

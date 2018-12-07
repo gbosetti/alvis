@@ -33,6 +33,9 @@
             },
             "multiline": {
                 "text": "Multiline Chart"
+            },
+            "area": {
+                "text": "Area Chart"
             }
         },
         "advancedCharts": {
