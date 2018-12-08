@@ -15,6 +15,9 @@
             },
             "multiline": {
                 "title": "Multiline Chart"
+            },
+            "area": {
+                "title": "Area Chart"
             }
         }
     }

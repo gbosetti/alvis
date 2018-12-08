@@ -15,6 +15,9 @@
             },
             "multiline": {
                 "title": "Gráfico Multilinea"
+            },
+            "area": {
+                "title": "Gráfico de Area"
             }
         }
     }
