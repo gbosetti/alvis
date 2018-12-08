@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom'
 import _ from 'underscore'
 import {
   Button,
+  Container,
+  Divider,
   Grid,
   Header,
   Icon,
+  Pagination,
   Popup,
   Table,
 } from 'semantic-ui-react'
@@ -24,6 +27,8 @@ class DatasetView extends Component {
       rows,
       column: null,
       direction: null,
+
+      page: 0,
     }
 
     this.handleSort = this.handleSort.bind(this)
@@ -66,7 +71,7 @@ class DatasetView extends Component {
   }
 
   render() {
-    const { column, rows, direction } = this.state
+    const { column, rows, direction, page } = this.state
 
     const {
       trans,
@@ -75,7 +80,17 @@ class DatasetView extends Component {
       dataset: {
         headers,
       },
+      settings: {
+        dataset: {
+          current: {
+            amountPerPage,
+          }
+        }
+      }
     } = this.props
+
+    const from = page * amountPerPage
+    const to = from + amountPerPage
 
     return (
       <div>
@@ -155,7 +170,7 @@ class DatasetView extends Component {
           </Table.Header>
 
           <Table.Body>
-            {rows && rows.map((row, i) => (
+            {rows && rows.slice(from, to).map((row, i) => (
               <Table.Row key={`row-${i+1}`}>
                 {row.map((value, i) => (
                   <Table.Cell key={`row-value-${i+1}`}>
@@ -166,6 +181,18 @@ class DatasetView extends Component {
             ))}
           </Table.Body>          
         </Table>
+        <Divider hidden />
+        <Container textAlign='center'>
+          <Pagination
+            defaultActivePage={page + 1}
+            totalPages={!amountPerPage ? 0 : Math.ceil(rows.length / amountPerPage)}
+            onPageChange={(e, { activePage }) => {
+              this.setState(() => ({
+                page: activePage - 1,
+              }))
+            }}
+          />
+        </Container>
       </div>
     )
   }

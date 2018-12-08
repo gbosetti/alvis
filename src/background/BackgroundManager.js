@@ -51,15 +51,9 @@ class BackgroundManager {
 
   getDatasetViewSettings() {
     return this.storageManager.getDatasetViewSettings()
-      .then(datasetViewSettings => {
-        if (!datasetViewSettings) {
-          return {
-            amountPerPage: 7,
-          };
-        }
-
-        return datasetViewSettings;
-      })
+      .then(({amountPerPage}) => ({
+        amountPerPage: amountPerPage || 7,
+      }))
       .catch(this.errorHandler);
   }
 

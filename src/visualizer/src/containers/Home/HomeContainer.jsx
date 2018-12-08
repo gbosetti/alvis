@@ -224,6 +224,7 @@ class Home extends Component {
                   <Tab.Pane attached={false}>
                     <DatasetView
                       dataset={dataset}
+                      settings={settings}
                       onTransposeButtonClickHandler={this.handleTransposeButtonClickHandler}
                       onReloadButtonClickHandler={this.handleReloadButtonClickHandler}
                       trans={(name, ...args) => trans(`home:${name}`, ...args)}
