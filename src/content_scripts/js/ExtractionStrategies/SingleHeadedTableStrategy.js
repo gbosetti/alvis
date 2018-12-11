@@ -11,10 +11,10 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
     const columnsWithDatatype = this.extractColumnsDatatype(extractedColumns);
 
     return {
-      "headers": this.extractHeaders(domElem, extractedRows[0].length, this.indexes), 
-      "rows": extractedRows,
-      "columns": extractedColumns,
-      "columnsWithDatatype": columnsWithDatatype
+      headers: this.extractHeaders(domElem, extractedRows[0].length, this.indexes), 
+      rows: extractedRows,
+      columns: extractedColumns,
+      columnsWithVartype: columnsWithDatatype
     };
   }
 
@@ -66,20 +66,17 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
     return processedRows; // remove header
   }
 
-  extractColumnsValuesFrom(jsonBasedRows){
-
+  extractColumnsValuesFrom(jsonBasedRows) {
     return jsonBasedRows[0].map((col, i) => jsonBasedRows.map(row => row[i]));
   }
 
-  extractColumnsDatatype(jsonBasedCols){
-
-    var labeledCols = jsonBasedCols.map(row => {
-      var typedRow = {};
+  extractColumnsDatatype(jsonBasedCols) {
+    return jsonBasedCols.map(row => {
+      const typedRow = {};
       typedRow.value = row;
-      typedRow.type = (row.some(isNaN))? "categorical": "numerical";
+      typedRow.type = (row.some(isNaN)) ? "categorical" : "numerical";
       return typedRow;
     });
-    return labeledCols;
   }
 
   removeDuplicatedIndexes(indexes) {
