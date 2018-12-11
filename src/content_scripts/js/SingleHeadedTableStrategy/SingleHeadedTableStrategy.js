@@ -145,8 +145,10 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
       .map(cell => cell.textContent.trim()); // to JSON
   }
 
-  couldExtract(domElem) {
-    return this.checkHeadAndBody(domElem) || this.checkOnlyBody(domElem);
+  canExtract(domElem) {
+    const tag = domElem.tagName.toLowerCase();
+    return (tag === "table");
+    // return this.checkHeadAndBody(domElem) || this.checkOnlyBody(domElem);
   }
 
   checkHeadAndBody(domElem) {

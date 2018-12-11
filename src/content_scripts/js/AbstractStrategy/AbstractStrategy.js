@@ -29,6 +29,6 @@ class AbstractStrategy {
   }
 
   canExtract(domElem) {
-    return this.couldExtract(domElem);
+    throw new Error("You have to implement the method!");
   }
 }
