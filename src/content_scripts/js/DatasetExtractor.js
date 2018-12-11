@@ -1,17 +1,26 @@
-class TableManager {
+class DatasetExtractor {
   constructor() {
     this.hiddenClass = "infovis-blurred";
     this.highlightedClass = "infovis-highlight";
-    this.cluster = new StrategyCluster();
     this.extractor = null;
+    this.strategies = [new SingleHeadedTableStrategy()];
   }
 
-  createCluster() {
-    this.cluster = new StrategyCluster();
+  isSupportedElement(domElement) {
+    const isSupported = this.strategies.find(extractor => extractor.canExtract(domElement));
+    return isSupported || false;
+  }
+
+  rightStrategy(domElement) {
+    const strategy = this.strategies.filter(strat => strat.canExtract(domElement));
+    if (!strategy.length) {
+      return "No strategy defined for this element.";
+    }
+    return strategy[0];
   }
 
   addStyleClasses(domElement) {
-    if (this.cluster.isSupportedElement(domElement)) {
+    if (this.isSupportedElement(domElement)) {
       this.enableTableExtraction(domElement);
       return;
     }
@@ -83,12 +92,11 @@ class TableManager {
   }
 
   defineStrategy(domElement) {
-    this.extractor = this.cluster.rightStrategy(domElement);
+    this.extractor = this.rightStrategy(domElement);
   }
 
   initializeManager() {
     this.createContainer();
-    this.createCluster();
   }
 
   createContainer() {

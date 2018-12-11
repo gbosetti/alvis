@@ -42,6 +42,7 @@ class StatsView extends Component {
   }
 
   render() {
+  console.log(columns, rows);
     const {
       trans,
       handleSubmit,
