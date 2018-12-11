@@ -27,6 +27,8 @@ class ScatterChartPage extends Component {
     this.state = {
       xAxis: null,
       yAxis: null,
+      line: false,
+      fitting: false,
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -37,6 +39,14 @@ class ScatterChartPage extends Component {
   }
 
   handleChange(e, {name, value}) {
+    if (['line', 'fitting'].includes(name)) {
+      const {
+        [name]: fieldValue
+      } = this.state
+
+      value = !fieldValue
+    }
+
     this.setState(() => ({
       [name]: value,
     }))
@@ -46,9 +56,12 @@ class ScatterChartPage extends Component {
     const {
       xAxis,
       yAxis,
+      line,
+      fitting,
     } = this.state
 
     const {
+      trans,
       data: {
         dataset: {
           headers,
@@ -70,19 +83,34 @@ class ScatterChartPage extends Component {
           <Form.Group>
             <Form.Select
               width={6}
-              label='X Axis'
+              label={trans('charts.fields.label.xAxis')}
               name='xAxis'
               options={getEnumOptions(headers)}
-              placeholder='X Axis'
+              placeholder={trans('charts.fields.label.xAxis')}
               onChange={this.handleChange}
             />
             <Form.Select
               width={6}
-              label='Y Axis'
+              label={trans('charts.fields.label.yAxis')}
               name='yAxis'
               options={getEnumOptions(headers)}
-              placeholder='Y Axis'
+              placeholder={trans('charts.fields.label.yAxis')}
               onChange={this.handleChange}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Checkbox
+              name='line'
+              value={line}
+              onChange={this.handleChange}
+            />
+            <Form.Checkbox
+              name='fitting'
+              slider
+              label={trans('charts.fields.label.trendline')}
+              disabled={!line}
+              value={fitting}
+              onChange={!line ? undefined : this.handleChange}
             />
           </Form.Group>
         </Form>
@@ -101,7 +129,8 @@ class ScatterChartPage extends Component {
             <Scatter
               name={`${headers[xAxis]} vs ${headers[yAxis]}`}
               data={_.sortBy(data, ['x'])}
-              line
+              line={line}
+              lineType={fitting ? 'fitting' : undefined}
               fill='#8884d8'
             />
           </ScatterChart>

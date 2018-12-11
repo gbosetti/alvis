@@ -49,6 +49,7 @@ class AreaChartPage extends Component {
     } = this.state
 
     const {
+      trans,
       data: {
         dataset: {
           headers,
@@ -70,18 +71,18 @@ class AreaChartPage extends Component {
           <Form.Group>
             <Form.Select
               width={6}
-              label='X Axis'
+              label={trans('charts.fields.label.xAxis')}
               name='xAxis'
               options={getEnumOptions(headers)}
-              placeholder='X Axis'
+              placeholder={trans('charts.fields.label.xAxis')}
               onChange={this.handleChange}
             />
             <Form.Select
               width={6}
-              label='Y Axis'
+              label={trans('charts.fields.label.yAxis')}
               name='yAxis'
               options={getEnumOptions(headers)}
-              placeholder='Y Axis'
+              placeholder={trans('charts.fields.label.yAxis')}
               onChange={this.handleChange}
             />
           </Form.Group>

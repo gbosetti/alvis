@@ -7,7 +7,7 @@ export function hydrate(dataset) {
     data = Array.from(data || [])
       .filter(val => val !== undefined)
 
-    if (data.find(val => isNaN(val))) {
+    if (data.find(isNaN)) {
       return 'categorical'
     }
 

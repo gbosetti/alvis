@@ -46,6 +46,7 @@ class PieChartPage extends Component {
     } = this.state
 
     const {
+      trans,
       data: {
         dataset: {
           headers,
@@ -68,9 +69,9 @@ class PieChartPage extends Component {
         <Form>
           <Form.Select
             width={6}
-            label='Header'
+            label={trans('charts.fields.label.header')}
             options={getEnumOptions(headers)}
-            placeholder='Header'
+            placeholder={trans('charts.fields.label.header')}
             onChange={this.handleChange}
           />
         </Form>
