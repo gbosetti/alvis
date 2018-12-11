@@ -1,20 +1,21 @@
 class SingleHeadedTableStrategy extends AbstractStrategy { 
-  constructor() {
-    super();
-    this.indexes = 0;
-  }
-
   convertDataFrom(domElem) {  
     // TODO: first process the whole dataset, splitting columns and completing values. Then, extract headers and rows.
-    const extractedRows = this.extractRows(domElem); // Be careful: indexes are updated here
-    const extractedColumns = this.extractColumnsValuesFrom(extractedRows);
-    const columnsWithDatatype = this.extractColumnsDatatype(extractedColumns);
+    let extractedRows = this.extractRows(domElem); 
+    const indexes = this.getSplittableCellsIndex(extractedRows);
+
+    extractedRows = this.spliCellsAtIndexes(extractedRows, indexes);
+    extractedRows = this.rowsWithCellsWithTextualValues(extractedRows);
+
+    const extractedHeaders = this.extractHeaders(domElem, extractedRows[0].length, indexes);
+    // const extractedColumns = this.extractColumnsValuesFrom(extractedRows);
+    // const columnsWithDatatype = this.extractColumnsDatatype(extractedColumns);
 
     return {
-      headers: this.extractHeaders(domElem, extractedRows[0].length, this.indexes), 
-      rows: extractedRows,
-      columns: extractedColumns,
-      columnsWithVartype: columnsWithDatatype
+      headers: extractedHeaders, 
+      rows: extractedRows // ,
+      // columns: extractedColumns,
+      // columnsWithVartype: columnsWithDatatype
     };
   }
 
@@ -49,23 +50,21 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
   /**
    * Extract rows from DOM Element. Map rows to JSON
    */
-  extractRows(domElem) {
-    const rawTableRows = Array.from(domElem.querySelectorAll("tr")).slice(this.numberOfHeaderRows());
-    let processedRows = [];
+  extractRows(domTable) {
+    const tbody = domTable.querySelector("tbody");
+    const processedRows = [];
 
-    rawTableRows.forEach(row => {  
-      const cells = Array.from(row.cells);
-      processedRows.push(cells);
-    });
+    if (tbody) {
+      Array.from(tbody.children).forEach(row => {  
+        const cells = Array.from(row.cells);
+        processedRows.push(cells);
+      });
+    }
 
-    this.indexes = this.getSplittableCellsIndex(processedRows);
-    processedRows = this.spliCellsAtIndexes(processedRows, this.indexes);
-    
-    processedRows = this.rowsWithCellsWithTextualValues(processedRows);
-
-    return processedRows; // remove header
+    return processedRows; 
   }
 
+  /*  
   extractColumnsValuesFrom(jsonBasedRows) {
     return jsonBasedRows[0].map((col, i) => jsonBasedRows.map(row => row[i]));
   }
@@ -78,6 +77,7 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
       return typedRow;
     });
   }
+  */
 
   removeDuplicatedIndexes(indexes) {
     return indexes.filter((elem, index, self) =>
@@ -154,7 +154,7 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
     return processedRows;
   }
 
-  numberOfHeaderRows() {
+  numberOfHeaderRows(domTable) {
     return 1; // TODO: complete
   }
 
