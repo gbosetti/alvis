@@ -7,9 +7,14 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
   convertDataFrom(domElem) {  
     // TODO: first process the whole dataset, splitting columns and completing values. Then, extract headers and rows.
     const extractedRows = this.extractRows(domElem); // Be careful: indexes are updated here
+    const extractedColumns = this.extractColumnsValuesFrom(extractedRows);
+    const columnsWithDatatype = this.extractColumnsDatatype(extractedColumns);
+
     return {
-      headers: this.extractHeaders(domElem, extractedRows[0].length, this.indexes), 
-      rows: extractedRows
+      "headers": this.extractHeaders(domElem, extractedRows[0].length, this.indexes), 
+      "rows": extractedRows,
+      "columns": extractedColumns,
+      "columnsWithDatatype": columnsWithDatatype
     };
   }
 
@@ -59,6 +64,22 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
     processedRows = this.rowsWithCellsWithTextualValues(processedRows);
 
     return processedRows; // remove header
+  }
+
+  extractColumnsValuesFrom(jsonBasedRows){
+
+    return jsonBasedRows[0].map((col, i) => jsonBasedRows.map(row => row[i]));
+  }
+
+  extractColumnsDatatype(jsonBasedCols){
+
+    var labeledCols = jsonBasedCols.map(row => {
+      var typedRow = {};
+      typedRow.value = row;
+      typedRow.type = (row.some(isNaN))? "categorical": "numerical";
+      return typedRow;
+    });
+    return labeledCols;
   }
 
   removeDuplicatedIndexes(indexes) {
