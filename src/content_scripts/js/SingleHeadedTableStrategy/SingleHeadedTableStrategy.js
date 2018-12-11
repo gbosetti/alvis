@@ -1,19 +1,14 @@
 class SingleHeadedTableStrategy extends AbstractStrategy { 
-
-
-  constructor(){
+  constructor() {
     super();
     this.indexes = 0;
   }
 
-  convertDataFrom(domElem) {   
-
-    //TODO: first process the whole dataset, splitting columns and completing values. Then, extract headers and rows.
-
-    var extractedRows = this.extractRows(domElem); //Be careful: indexes are updated here
-
+  convertDataFrom(domElem) {  
+    // TODO: first process the whole dataset, splitting columns and completing values. Then, extract headers and rows.
+    const extractedRows = this.extractRows(domElem); // Be careful: indexes are updated here
     return {
-      headers: this.extractHeaders(domElem, extractedRows[0].length, this.indexes),
+      headers: this.extractHeaders(domElem, extractedRows[0].length, this.indexes), 
       rows: extractedRows
     };
   }
@@ -22,140 +17,127 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
    * Extract headers from DOM Element. Map headers to JSON
    */
   extractHeaders(domElem, expectedHeadersSize, indexes) {
-
-    //Get all the headers
-    var headers = Array.from(domElem.querySelectorAll("th"))
+    // Get all the headers
+    const headers = Array.from(domElem.querySelectorAll("th"))
       .map(header => header.textContent.trim());
 
-      //Remove the splittable
-      indexes.forEach(index=> { 
-        var removedHeader = headers.splice(index.index, 1); 
+    // Remove the splittable
+    indexes.forEach(index => { 
+      const removedHeader = headers.splice(index.index, 1); 
 
-        for (var i = 0; i < index.instances; i++) {
-          headers.push(removedHeader + "[" + i + "]");
-        }
-      });
-
-      //Complete 
-      if(headers.length < expectedHeadersSize){
-        var diff = expectedHeadersSize - headers.length;
-        for (var i = 0; i < diff; i++) {
-          headers.push("...");
-        }
+      for (let i = 0; i < index.instances; i++) {
+        headers.push(`${removedHeader} [ ${i} ]`);
       }
+    });
 
-      return headers;
+    // Complete 
+    if (headers.length < expectedHeadersSize) {
+      const diff = expectedHeadersSize - headers.length;
+      for (let i = 0; i < diff; i++) {
+        headers.push("...");
+      }
+    }
+
+    return headers;
   }
 
   /**
    * Extract rows from DOM Element. Map rows to JSON
    */
   extractRows(domElem) {
-
-    var rawTableRows = Array.from(domElem.querySelectorAll("tr")).slice(this.numberOfHeaderRows());
-    var processedRows = [];
+    const rawTableRows = Array.from(domElem.querySelectorAll("tr")).slice(this.numberOfHeaderRows());
+    let processedRows = [];
 
     rawTableRows.forEach(row => {  
-      var cells = Array.from(row.cells);
+      const cells = Array.from(row.cells);
       processedRows.push(cells);
     });
 
     this.indexes = this.getSplittableCellsIndex(processedRows);
-    var processedRows = this.spliCellsAtIndexes(processedRows, this.indexes);
+    processedRows = this.spliCellsAtIndexes(processedRows, this.indexes);
     
     processedRows = this.rowsWithCellsWithTextualValues(processedRows);
-
 
     return processedRows; // remove header
   }
 
-  removeDuplicatedIndexes(indexes){
-
+  removeDuplicatedIndexes(indexes) {
     return indexes.filter((elem, index, self) =>
-      index === self.findIndex((t) => (
-        t.index === elem.index && t.instances === elem.instances
-      ))
-    )
+      index === self.findIndex(t => (t.index === elem.index && t.instances === elem.instances))
+    );
   }
 
-  spliCellsAtIndexes(rows, indexes){
-
-    var rowsWithExpandedCells = [];
+  spliCellsAtIndexes(rows, indexes) {
+    const rowsWithExpandedCells = [];
 
     rows.forEach(cells => {  
+      indexes.forEach(index => { 
+        const containerNode = cells[index.index];
+        for (let i = 0; i < index.instances; i++) {
+          const td = document.createElement("td");
 
-        indexes.forEach(index=> { 
-
-          var containerNode = cells[index.index];
-          for (var i = 0; i < index.instances; i++) {
-
-            var td = document.createElement("td");
-
-            if(containerNode.childNodes[i])
-              td.appendChild(containerNode.childNodes[i]);
-            //else td.push(undefined);
-
-            cells.push(td);
+          if (containerNode.childNodes[i]) {
+            td.appendChild(containerNode.childNodes[i]);
           }
 
-          cells.splice(index.index, 1);
-        });
+          cells.push(td);
+        }
 
-        rowsWithExpandedCells.push(cells);
+        cells.splice(index.index, 1);
+      });
+
+      rowsWithExpandedCells.push(cells);
     });
 
     return rowsWithExpandedCells;
   }
 
-  getSplittableCellsIndex(rows){
-
-    var indexes = [];
+  getSplittableCellsIndex(rows) {
+    const indexes = [];
 
     rows.forEach(cells => {  
-
-      cells.forEach((cell, index)=> { 
-
-        if(cell.childNodes && cell.childNodes.length>1)
-          indexes.push({"index": index, "instances": cell.childNodes.length})
-      })
+      cells.forEach((cell, index) => { 
+        if (cell.childNodes && cell.childNodes.length > 1) {
+          const idx = {};
+          idx.index = index;
+          idx.instances = cell.childNodes.length;
+          indexes.push(idx);
+        }
+      });
     });
 
     return this.removeDuplicatedIndexes(indexes);
   }
 
-  rowsWithCellsWithTextualValues(rows){
-
-    var processedRows = [];
+  rowsWithCellsWithTextualValues(rows) {
+    const processedRows = [];
 
     rows.forEach(cells => {  
+      const processedCells = [];
+      cells.forEach(cell => { 
+        if (cell) {
+          if (cell.childNodes[0] && cell.childNodes[0].tagName && cell.childNodes[0].tagName.toUpperCase() === "IMG") {
+            const cellValue = cell.childNodes[0].title || cell.childNodes[0].alt || cell.childNodes[0].name || cell.childNodes[0].tagName;
 
-      var processedCells = [];
-      cells.forEach(cell=> { 
-
-        //cell.childNodes.forEach(cellNode => { 
-          if(cell){
-
-            console.log(cell.tagName, cell);
-            if(cell.childNodes[0] && cell.childNodes[0].tagName && cell.childNodes[0].tagName.toUpperCase() == "IMG"){
-              var cellValue = cell.childNodes[0].title || cell.childNodes[0].alt || cell.childNodes[0].name || cell.childNodes[0].tagName;
-              
-              processedCells.push(cellValue);
-            }
-            else processedCells.push(cell.textContent.trim());
+            processedCells.push(cellValue);
           }
-          else processedCells.push(undefined);
-        //})
-      })
+          else { 
+            processedCells.push(cell.textContent.trim()); 
+          }
+        }
+        else { 
+          processedCells.push(undefined); 
+        }
+      });
 
       processedRows.push(processedCells);
-
     });
 
     return processedRows;
   }
 
   numberOfHeaderRows() {
-    return 1; //TODO: complete
+    return 1; // TODO: complete
   }
 
   extractCells(rowElem) {
@@ -163,8 +145,10 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
       .map(cell => cell.textContent.trim()); // to JSON
   }
 
-  couldExtract(domElem) {
-    return this.checkHeadAndBody(domElem) || this.checkOnlyBody(domElem);
+  canExtract(domElem) {
+    const tag = domElem.tagName.toLowerCase();
+    return (tag === "table");
+    // return this.checkHeadAndBody(domElem) || this.checkOnlyBody(domElem);
   }
 
   checkHeadAndBody(domElem) {
@@ -206,12 +190,10 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
   setString(ar) {
     let str;
     ar.forEach(s => (str += `${s} | `));
-    console.log(str);
     return str;
   }
 
   exportData(manager, data) {
-    console.dir(data);
     const heads = document.createElement("span");
     let str = this.setString(data.headers);
     heads.appendChild(document.createTextNode((`Headers: ${str}`)));
