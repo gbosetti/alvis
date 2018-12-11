@@ -94,7 +94,7 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
         for (let i = 0; i < index.instances; i++) {
           const td = document.createElement("td");
 
-          if (containerNode.childNodes[i]) {
+          if (containerNode && containerNode.childNodes[i]) {
             td.appendChild(containerNode.childNodes[i]);
           }
 
