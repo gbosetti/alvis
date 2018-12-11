@@ -68,7 +68,6 @@ class TableManager {
     container.style.height = height;
     container.style.width = width;
     container.style.padding = "0px";
-    container.style.background = "orange";
 
     container.addEventListener("click", evt => {
       container.remove();
