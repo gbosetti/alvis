@@ -91,15 +91,22 @@ class LineChartPage extends Component {
           <LineChart
             width={600}
             height={300}
-            data={_.sortBy(data, ['y'])}
+            data={_.sortBy(data, ['x'])}
             margin={{top: 5, right: 30, left: 20, bottom: 5}}
           >
-            <XAxis dataKey='x' type={types[xAxis] === 'numeric' ? 'number' : undefined} />
-            <YAxis dataKey='y' type={types[yAxis] === 'numeric' ? 'number' : undefined} />
+            <XAxis dataKey='x' xAxisId='xAxis' type={types[xAxis] === 'numeric' ? 'number' : undefined} />
+            <YAxis yAxisId='yAxis' type={types[yAxis] === 'numeric' ? 'number' : undefined} />
             <CartesianGrid strokeDasharray='3 3' />
             <Tooltip />
             <Legend />
-            <Line name={headers[yAxis]} dataKey='y' stroke='#8884d8' />
+            <Line
+              types='monotone'
+              name={headers[yAxis]}
+              dataKey='y'
+              xAxisId='xAxis'
+              yAxisId='yAxis'
+              stroke='#8884d8'
+            />
             <Brush />
           </LineChart>
         )}

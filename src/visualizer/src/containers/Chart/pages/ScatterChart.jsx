@@ -98,7 +98,12 @@ class ScatterChartPage extends Component {
             <CartesianGrid />
             <Tooltip cursor={{strokeDasharray: '3 3'}} />
             <Legend />
-            <Scatter name={`${headers[xAxis]} vs ${headers[yAxis]}`} data={_.sortBy(data, ['y'])} fill='#8884d8' />
+            <Scatter
+              name={`${headers[xAxis]} vs ${headers[yAxis]}`}
+              data={_.sortBy(data, ['x'])}
+              line
+              fill='#8884d8'
+            />
           </ScatterChart>
         )}
       </div>
