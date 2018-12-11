@@ -10,8 +10,6 @@ class StrategyCluster {
   initializeStrategies() {
     const arr = [];
     arr.push(new SingleHeadedTableStrategy());
-    arr.push(new NoHeaderListStrategy());
-    arr.push(new ArticleStrategy());
     return arr;
   }
 
