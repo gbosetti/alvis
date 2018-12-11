@@ -148,6 +148,8 @@ class Home extends Component {
       }
     } = this.props
 
+    void ReactJson
+
     return (
       <div style={{ height: '100%' }}>
         <Container fluid id='home-container'>
@@ -185,6 +187,26 @@ class Home extends Component {
               },
               {
                 menuItem: {
+                  key: 'dataset',
+                  content: trans('home:options.dataset.title'),
+                  icon: () => (
+                    <Icon size='large' color='blue' name='table' />
+                  ),
+                },
+                render: () => (
+                  <Tab.Pane attached={false}>
+                    <DatasetView
+                      dataset={dataset}
+                      settings={settings}
+                      onTransposeButtonClickHandler={this.handleTransposeButtonClickHandler}
+                      onReloadButtonClickHandler={this.handleReloadButtonClickHandler}
+                      trans={(name, ...args) => trans(`home:${name}`, ...args)}
+                    />
+                  </Tab.Pane>
+                )
+              },
+              {
+                menuItem: {
                   key: 'charts',
                   content: trans('home:options.charts.title'),
                   icon: () => (
@@ -212,27 +234,7 @@ class Home extends Component {
                   <Tab.Pane attached={false} />
                 )
               },
-              {
-                menuItem: {
-                  key: 'dataset',
-                  content: trans('home:options.dataset.title'),
-                  icon: () => (
-                    <Icon size='large' color='blue' name='table' />
-                  ),
-                },
-                render: () => (
-                  <Tab.Pane attached={false}>
-                    <DatasetView
-                      dataset={dataset}
-                      settings={settings}
-                      onTransposeButtonClickHandler={this.handleTransposeButtonClickHandler}
-                      onReloadButtonClickHandler={this.handleReloadButtonClickHandler}
-                      trans={(name, ...args) => trans(`home:${name}`, ...args)}
-                    />
-                  </Tab.Pane>
-                )
-              },
-              {
+              process.env.NODE_ENV === 'development' && {
                 menuItem: {
                   key: 'json',
                   content: trans('home:options.json.title'),

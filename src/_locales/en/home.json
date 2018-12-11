@@ -1,7 +1,7 @@
 {
     "options": {
         "stats": {
-            "title": "Statistics",
+            "title": "Dataset summary",
             "description": " Set with {{examples}} examples",
             "types": {
                 "numeric": "Numeric",
