@@ -27,13 +27,25 @@ class MultiLineChartPage extends Component {
     this.state = {
       xAxis: null,
       yAxis: null,
+      colors: null,
     }
 
     this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
+    const {
+      data: {
+        dataset: {
+          headers
+        }
+      }
+    } = this.props
 
+    this.setState(() => ({
+      colors: Array.from(headers || [])
+        .map(() => `#${((1<<24)*Math.random()|0).toString(16)}`)
+    }))
   }
 
   handleChange(e, {name, value}) {
@@ -46,6 +58,7 @@ class MultiLineChartPage extends Component {
     const {
       xAxis,
       yAxis,
+      colors,
     } = this.state
 
     const {
@@ -113,7 +126,7 @@ class MultiLineChartPage extends Component {
                 types='monotone'
                 name={headers[y]}
                 dataKey={`y${y}`}
-                stroke={`#${((1<<24)*Math.random()|0).toString(16)}`}
+                stroke={colors[y]}
               />
             ))}
             <Brush />
