@@ -8,6 +8,7 @@ import BarChartPage from 'infovis/containers/Chart/pages/BarChart'
 import ScatterChartPage from 'infovis/containers/Chart/pages/ScatterChart'
 import SimpleLineChartPage from 'infovis/containers/Chart/pages/SimpleLineChart'
 import AreaChartPage from 'infovis/containers/Chart/pages/AreaChart'
+import MultiLineChartPage from 'infovis/containers/Chart/pages/MultiLineChart'
 
 const AppRoutes = props => {
   return (
@@ -17,6 +18,7 @@ const AppRoutes = props => {
       <PropsRoute path='/chart/basic/scatter' component={ScatterChartPage} {...props} />
       <PropsRoute path='/chart/basic/simple-line' component={SimpleLineChartPage} {...props} />
       <PropsRoute path='/chart/basic/area' component={AreaChartPage} {...props} />
+      <PropsRoute path='/chart/basic/multiline' component={MultiLineChartPage} {...props} />
       <Redirect to='/notFound' />
     </Switch>
   )
