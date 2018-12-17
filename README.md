@@ -27,6 +27,15 @@ $ cd infovis
 $ yarn
 ```
 
+In case the app inside the iframe is not loaded or you want to modify it, also run:
+
+```bash
+$ cd visualizer
+$ npm install --save-dev react-dev-utils webpack-merge eslint-plugin-promise eslint-loader 
+$ yarn
+$ yarn build:dev
+```
+
 ## Installing the extension in Chrome
 
 After performing the steps described above,
