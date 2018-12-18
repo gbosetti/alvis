@@ -12,5 +12,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return null;
   }
 
+  console.log(message);
+
   return manager[message.call](message.args); // in case you need to return a promise
 });

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import _ from 'underscore'
 import {
   Button,
@@ -136,19 +135,6 @@ class DatasetView extends Component {
                       <Icon corner inverted name='sync alternate' />
                     </Icon.Group>
                   )}
-                />
-              )}
-            />
-            <Popup
-              header={trans('options.dataset.options.settings.header')}
-              content={trans('options.dataset.options.settings.content')}
-              trigger={(
-                <Button
-                  as={Link}
-                  to='/settings'
-                  basic
-                  circular
-                  icon='settings'
                 />
               )}
             />

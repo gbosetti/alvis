@@ -4,6 +4,10 @@ import {
   GET_DATASET_SETTINGS_SUCCESS,
   GET_DATASET_SETTINGS_FAILURE,
 
+  SETTINGS_DATASET_UPDATE_REQUEST,
+  SETTINGS_DATASET_UPDATE_SUCCESS,
+  SETTINGS_DATASET_UPDATE_FAILURE,
+
   ON_SETTINGS_FORM_FIELD_CHANGE,
   ON_SETTINGS_FORM_CLEAR,
 } from 'infovis/constants/settings.constants'
@@ -49,8 +53,24 @@ export function getDatasetViewSettings() {
   }
 }
 
+export function setDatasetViewSettings({ amountPerPage }) {
+  return dispatch => {
+    dispatch(actionRequest(SETTINGS_DATASET_UPDATE_REQUEST))
+    return browser.runtime.sendMessage({ call: 'setDatasetViewSettings', args: { amountPerPage } })
+      .then(() => {
+        dispatch(actionSuccess(SETTINGS_DATASET_UPDATE_SUCCESS))
+        dispatch(getDatasetViewSettings())
+        return null
+      })
+      .catch(err => {
+        dispatch(actionFailure(SETTINGS_DATASET_UPDATE_FAILURE, err))
+      })
+  }
+}
+
 export default {
   onSettingsFormClear,
   onSettingsFormFieldChange,
   getDatasetViewSettings,
+  setDatasetViewSettings,
 }
