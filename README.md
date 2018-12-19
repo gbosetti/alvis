@@ -30,8 +30,7 @@ $ yarn
 In case the app inside the iframe is not loaded or you want to modify it, also run:
 
 ```bash
-$ cd visualizer
-$ npm install --save-dev react-dev-utils webpack-merge eslint-plugin-promise eslint-loader 
+$ cd src/visualizer
 $ yarn
 $ yarn build:dev
 ```
@@ -56,4 +55,4 @@ Visit https://en.wikipedia.org/wiki/The_Rolling_Stones_discography
 
 Click on the extension icon (yellow with a black bar). The tables will be  highlighted and a button will be added on their bottom.
 
-Go down in the page to the "charted songs from 2016" section. Click on the "Export button". You can check the logged results in the Javascript console. 
+Go down in the page to the "charted songs from 2016" section. Click on the "Export button". You can check the logged results in the Javascript console.
