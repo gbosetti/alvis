@@ -72,6 +72,7 @@ class DatasetExtractor {
 
     container.id = `infovis-container-${id}`;
     container.src = browser.extension.getURL("visualizer/dist/index.html");
+    
     container.style.margin = "0px";
     container.style.border = "0px";
     container.style.height = height;

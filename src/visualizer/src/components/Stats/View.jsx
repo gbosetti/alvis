@@ -17,6 +17,7 @@ class StatsView extends Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.editButtonClickHandler = this.editButtonClickHandler.bind(this)
+    this.deleteButtonClickHandler = this.deleteButtonClickHandler.bind(this)
   }
 
   handleChange(e, {name, value}) {
@@ -39,6 +40,14 @@ class StatsView extends Component {
       onSettingsFormFieldChange('dataset', 'headerName', headers[header])
       onSettingsFormFieldChange('dataset', 'selectedHeader', header)
     }
+  }
+
+  deleteButtonClickHandler(header) {
+    const {
+      headerDelete,
+    } = this.props
+    
+    return () => headerDelete(header)
   }
 
   render() {
@@ -144,6 +153,7 @@ class StatsView extends Component {
                               link
                               name='trash alternate outline'
                               size='small'
+                              onClick={this.deleteButtonClickHandler(i)}
                             />
                           )}
                           content={trans('options.stats.fields.options.delete')}

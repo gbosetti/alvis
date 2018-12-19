@@ -1,6 +1,7 @@
 import {
   TRANSPOSE_DATA,
   HEADER_NAME_UPDATE,
+  HEADER_DELETE,
 
   SET_STATE,
 } from 'infovis/constants'
@@ -74,6 +75,38 @@ export default function dataReducer(state = initialState, action) {
         dataset: {
           ...dataset,
           headers: updatedHeaders,
+        }
+      }
+    }
+
+    case HEADER_DELETE === action.type:
+    {
+      const { selectedHeader } = action.payload
+      const { 
+        dataset,
+      } = state
+
+      let updatedHeaders = Array.from(dataset.headers || [])
+      let updatedColumns = Array.from(dataset.columns || [])
+      let updatedTypes = Array.from(dataset.types || [])
+
+      updatedHeaders.splice(selectedHeader, 1)
+      updatedColumns.splice(selectedHeader, 1)
+      updatedTypes.splice(selectedHeader, 1)
+
+      let updatedRows = Array.from(dataset.rows || []).map(row => {
+        row.splice(selectedHeader, 1)
+        return row
+      })
+
+      return {
+        ...state,
+        dataset: {
+          ...dataset,
+          headers: updatedHeaders,
+          columns: updatedColumns,
+          rows: updatedRows,
+          types: updatedTypes,
         }
       }
     }

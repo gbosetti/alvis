@@ -140,33 +140,36 @@ class DatasetView extends Component {
             />
           </Grid.Column>
         </Grid>
-        <Table sortable selectable celled padded size='small'>
-          <Table.Header>
-            <Table.Row>
-              {headers && headers.map((header, i) => (
-                <Table.HeaderCell
-                  key={`header-${i+1}`}
-                  sorted={column === i ? direction : null}
-                  onClick={this.handleSort(i)}
-                >
-                  {header.trim()}
-                </Table.HeaderCell>
-              ))}
-            </Table.Row>
-          </Table.Header>
-
-          <Table.Body>
-            {rows && rows.slice(from, to).map((row, i) => (
-              <Table.Row key={`row-${i+1}`}>
-                {row.map((value, i) => (
-                  <Table.Cell key={`row-value-${i+1}`}>
-                    {value || '-'}
-                  </Table.Cell>
+        <Divider hidden />
+        <div className='responsive-data'>
+          <Table sortable selectable celled padded size='small'>
+            <Table.Header>
+              <Table.Row>
+                {headers && headers.map((header, i) => (
+                  <Table.HeaderCell
+                    key={`header-${i+1}`}
+                    sorted={column === i ? direction : null}
+                    onClick={this.handleSort(i)}
+                  >
+                    {header.trim()}
+                  </Table.HeaderCell>
                 ))}
               </Table.Row>
-            ))}
-          </Table.Body>          
-        </Table>
+            </Table.Header>
+
+            <Table.Body>
+              {rows && rows.slice(from, to).map((row, i) => (
+                <Table.Row key={`row-${i+1}`}>
+                  {row.map((value, i) => (
+                    <Table.Cell key={`row-value-${i+1}`}>
+                      {value || '-'}
+                    </Table.Cell>
+                  ))}
+                </Table.Row>
+              ))}
+            </Table.Body>          
+          </Table>
+        </div>
         <Divider hidden />
         <Container textAlign='center'>
           <Pagination

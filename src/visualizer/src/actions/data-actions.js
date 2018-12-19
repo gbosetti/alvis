@@ -5,7 +5,9 @@ import {
   GET_DATA_FAILURE,
 
   TRANSPOSE_DATA,
+
   HEADER_NAME_UPDATE,
+  HEADER_DELETE,
 } from 'infovis/constants/data.constants'
 import {
   hydrate,
@@ -26,6 +28,20 @@ export function headerNameUpdate(selectedHeader, headerName) {
         payload: {
           selectedHeader,
           headerName,
+        }
+      })
+      return
+    })
+    .catch(console.err)
+}
+
+export function headerDelete(selectedHeader) {
+  return dispatch => Promise.resolve([])
+    .then(() => {
+      dispatch({
+        type: HEADER_DELETE,
+        payload: {
+          selectedHeader,
         }
       })
       return
@@ -64,4 +80,5 @@ export default {
   getData,
   transposeData,
   headerNameUpdate,
+  headerDelete,
 }

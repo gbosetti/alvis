@@ -5,3 +5,5 @@ export const GET_DATA_FAILURE = 'get-data-failure'
 export const TRANSPOSE_DATA = 'transpose-data'
 
 export const HEADER_NAME_UPDATE = 'header-name-update'
+export const HEADER_DELETE = 'header-delete'
+

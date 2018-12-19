@@ -140,6 +140,7 @@ class Home extends Component {
     const {
       trans,
       actions: {
+        headerDelete,
         onSettingsFormFieldChange,
       },
       settings,
@@ -179,6 +180,7 @@ class Home extends Component {
                       dataset={dataset}
                       settings={settings}
                       handleSubmit={this.handleSubmit}
+                      headerDelete={headerDelete}
                       onSettingsFormFieldChange={onSettingsFormFieldChange}
                       trans={(name, ...args) => trans(`home:${name}`, ...args)}
                     />
