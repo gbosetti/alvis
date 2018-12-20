@@ -1,5 +1,13 @@
 {
     "charts": {
+        "fields": {
+            "label": {
+                "xAxis": "X axis",
+                "yAxis": "Y axis",
+                "header": "Header",
+                "trendline": "Trendline"
+            }
+        },
         "basic": {
             "pie": {
                 "title": "Pie Chart"

@@ -1,5 +1,13 @@
 {
     "charts": {
+        "fields": {
+            "label": {
+                "xAxis": "Eje X",
+                "yAxis": "Eje Y",
+                "header": "Columna",
+                "trendline": "Linea de Tendencia"
+            }
+        },
         "basic": {
             "pie": {
                 "title": "Gráfico de Torta"
