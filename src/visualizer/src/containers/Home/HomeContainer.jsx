@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import ReactJson from 'react-json-view'
 import {
   Container,
-  Divider,
   Icon,
   Image,
   Tab,
