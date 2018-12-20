@@ -24,7 +24,7 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
    */
   extractHeaders(domElem, expectedHeadersSize, indexes) {
     // Get all the headers
-    const headers = Array.from(document.querySelectorAll("thead > tr:last-child > th")).map(header => header.textContent.trim());; //Array.from(domElem.querySelectorAll("th")).map(header => header.textContent.trim());
+    const headers = Array.from(document.querySelectorAll("thead > tr:last-child > th")).map(header => header.textContent.trim()); // Array.from(domElem.querySelectorAll("th")).map(header => header.textContent.trim());
     console.log("\n\nheaders");
     console.log(headers);
 
