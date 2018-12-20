@@ -24,7 +24,7 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
    */
   extractHeaders(domElem, expectedHeadersSize, indexes) {
     // Get all the headers
-    const headers = Array.from(document.querySelectorAll("thead > tr:last-child > th")).map(header => header.textContent.trim()); // Array.from(domElem.querySelectorAll("th")).map(header => header.textContent.trim());
+    const headers = Array.from(document.querySelectorAll("thead > tr:last-child > th")).map(header => header.innerText.trim()); // Array.from(domElem.querySelectorAll("th")).map(header => header.innerText.trim());
     console.log("\n\nheaders");
     console.log(headers);
 
@@ -141,7 +141,7 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
             processedCells.push(cellValue);
           }
           else { 
-            processedCells.push(cell.textContent.trim()); 
+            processedCells.push(cell.innerText.trim()); 
           }
         }
         else { 
@@ -161,7 +161,7 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
 
   extractCells(rowElem) {
     return Array.from(rowElem.querySelectorAll("td"))
-      .map(cell => cell.textContent.trim()); // to JSON
+      .map(cell => cell.innerText.trim()); // to JSON
   }
 
   canExtract(domElem) {
