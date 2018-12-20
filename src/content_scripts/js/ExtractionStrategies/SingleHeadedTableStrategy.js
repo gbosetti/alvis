@@ -136,11 +136,24 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
         if (cell) {
           if (cell.childNodes[0] && cell.childNodes[0].tagName && cell.childNodes[0].tagName.toUpperCase() === "IMG") {
             const cellValue = cell.childNodes[0].title || cell.childNodes[0].alt || cell.childNodes[0].name || cell.childNodes[0].tagName;
-
             processedCells.push(cellValue);
           }
           else { 
-            processedCells.push(cell.innerText.trim()); 
+            var textualValue;
+            if(cell.childNodes.length > 1){
+
+              for (var i = 0; i < cell.childNodes.length; i++) {
+                
+                if(cell.childNodes[i].innerText && cell.childNodes[i].innerText.trim().length > 0){
+                  textualValue = cell.childNodes[i].innerText.trim();
+                  break;
+                }
+              }
+            }
+            else{
+              textualValue = cell.innerText.trim();
+            }
+            processedCells.push(textualValue); 
           }
         }
         else { 
