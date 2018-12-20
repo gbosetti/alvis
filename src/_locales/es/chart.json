@@ -5,7 +5,8 @@
                 "xAxis": "Eje X",
                 "yAxis": "Eje Y",
                 "header": "Columna",
-                "trendline": "Linea de Tendencia"
+                "trendline": "Linea de Tendencia",
+                "label": "Label"
             }
         },
         "basic": {

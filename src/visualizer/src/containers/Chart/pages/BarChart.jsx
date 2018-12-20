@@ -34,9 +34,11 @@ class BarChartPage extends Component {
 
     this.state = {
       header: null,
+      yAxis: null,
     }
 
     this.handleChange = this.handleChange.bind(this)
+    this.changeLabel = this.changeLabel.bind(this)
   }
 
   componentDidMount() {
@@ -49,9 +51,16 @@ class BarChartPage extends Component {
     }))
   }
 
+  changeLabel(e, {value}) {
+    this.setState(() => ({
+      yAxis: value,
+    }))
+  }
+
   render() {
     const {
       header,
+      yAxis,
     } = this.state
 
     const {
@@ -60,6 +69,7 @@ class BarChartPage extends Component {
         dataset: {
           headers,
           columns,
+          types,
         }
       }
     } = this.props
@@ -76,13 +86,23 @@ class BarChartPage extends Component {
     return (
       <div id='bar-chart-container'>
         <Form>
-          <Form.Select
-            width={6}
-            label={trans('charts.fields.label.header')}
-            options={getEnumOptions(headers)}
-            placeholder={trans('charts.fields.label.header')}
-            onChange={this.handleChange}
-          />
+          <Form.Group>
+            <Form.Select
+              width={6}
+              label={trans('charts.fields.label.label')}
+              options={getEnumOptions(headers)}
+              placeholder={trans('charts.fields.label.label')}
+              onChange={this.handleChange}
+            />
+            <Form.Select
+              width={6}
+              label={trans('charts.fields.label.header')}
+              name='yAxis'
+              options={getEnumOptions(headers)}
+              placeholder={trans('charts.fields.label.header')}
+              onChange={this.changeLabel}
+            />
+          </Form.Group>
         </Form>
         <Divider hidden />
         {!data.length ? null : (
@@ -93,11 +113,11 @@ class BarChartPage extends Component {
             margin={{top: 5, right: 30, left: 20, bottom: 5}}
           >
             <CartesianGrid strokeDasharray='3 3' />
-            <XAxis dataKey='x' />
-            <YAxis />
+            <XAxis dataKey='x' type={types[header] === 'numeric' ? 'number' : undefined} />
+            <YAxis dataKey='y' type={types[yAxis] === 'numeric' ? 'number' : undefined} />
             <Tooltip />
             <Legend />
-            <Bar dataKey='y' name={headers[header]} fill='#8884d8' />
+            <Bar dataKey='y' name={`${headers[header]} vs ${headers[yAxis]}`} fill='#8884d8' />
             <Brush />
           </BarChart>
         )}
