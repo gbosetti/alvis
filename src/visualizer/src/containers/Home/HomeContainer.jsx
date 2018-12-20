@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import ReactJson from 'react-json-view'
@@ -8,7 +7,6 @@ import {
   Divider,
   Icon,
   Image,
-  Menu,
   Tab,
 } from 'semantic-ui-react'
 
@@ -39,8 +37,11 @@ class Home extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {}
+    this.state = {
+      activeIndex: 1,
+    }
 
+    this.onTabChange = this.onTabChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleReloadButtonClickHandler = this.handleReloadButtonClickHandler.bind(this)
     this.handleTransposeButtonClickHandler = this.handleTransposeButtonClickHandler.bind(this)
@@ -62,6 +63,16 @@ class Home extends Component {
     getDatasetViewSettings()
 
     headers === null && getData()
+  }
+
+  onTabChange(e, {activeIndex}) {
+    if (!activeIndex) {
+      ++activeIndex
+    }
+
+    this.setState(() => ({
+      activeIndex,
+    }))
   }
 
   handleSubmit() {
@@ -138,6 +149,10 @@ class Home extends Component {
 
   render() {
     const {
+      activeIndex,
+    } = this.state
+
+    const {
       trans,
       actions: {
         headerDelete,
@@ -154,15 +169,21 @@ class Home extends Component {
     return (
       <div style={{ height: '100%' }}>
         <Container fluid id='home-container'>
-          <Menu>
-            <Menu.Item as={Link} to='/'>
-              <Image src={logo} size='mini' />
-            </Menu.Item>
-          </Menu>
-          <Divider hidden />
           <Tab
-            menu={{ pointing: true, borderless: true, attached: false, tabular: false }} 
+            menu={{ pointing: true, borderless: true, attached: false, tabular: false }}
+            activeIndex={activeIndex}
+            onTabChange={this.onTabChange}
             panes={[
+              {
+                menuItem: {
+                  key: 'logo',
+                  content: '',
+                  icon: () => (
+                    <Image src={logo} size='mini' />
+                  ),
+                },
+                render: () => null
+              },
               {
                 menuItem: {
                   key: 'stats',
