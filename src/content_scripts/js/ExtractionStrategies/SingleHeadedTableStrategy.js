@@ -25,8 +25,6 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
   extractHeaders(domElem, expectedHeadersSize, indexes) {
     // Get all the headers
     const headers = Array.from(document.querySelectorAll("thead > tr:last-child > th")).map(header => header.innerText.trim()); // Array.from(domElem.querySelectorAll("th")).map(header => header.innerText.trim());
-    console.log("\n\nheaders");
-    console.log(headers);
 
     // Remove the splittable from the beginning and pu it at the end
     indexes.forEach(index => { 
@@ -57,7 +55,8 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
 
     if (tbody) {
       Array.from(tbody.children).forEach(row => {  
-        const cells = Array.from(row.cells);
+        const clonedRow = row.cloneNode(true);
+        const cells = Array.from(clonedRow.cells);
         processedRows.push(cells);
       });
     }
@@ -157,11 +156,6 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
 
   numberOfHeaderRows(domTable) {
     return 1; // TODO: complete
-  }
-
-  extractCells(rowElem) {
-    return Array.from(rowElem.querySelectorAll("td"))
-      .map(cell => cell.innerText.trim()); // to JSON
   }
 
   canExtract(domElem) {
