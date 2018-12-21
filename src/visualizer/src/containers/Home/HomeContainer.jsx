@@ -6,6 +6,7 @@ import {
   Container,
   Icon,
   Image,
+  Message,
   Tab,
 } from 'semantic-ui-react'
 
@@ -253,7 +254,12 @@ class Home extends Component {
                   ),
                 },
                 render: () => (
-                  <Tab.Pane attached={false} />
+                  <Tab.Pane attached={false}>
+                    <Message
+                      info
+                      content={trans('home:options.advancedCharts.content')}
+                    />
+                  </Tab.Pane>
                 )
               },
               process.env.NODE_ENV === 'development' && {

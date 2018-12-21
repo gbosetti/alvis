@@ -42,7 +42,8 @@
             }
         },
         "advancedCharts": {
-            "title": "Advanced Charts"
+            "title": "Advanced Charts",
+            "content": "This section is still under development"
         },
         "json": {
             "title": "Data to JSON"

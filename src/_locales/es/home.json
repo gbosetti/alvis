@@ -42,7 +42,8 @@
             }
         },
         "advancedCharts": {
-            "title": "Gráficos Avanzados"
+            "title": "Gráficos Avanzados",
+            "content": "Esta sección aún se encuentra en desarrollo"
         },
         "json": {
             "title": "Datos - JSON"
