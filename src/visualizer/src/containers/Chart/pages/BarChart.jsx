@@ -109,18 +109,18 @@ class BarChartPage extends Component {
           <Form.Group>
             <Form.Select
               width={6}
-              label={trans('charts.fields.label.label')}
-              name='yAxis'
-              options={getEnumOptions(headers)}
-              placeholder={trans('charts.fields.label.label')}
-              onChange={this.handleChange}
-            />
-            <Form.Select
-              width={6}
               label={trans('charts.fields.label.header')}
               name='header'
               options={getEnumOptions(headers)}
               placeholder={trans('charts.fields.label.header')}
+              onChange={this.handleChange}
+            />
+            <Form.Select
+              width={6}
+              label={trans('charts.fields.label.label')}
+              name='yAxis'
+              options={getEnumOptions(headers)}
+              placeholder={trans('charts.fields.label.label')}
               onChange={this.handleChange}
             />
           </Form.Group>
