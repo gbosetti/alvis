@@ -142,7 +142,7 @@ class DatasetView extends Component {
         </Grid>
         <Divider hidden />
         <div className='responsive-data'>
-          <Table sortable selectable celled padded size='small'>
+          <Table unstackable sortable selectable celled padded size='small'>
             <Table.Header>
               <Table.Row>
                 {headers && headers.map((header, i) => (
