@@ -51,12 +51,15 @@ export default function dataReducer(state = initialState, action) {
     {
       const { dataset } = state
 
+      const transpose = a =>
+        Object.keys(a[0] || []).map(c => a.map(r => r[c]))
+
       return {
         ...state,
         dataset: sanitize(hydrate({
           ...dataset,
-          rows: dataset.columns,
-          columns: dataset.rows,
+          rows: transpose(dataset.rows),
+          columns: transpose(dataset.columns),
         }))
       }
     }
