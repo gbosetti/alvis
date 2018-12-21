@@ -58,7 +58,7 @@ class DatasetExtractor {
     const dataset = this.extractor.createDataSetFrom(domElement);
     console.log(dataset);
 
-    const visFrame = this.createVisualizationContainer(Date.now(), /* `${domElement.offsetWidth}px` */ "100%", "550px");
+    const visFrame = this.createVisualizationContainer(Date.now(), /* `${domElement.offsetWidth}px` */ "100%", "600px");
     domElement.parentNode.insertBefore(visFrame, domElement.nextSibling);
 
     browser.runtime.sendMessage({
