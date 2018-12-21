@@ -81,7 +81,7 @@ class LineChartPage extends Component {
               width={6}
               label={trans('charts.fields.label.yAxis')}
               name='yAxis'
-              options={getEnumOptions(headers)}
+              options={getEnumOptions(headers).filter(({value}) => types[value] === 'numeric')}
               placeholder={trans('charts.fields.label.yAxis')}
               onChange={this.handleChange}
             />
@@ -99,7 +99,7 @@ class LineChartPage extends Component {
               dataKey='x'
               xAxisId='xAxis' 
               type={types[xAxis] === 'numeric' ? 'number' : undefined}
-              label={{ value: headers[xAxis], position: 'insideBottomRight', offset: -75 }}
+              label={{ value: headers[xAxis], position: 'insideBottomRight', offset: 0 }}
             />
             <YAxis
               yAxisId='yAxis'

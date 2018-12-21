@@ -81,7 +81,7 @@ class AreaChartPage extends Component {
               width={6}
               label={trans('charts.fields.label.yAxis')}
               name='yAxis'
-              options={getEnumOptions(headers)}
+              options={getEnumOptions(headers).filter(({value}) => types[value] === 'numeric')}
               placeholder={trans('charts.fields.label.yAxis')}
               onChange={this.handleChange}
             />
@@ -95,8 +95,16 @@ class AreaChartPage extends Component {
             data={_.sortBy(data, ['y'])}
             margin={{top: 5, right: 30, left: 20, bottom: 5}}
           >
-            <XAxis dataKey='x' type={types[xAxis] === 'numeric' ? 'number' : undefined} />
-            <YAxis dataKey='y' type={types[yAxis] === 'numeric' ? 'number' : undefined} />
+            <XAxis
+              dataKey='x'
+              type={types[xAxis] === 'numeric' ? 'number' : undefined}
+              label={{ value: headers[xAxis], position: 'insideBottomRight', offset: 0 }}
+            />
+            <YAxis
+              dataKey='y'
+              type={types[yAxis] === 'numeric' ? 'number' : undefined}
+              label={{ value: headers[yAxis], position: 'insideLeft', angle: -90 }}
+            />
             <CartesianGrid strokeDasharray='3 3' />
             <Tooltip />
             <Legend />

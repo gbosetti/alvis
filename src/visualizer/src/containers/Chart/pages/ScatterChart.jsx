@@ -124,7 +124,7 @@ class ScatterChartPage extends Component {
             <XAxis
               dataKey='x'
               type={types[xAxis] === 'numeric' ? 'number' : undefined}
-              label={{ value: headers[xAxis], position: 'insideBottomRight', offset: -75 }}
+              label={{ value: headers[xAxis], position: 'insideBottomRight', offset: 0 }}
             />
             <YAxis
               dataKey='y'
