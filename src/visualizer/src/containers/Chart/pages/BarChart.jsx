@@ -94,7 +94,7 @@ class BarChartPage extends Component {
         })
 
         Array.from(columns[yAxis] || []).forEach(val => {
-          headerData[value][val] = headerData[value].y / headerData[value][val]    
+          headerData[value][val] = !headerData[value][val] ? 0 : Math.round(headerData[value].y / headerData[value][val])    
         })
 
         return headerData
