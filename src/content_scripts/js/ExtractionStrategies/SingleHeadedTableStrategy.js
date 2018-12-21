@@ -139,18 +139,17 @@ class SingleHeadedTableStrategy extends AbstractStrategy {
             processedCells.push(cellValue);
           }
           else { 
-            var textualValue;
-            if(cell.childNodes.length > 1){
-
-              for (var i = 0; i < cell.childNodes.length; i++) {
-                
-                if(cell.childNodes[i].innerText && cell.childNodes[i].innerText.trim().length > 0){
+            let textualValue;
+            if (cell.childNodes.length > 1) {
+              for (let i = 0; i < cell.childNodes.length; i++) {
+                // eslint-disable-next-line max-depth
+                if (cell.childNodes[i].innerText && cell.childNodes[i].innerText.trim().length > 0) {
                   textualValue = cell.childNodes[i].innerText.trim();
                   break;
                 }
               }
             }
-            else{
+            else {
               textualValue = cell.innerText.trim();
             }
             processedCells.push(textualValue); 
