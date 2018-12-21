@@ -73,20 +73,31 @@ class BarChartPage extends Component {
       })
     }
 
-    let data = Array.from(columns[header] || [])
-      .reduce((data, value, i) => {
-        return { 
-          ...data,
-          [value]: yAxis !== null ? 
-            columns[yAxis][i] : 
-            data[value] ? 
+    let data = null
+
+    if (yAxis !== null) {
+      data = Array.from(columns[header] || [])
+        .map((data, i) => {
+          return {
+            x: data,
+            y: columns[yAxis][i]
+          }
+        })
+    } else {
+      data = Array.from(columns[header] || [])
+        .reduce((data, value) => {
+          return { 
+            ...data,
+            [value]: data[value] ? 
               data[value] + 1 :
               1,
-        }
-      }, {})
-      
-    data = Object.keys(data)
-      .map(header => ({ x: header, y: data[header] }))
+          }
+        }, {})
+        
+      data = Object.keys(data)
+        .map(header => ({ x: header, y: data[header] }))
+    }
+
 
     return (
       <div id='bar-chart-container'>
