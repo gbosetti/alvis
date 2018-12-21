@@ -52,7 +52,7 @@ class Chart extends Component {
     return (
       <div style={{ height: '100%' }}>
         <Container fluid id='chart-container'>
-          <Menu>
+          <Menu size='mini'>
             <Menu.Item as={Link} to='/'>
               <Image src={logo} size='mini' />
             </Menu.Item>
