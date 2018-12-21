@@ -84,6 +84,7 @@
     "moment-timezone": "^0.5.14",
     "path": "^0.12.7",
     "prop-types": "^15.6.0",
+    "randomcolor": "^0.5.3",
     "react": "^16.4.1",
     "react-dom": "^16.2.0",
     "react-hot-loader": "^4.3.4",

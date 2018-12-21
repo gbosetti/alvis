@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import randomColor from 'randomcolor'
 import _ from 'underscore'
 import { Brush, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
 import {
@@ -43,8 +44,10 @@ class MultiLineChartPage extends Component {
     } = this.props
 
     this.setState(() => ({
-      colors: Array.from(headers || [])
-        .map(() => `#${((1<<24)*Math.random()|0).toString(16)}`)
+      colors: randomColor({
+        count: Array.from(headers || []).length,
+        hue: 'random',
+      })
     }))
   }
 

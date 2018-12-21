@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import randomColor from 'randomcolor'
 import {
   Bar,
   BarChart,
@@ -66,6 +67,16 @@ class BarChartPage extends Component {
       }
     } = this.props
 
+    let colors = null
+
+    if (yAxis !== null) {
+      colors = randomColor({
+        count: Array.from(new Set(columns[yAxis])).length,
+        luminosity: 'light',
+        hue: 'blue',
+      })
+    }
+
     let data = Array.from(columns[header] || [])
       .reduce((data, value) => {
         let headerData = { 
@@ -91,8 +102,6 @@ class BarChartPage extends Component {
       
     data = Object.keys(data)
       .map(header => ({ x: header, ...data[header] }))
-
-    console.log(data)
 
     return (
       <div id='bar-chart-container'>
@@ -131,7 +140,7 @@ class BarChartPage extends Component {
             <Legend />
             {yAxis !== null ?
               Array.from(new Set(columns[yAxis])).map((val, i) => (
-                <Bar key={`bar-${i+1}`} dataKey={val} stackId='a' fill={`#${((1<<24)*Math.random()|0).toString(16)}`} />
+                <Bar key={`bar-${i+1}`} dataKey={val} stackId='a' fill={colors[i]} />
               )) :
               <Bar dataKey='y' name={headers[headers]} fill='#8884d8' />
             }
