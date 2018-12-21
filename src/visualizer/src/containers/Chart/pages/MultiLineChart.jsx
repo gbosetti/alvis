@@ -114,7 +114,7 @@ class MultiLineChartPage extends Component {
         {!data.length ? null : (
           <LineChart
             width={600}
-            height={300}
+            height={350}
             data={_.sortBy(data, ['x'])}
             margin={{top: 5, right: 30, left: 20, bottom: 5}}
           >

@@ -118,11 +118,19 @@ class ScatterChartPage extends Component {
         {!data.length ? null : (
           <ScatterChart
             width={600}
-            height={300}
+            height={350}
             margin={{top: 5, right: 30, left: 20, bottom: 5}}
           >
-            <XAxis dataKey='x' type={types[xAxis] === 'numeric' ? 'number' : undefined} />
-            <YAxis dataKey='y' type={types[yAxis] === 'numeric' ? 'number' : undefined} />
+            <XAxis
+              dataKey='x'
+              type={types[xAxis] === 'numeric' ? 'number' : undefined}
+              label={{ value: headers[xAxis], position: 'insideBottomRight', offset: 0 }}
+            />
+            <YAxis
+              dataKey='y'
+              type={types[yAxis] === 'numeric' ? 'number' : undefined}
+              label={{ value: headers[yAxis], position: 'insideLeft', angle: -90 }}
+            />
             <CartesianGrid />
             <Tooltip cursor={{strokeDasharray: '3 3'}} />
             <Legend />

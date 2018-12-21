@@ -129,7 +129,7 @@ class BarChartPage extends Component {
         {!data.length ? null : (
           <BarChart
             width={600}
-            height={300}
+            height={350}
             data={data}
             margin={{top: 5, right: 30, left: 20, bottom: 5}}
           >
