@@ -38,22 +38,15 @@ class BarChartPage extends Component {
     }
 
     this.handleChange = this.handleChange.bind(this)
-    this.changeLabel = this.changeLabel.bind(this)
   }
 
   componentDidMount() {
 
   }
 
-  handleChange(e, {value}) {
+  handleChange(e, {name, value}) {
     this.setState(() => ({
-      header: value,
-    }))
-  }
-
-  changeLabel(e, {value}) {
-    this.setState(() => ({
-      yAxis: value,
+      [name]: value,
     }))
   }
 
@@ -69,19 +62,37 @@ class BarChartPage extends Component {
         dataset: {
           headers,
           columns,
-          types,
         }
       }
     } = this.props
 
     let data = Array.from(columns[header] || [])
-      .reduce((data, value) => ({ 
-        ...data,
-        [value]: data[value] ? data[value] + 1 : 1 
-      }), {})
+      .reduce((data, value) => {
+        let headerData = { 
+          ...data,
+          [value]: {
+            y: data[value] && data[value].y ? data[value].y + 1 : 1,
+          } 
+        }
+
+        if (yAxis === null)
+          return headerData
+
+        Array.from(columns[yAxis] || []).forEach(val => {
+          headerData[value][val] = headerData[value] && headerData[value][val] ? headerData[value][val] + 1 : 1
+        })
+
+        Array.from(columns[yAxis] || []).forEach(val => {
+          headerData[value][val] = headerData[value].y / headerData[value][val]    
+        })
+
+        return headerData
+      }, {})
       
     data = Object.keys(data)
-      .map(header => ({ x: header, y: data[header] }))
+      .map(header => ({ x: header, ...data[header] }))
+
+    console.log(data)
 
     return (
       <div id='bar-chart-container'>
@@ -90,6 +101,7 @@ class BarChartPage extends Component {
             <Form.Select
               width={6}
               label={trans('charts.fields.label.label')}
+              name='yAxis'
               options={getEnumOptions(headers)}
               placeholder={trans('charts.fields.label.label')}
               onChange={this.handleChange}
@@ -97,10 +109,10 @@ class BarChartPage extends Component {
             <Form.Select
               width={6}
               label={trans('charts.fields.label.header')}
-              name='yAxis'
+              name='header'
               options={getEnumOptions(headers)}
               placeholder={trans('charts.fields.label.header')}
-              onChange={this.changeLabel}
+              onChange={this.handleChange}
             />
           </Form.Group>
         </Form>
@@ -113,11 +125,16 @@ class BarChartPage extends Component {
             margin={{top: 5, right: 30, left: 20, bottom: 5}}
           >
             <CartesianGrid strokeDasharray='3 3' />
-            <XAxis dataKey='x' type={types[header] === 'numeric' ? 'number' : undefined} />
-            <YAxis dataKey='y' type={types[yAxis] === 'numeric' ? 'number' : undefined} />
+            <XAxis dataKey='x' />
+            <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey='y' name={`${headers[header]} vs ${headers[yAxis]}`} fill='#8884d8' />
+            {yAxis !== null ?
+              Array.from(new Set(columns[yAxis])).map((val, i) => (
+                <Bar key={`bar-${i+1}`} dataKey={val} stackId='a' fill={`#${((1<<24)*Math.random()|0).toString(16)}`} />
+              )) :
+              <Bar dataKey='y' name={headers[headers]} fill='#8884d8' />
+            }
             <Brush />
           </BarChart>
         )}
