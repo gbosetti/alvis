@@ -25,6 +25,9 @@
             "bar": {
                 "text": "Bar Chart"
             },
+            "stackedbar": {
+                "text": "Stacked Bar Chart"
+            },
             "line": {
                 "text": "Line Chart"
             },

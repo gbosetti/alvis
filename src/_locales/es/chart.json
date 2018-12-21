@@ -14,7 +14,10 @@
                 "title": "Gráfico de Torta"
             },
             "bar": {
-                "title": "Gráfico de Barra"
+                "title": "Gráfico de Barras"
+            },
+            "stackedbar": {
+                "title": "Gráfico de Barras Apiladas"
             },
             "line": {
                 "title": "Gráfico de Linea"

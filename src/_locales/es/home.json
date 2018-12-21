@@ -25,6 +25,9 @@
             "bar": {
                 "text": "Gráfico de Barras"
             },
+            "stackedbar": {
+                "text": "Gráfico de Barras Apiladas"
+            },
             "line": {
                 "text": "Gráfico de Linea"
             },

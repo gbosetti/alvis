@@ -29,7 +29,7 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-class BarChartPage extends Component {
+class StackedBarChartPage extends Component {
   constructor(props) {
     super(props)
 
@@ -59,34 +59,45 @@ class BarChartPage extends Component {
         dataset: {
           headers,
           columns,
-          types,
         }
       }
     } = this.props
 
-    let color = null
+    let colors = null
 
     if (yAxis !== null) {
-      color = randomColor({
+      colors = randomColor({
+        count: Array.from(new Set(columns[yAxis])).length,
         luminosity: 'light',
         hue: 'blue',
       })
     }
 
     let data = Array.from(columns[header] || [])
-      .reduce((data, value, i) => {
-        return { 
+      .reduce((data, value) => {
+        let headerData = { 
           ...data,
-          [value]: yAxis !== null ? 
-            columns[yAxis][i] : 
-            data[value] ? 
-              data[value] + 1 :
-              1,
+          [value]: {
+            y: data[value] && data[value].y ? data[value].y + 1 : 1,
+          } 
         }
+
+        if (yAxis === null)
+          return headerData
+
+        Array.from(columns[yAxis] || []).forEach(val => {
+          headerData[value][val] = headerData[value] && headerData[value][val] ? headerData[value][val] + 1 : 1
+        })
+
+        Array.from(columns[yAxis] || []).forEach(val => {
+          headerData[value][val] = !headerData[value][val] ? 0 : Math.round(headerData[value].y / headerData[value][val])    
+        })
+
+        return headerData
       }, {})
       
     data = Object.keys(data)
-      .map(header => ({ x: header, y: data[header] }))
+      .map(header => ({ x: header, ...data[header] }))
 
     return (
       <div id='bar-chart-container'>
@@ -104,7 +115,7 @@ class BarChartPage extends Component {
               width={6}
               label={trans('charts.fields.label.label')}
               name='yAxis'
-              options={getEnumOptions(headers).filter(({value}) => types[value] === 'numeric')}
+              options={getEnumOptions(headers)}
               placeholder={trans('charts.fields.label.label')}
               onChange={this.handleChange}
             />
@@ -124,7 +135,9 @@ class BarChartPage extends Component {
             <Tooltip />
             <Legend />
             {yAxis !== null ?
-              <Bar dataKey='y' name={`${headers[header]} vs ${headers[yAxis]}`} fill={color} /> :
+              Array.from(new Set(columns[yAxis])).map((val, i) => (
+                <Bar key={`bar-${i+1}`} dataKey={val} stackId='a' fill={colors[i]} />
+              )) :
               <Bar dataKey='y' name={headers[header]} fill='#8884d8' />
             }
             <Brush />
@@ -135,4 +148,4 @@ class BarChartPage extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BarChartPage)
+export default connect(mapStateToProps, mapDispatchToProps)(StackedBarChartPage)

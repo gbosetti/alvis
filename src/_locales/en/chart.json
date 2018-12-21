@@ -16,6 +16,9 @@
             "bar": {
                 "title": "Bar Chart"
             },
+            "stackedbar": {
+                "title": "Stacked Bar Chart"
+            },
             "line": {
                 "title": "Line Chart"
             },
