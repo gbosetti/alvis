@@ -6,7 +6,8 @@
                 "yAxis": "Y axis",
                 "header": "Header",
                 "trendline": "Trendline",
-                "label": "Label"
+                "label": "Label",
+                "data": "Data"
             }
         },
         "basic": {
